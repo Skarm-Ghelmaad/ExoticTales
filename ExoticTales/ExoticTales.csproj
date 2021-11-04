@@ -50,30 +50,30 @@
   </Target>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\0Harmony.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Assembly-CSharp.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Assembly-CSharp-firstpass.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ModKit, Version=1.0.8.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ModKit.1.0.8\lib\net472\ModKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Newtonsoft.Json.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owlcat.Runtime.Core">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Owlcat.Runtime.Core.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Owlcat.Runtime.Core.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Owlcat.Runtime.UI">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Owlcat.Runtime.UI.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\Owlcat.Runtime.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -86,43 +86,43 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
     <Reference Include="UniRx">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UniRx.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UniRx.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AnimationModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.AssetBundleModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.ImageConversionModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.IMGUIModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.InputModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.InputModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.InputModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.TextRenderingModule">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityEngine.UI.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityEngine.UI.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="UnityModManager">
-      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
+      <HintPath>$(WrathPath)\Wrath_Data\Managed\UnityModManager\UnityModManager.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
