@@ -1,0 +1,111 @@
+﻿{
+    "NewSettingsOffByDefault": false,
+    "Archetypes": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "BaseAbilities": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "Bloodlines": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "ArcanistExploits": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "Feats": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "FighterAdvancedArmorTraining": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "FighterAdvancedWeaponTraining": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "MagusArcana": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "Races": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "Backgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "AgeBackgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "DramaticBackgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "EpicBackgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "FlawedBackgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "TragicBackgrounds": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "Spells": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "MythicAbilities": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    },
+    "MythicFeats": {
+        "DisableAll": false,
+        "Settings": {
+        },
+        "IsExpanded": true
+    }
+}

@@ -1,0 +1,81 @@
+﻿{
+    "NewSettingsOffByDefault": false,
+    "BaseFixes": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "Monk": {
+        "DisableAll": false,
+        "Base": {
+            "DisableAll": false,
+            "Settings": {
+                "AddKiPoolBaseAbility": {
+                    "Enabled": true,
+                    "Description": "The ability upon which the Ki Pool is based is listed after the Ki Pool name."
+                }
+            }
+        },
+        "Archetypes": {
+            "ScaledFist": {
+                "DisableAll": false,
+                "Settings": {
+                    "KiPoolDescriptionFix": {
+                        "Enabled": true,
+                        "Description": "The Ki Pool description of the Scaled Fist lists Charisma as the ability associated with it."
+                    }
+                }
+            }
+        }
+    },
+    "Spells": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "Bloodlines": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "Feats": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "MythicAbilities": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "MythicFeats": {
+        "DisableAll": false,
+        "Settings": {
+        }
+    },
+    "Crusade": {
+        "DisableAll": false,
+        "Buildings": {
+            "DisableAll": false,
+            "Settings": {
+            }
+        }
+    },
+    "Items": {
+        "DisableAll": false,
+        "Armor": {
+            "DisableAll": false,
+            "Settings": {}
+        },
+        "Equipment": {
+            "DisableAll": false,
+            "Settings": {
+            }
+        },
+        "Weapons": {
+            "DisableAll": false,
+            "Settings": {
+            }
+        }
+    }
+}

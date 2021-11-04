@@ -131,14 +131,46 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bugfixes\Classes\Monk.cs" />
+    <Compile Include="Config\AddedContent.cs" />
+    <Compile Include="Config\Blueprints.cs" />
+    <Compile Include="Config\Fixes.cs" />
+    <Compile Include="Config\Homebrew.cs" />
+    <Compile Include="Config\ICollapseableGroup.cs" />
+    <Compile Include="Config\IDisableableGroup.cs" />
+    <Compile Include="Config\IUpdatableSettings.cs" />
+    <Compile Include="Config\ModSettings.cs" />
+    <Compile Include="Config\NestedSettingGroup.cs" />
+    <Compile Include="Config\SettingGroup.cs" />
+    <Compile Include="Extensions\ExtentionMethods.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="NewContent\Feats\QuickDraw.cs" />
+    <Compile Include="NewEvents\ISpontaneousConversionHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Resources.cs" />
+    <Compile Include="SaveGamePatch.cs" />
+    <Compile Include="UMMSettingsUI.cs" />
+    <Compile Include="Utilities\AssetLoader.cs" />
+    <Compile Include="Utilities\Attributes.cs" />
+    <Compile Include="Utilities\DescriptionTools.cs" />
+    <Compile Include="Utilities\FeatTools.cs" />
+    <Compile Include="Utilities\Helpers.cs" />
+    <Compile Include="Utilities\ILUtils.cs" />
+    <Compile Include="Utilities\SpellTools.cs" />
+    <Compile Include="Utilities\TypeReplaceTranspiler.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Config\AddedContent.json" />
+    <None Include="Config\Blueprints.json" />
+    <None Include="Config\Fixes.json" />
+    <None Include="Config\Homebrew.json" />
     <None Include="Info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Feats\Icon_QuickDraw.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" AfterTargets="BeforeClean">
