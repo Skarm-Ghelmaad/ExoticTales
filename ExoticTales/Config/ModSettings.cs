@@ -49,6 +49,7 @@ namespace ExoticTales.Config
             LoadSettings("AddedContent.json", ref AddedContent);
             LoadSettings("Homebrew.json", ref Homebrew);
             LoadSettings("Blueprints.json", ref Blueprints);
+
         }
         private static void LoadSettings<T>(string fileName, ref T setting) where T : IUpdatableSettings
         {

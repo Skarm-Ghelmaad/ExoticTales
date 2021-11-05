@@ -3,17 +3,23 @@
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Classes.Prerequisites;
+using Kingmaker.Blueprints.Classes.Selection;
+using Kingmaker.Blueprints.Items.Weapons;
 using Kingmaker.Items;
 using Kingmaker.Items.Slots;
 using Kingmaker.PubSubSystem;
 using Kingmaker.TurnBasedMode.Controllers;
 using Kingmaker.View.Equipment;
+using Kingmaker.Designers.Mechanics.Facts;
+using Kingmaker.Designers.Mechanics.Recommendations;
 using ExoticTales.Config;
 using ExoticTales.Extensions;
 using ExoticTales.NewComponents;
 using ExoticTales.NewUnitParts;
 using ExoticTales.Utilities;
 using TurnBased.Controllers;
+using Kingmaker.EntitySystem.Stats;
+using Kingmaker.Enums;
 using static ExoticTales.NewUnitParts.UnitPartCustomMechanicsFeatures;
 
 namespace ExoticTales.NewContent.Feats
@@ -23,15 +29,18 @@ namespace ExoticTales.NewContent.Feats
         public static void AddQuickDraw()
         {
 
+
             var icon = AssetLoader.LoadInternal("Feats", "Icon_QuickDraw.png");
             var QuickDraw = Helpers.CreateBlueprint<BlueprintFeature>("QuickDraw", bp => {
                 bp.IsClassFeature = true;
-                bp.HideInUI = true;
+                bp.HideInUI = false;
                 bp.ReapplyOnLevelUp = true;
                 bp.Ranks = 1;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Feat, FeatureGroup.CombatFeat };
                 bp.SetName("Quick Draw");
                 bp.SetDescription("You can draw a weapon as a free action instead of as a move action.");
+                bp.HideInUI = false;
+                bp.m_Icon = icon;
                 bp.AddComponent<AddCustomMechanicsFeature>(c => {
                     c.Feature = CustomMechanicsFeature.QuickDraw;
                 });
@@ -39,6 +48,13 @@ namespace ExoticTales.NewContent.Feats
                     c.Stat = Kingmaker.EntitySystem.Stats.StatType.BaseAttackBonus;
                     c.Value = 1;
                 });
+                bp.AddComponent(Helpers.Create<RecommendationStatMiminum>(c => {
+                    c.Stat = StatType.Dexterity;
+                    c.MinimalValue = 14;
+                }));
+                bp.AddComponent(Helpers.Create<FeatureTagsComponent>(c => {
+                    c.FeatureTags = FeatureTag.Attack;
+                }));
             });
 
             if (ModSettings.AddedContent.Feats.IsDisabled("QuickDraw")) { return; }
