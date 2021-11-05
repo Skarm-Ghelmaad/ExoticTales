@@ -67,9 +67,8 @@ namespace ExoticTales
                 UI.Toggle("New Settings Off By Default".bold(), ref Homebrew.NewSettingsOffByDefault);
                 UI.Space(25);
 
-                SetttingUI.NestedSettingGroup("Mythic Reworks", TabLevel, Homebrew.OverpoweredContent,
-                    ("Aeon", Homebrew.OverpoweredContent.Aeon),
-                    ("Azata", Homebrew.OverpoweredContent.Azata)
+                SetttingUI.NestedSettingGroup("OverpoweredContent", TabLevel, Homebrew.OverpoweredContent,
+                    ("Test1", Homebrew.OverpoweredContent.Test1)
                 );
             }
         }

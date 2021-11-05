@@ -19,7 +19,7 @@ namespace ExoticTales.Config
         public void OverrideSettings(IUpdatableSettings userSettings)
         {
             var loadedSettings = userSettings as Homebrew;
-            OverpoweredContent.LoadMythicReworkGroup(loadedSettings.OverpoweredContent, NewSettingsOffByDefault);
+            OverpoweredContent.LoadOverpoweredContentGroup(loadedSettings.OverpoweredContent, NewSettingsOffByDefault);
         }
     }
     public class OverpoweredContentGroup : IDisableableGroup, ICollapseableGroup
@@ -30,58 +30,24 @@ namespace ExoticTales.Config
         public bool DisableAll = false;
         public bool GroupIsDisabled() => DisableAll;
         public void SetGroupDisabled(bool value) => DisableAll = value;
-        public NestedSettingGroup Aeon;
-        public NestedSettingGroup Angel;
-        public NestedSettingGroup Azata;
-        public NestedSettingGroup Demon;
-        public NestedSettingGroup Lich;
-        public NestedSettingGroup Trickster;
-        public NestedSettingGroup Devil;
-        public NestedSettingGroup GoldDragon;
-        public NestedSettingGroup Legend;
-        public NestedSettingGroup Swarm;
+        public NestedSettingGroup Test1;
 
         public OverpoweredContentGroup()
         {
-            Aeon = new NestedSettingGroup(this);
-            Angel = new NestedSettingGroup(this);
-            Azata = new NestedSettingGroup(this);
-            Demon = new NestedSettingGroup(this);
-            Lich = new NestedSettingGroup(this);
-            Trickster = new NestedSettingGroup(this);
-            Devil = new NestedSettingGroup(this);
-            GoldDragon = new NestedSettingGroup(this);
-            Legend = new NestedSettingGroup(this);
-            Swarm = new NestedSettingGroup(this);
+            Test1 = new NestedSettingGroup(this);
         }
 
         public void Init()
         {
-            Aeon.Parent = this;
-            Angel.Parent = this;
-            Azata.Parent = this;
-            Demon.Parent = this;
-            Lich.Parent = this;
-            Trickster.Parent = this;
-            Devil.Parent = this;
-            GoldDragon.Parent = this;
-            Legend.Parent = this;
-            Swarm.Parent = this;
+            Test1.Parent = this;
+
         }
 
-        public void LoadMythicReworkGroup(OverpoweredContentGroup group, bool frozen)
+        public void LoadOverpoweredContentGroup(OverpoweredContentGroup group, bool frozen)
         {
             DisableAll = group.DisableAll;
-            Aeon.LoadSettingGroup(group.Aeon, frozen);
-            Angel.LoadSettingGroup(group.Angel, frozen);
-            Azata.LoadSettingGroup(group.Azata, frozen);
-            Demon.LoadSettingGroup(group.Demon, frozen);
-            Lich.LoadSettingGroup(group.Lich, frozen);
-            Trickster.LoadSettingGroup(group.Trickster, frozen);
-            Devil.LoadSettingGroup(group.Devil, frozen);
-            GoldDragon.LoadSettingGroup(group.GoldDragon, frozen);
-            Legend.LoadSettingGroup(group.Legend, frozen);
-            Swarm.LoadSettingGroup(group.Swarm, frozen);
+            Test1.LoadSettingGroup(group.Test1, frozen);
+
         }
     }
 }
