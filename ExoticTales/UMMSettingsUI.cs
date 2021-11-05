@@ -180,6 +180,8 @@ namespace ExoticTales
                 if (group.Settings.Any()) { TabbedItem(level, () => UI.Div(Color.grey, 500)); }
                 group.Settings.ForEach(entry => {
                     TabbedItem(level,
+                        () => Toggle(String.Join(" ", entry.Key.SplitOnCapitals()), group.IsEnabled(entry.Key), (enabled) => group.ChangeSetting(entry.Key, enabled), UI.Width(430 - level.Spacing())),
+                        () => Label(entry.Value.Homebrew ? "Homebrew".yellow() : "", UI.Width(70)),
                         () => Toggle(String.Join(" ", entry.Key.SplitOnCapitals()), group.IsEnabled(entry.Key), (enabled) => group.ChangeSetting(entry.Key, enabled), UI.Width(500 - level.Spacing())),
                         () => Label(entry.Value.Description.green()));
                     TabbedItem(level, () => UI.Div(Color.grey, 500));
@@ -222,6 +224,11 @@ namespace ExoticTales
         public static void Label(string title)
         {
             GUILayout.Label(title, GUILayout.ExpandWidth(false));
+        }
+
+        public static void Label(string title, params GUILayoutOption[] options)
+        {
+            GUILayout.Label(title, options);
         }
 
         public static IEnumerable<string> SplitOnCapitals(this string text)

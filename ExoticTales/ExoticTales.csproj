@@ -144,8 +144,11 @@
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
     <Compile Include="Main.cs" />
+    <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewContent\Feats\NewFeats.cs" />
+    <Compile Include="NewContent\Feats\QuickDraw.cs" />
     <Compile Include="NewEvents\ISpontaneousConversionHandler.cs" />
+    <Compile Include="NewUnitParts\UnitPartCustomMechanicsFeatures.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources.cs" />
     <Compile Include="SaveGamePatch.cs" />
