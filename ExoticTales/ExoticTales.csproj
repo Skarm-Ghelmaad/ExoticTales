@@ -145,6 +145,7 @@
     <Compile Include="Extensions\ExtentionMethods.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
+    <Compile Include="NewContent\ContentAdder.cs" />
     <Compile Include="NewContent\Feats\QuickDraw.cs" />
     <Compile Include="NewEvents\ISpontaneousConversionHandler.cs" />
     <Compile Include="NewUnitParts\UnitPartCustomMechanicsFeatures.cs" />

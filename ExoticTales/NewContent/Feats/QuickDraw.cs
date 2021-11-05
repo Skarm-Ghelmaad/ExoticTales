@@ -22,6 +22,8 @@ namespace ExoticTales.NewContent.Feats
     {
         public static void AddQuickDraw()
         {
+
+            var icon = AssetLoader.LoadInternal("Feats", "Icon_QuickDraw.png");
             var QuickDraw = Helpers.CreateBlueprint<BlueprintFeature>("QuickDraw", bp => {
                 bp.IsClassFeature = true;
                 bp.HideInUI = true;
