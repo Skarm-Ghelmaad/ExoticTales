@@ -189,6 +189,7 @@
     <Compile Include="NewComponents\AbilitySpecific\TrainedGraceComponent.cs" />
     <Compile Include="NewComponents\ACBonusAgainstSizeDifference.cs" />
     <Compile Include="NewComponents\AddAdditionalRacialFeatures.cs" />
+    <Compile Include="NewComponents\AddBuffInDaylight.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
@@ -257,6 +258,7 @@
     <Compile Include="NewComponents\RecalculateOnLevelUp.cs" />
     <Compile Include="NewComponents\RecommendationWeaponCategoryFocus.cs" />
     <Compile Include="NewComponents\RemoveBuffAfterSpellResistCheck.cs" />
+    <Compile Include="NewComponents\RemoveBuffInDaylight.cs" />
     <Compile Include="NewComponents\RemoveBuffRankOnAttack.cs" />
     <Compile Include="NewComponents\SavingThrowBonusAgainstAbility.cs" />
     <Compile Include="NewComponents\SavingThrowBonusUnaware.cs" />
@@ -270,6 +272,8 @@
     <Compile Include="NewContent\BaseAbilities\OneHandedToggleAbility.cs" />
     <Compile Include="NewContent\ContentAdder.cs" />
     <Compile Include="NewContent\Feats\QuickDraw.cs" />
+    <Compile Include="NewContent\Features\DarkVision.cs" />
+    <Compile Include="NewContent\Features\LowLightVision.cs" />
     <Compile Include="NewContent\Races\Dwarf.cs" />
     <Compile Include="NewContent\Races\Elf.cs" />
     <Compile Include="NewContent\Races\Gnome.cs" />
@@ -304,6 +308,7 @@
     <Compile Include="Utilities\Attributes.cs" />
     <Compile Include="Utilities\BloodlineTools.cs" />
     <Compile Include="Utilities\DescriptionTools.cs" />
+    <Compile Include="Utilities\ExpandedHelpers.cs" />
     <Compile Include="Utilities\FeatTools.cs" />
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="Utilities\ILUtils.cs" />
