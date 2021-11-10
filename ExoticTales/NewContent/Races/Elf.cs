@@ -7,6 +7,7 @@ using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
+using Kingmaker.UnitLogic.Buffs.Blueprints;
 using ExoticTales.Config;
 using ExoticTales.Extensions;
 using ExoticTales.NewComponents;
@@ -28,6 +29,9 @@ namespace ExoticTales.NewContent.Races
         private static readonly BlueprintFeature LoremasterElf = Resources.GetBlueprint<BlueprintFeature>("fb69a451e7064015b5dbe512c9122ef8");
 
         private static readonly BlueprintFeature DestinyBeyondBirthMythicFeat = Resources.GetBlueprint<BlueprintFeature>("325f078c584318849bfe3da9ea245b9d");
+
+        private static readonly BlueprintBuff StygianSlayerShadowyMistFormBuff = Resources.GetBlueprint<BlueprintBuff>("8de8e078992d7a4479f3d76e21aa1195");
+
 
         public static void AddElfHeritage()
         {
@@ -70,6 +74,53 @@ namespace ExoticTales.NewContent.Races
                 bp.SetName("None");
                 bp.SetDescription("No Alternate Trait");
             });
+
+
+
+
+            var ElfDrowFeature = Helpers.CreateBlueprint<BlueprintFeature>("ElfDrowFeature", bp => {
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+                bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
+                bp.SetName("Drow Elf");
+                bp.SetDescription("Cruel and cunning, drow are a dark reflection of the elven race. Also called dark elves, they dwell deep underground "
+                    + "\nin elaborate cities shaped from the rock of cyclopean caverns. Drow seldom make themselves known to surface folk,"
+                    + "\npreferring to remain legends while advancing their sinister agendas through proxies and agents."
+                    + "\n Drow have no love for anyone but themselves, and are adept at manipulating other creatures."
+                    + "\n While they are not born evil, malignancy is deep-rooted in their culture and society, and nonconformists"
+                    + "\nrarely survive for long."
+                    + "\n   Some stories tell that given the right circumstances, a particularly hateful elf might turn into a drow,"
+                    + "\nthough such a transformation would require a truly heinous individual."
+                    + "\n Elves with this racial trait gain +2 Dexterity, +2 Charisma, and -2 Constitution and "
+                    + "\n gain the Spell Resistance, the Drow Magic, the Drow Weapon Familiarity, the Ancestral Grudge and"
+                    + "\n the Poison Use racial traits, but also gain the Light Sensitivity and the Stained Reputation weaknesses"
+                    + "\n and lose the Elven Magic trait.");
+                bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
+                    c.Descriptor = ModifierDescriptor.Racial;
+                    c.Stat = StatType.Charisma;
+                    c.Value = 2;
+                }));
+                bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
+                    c.Descriptor = ModifierDescriptor.Racial;
+                    c.Stat = StatType.Dexterity;
+                    c.Value = 2;
+                }));
+                bp.AddComponent(Helpers.Create<AddStatBonusIfHasFact>(c => {
+                    c.Descriptor = ModifierDescriptor.Racial;
+                    c.Stat = StatType.Constitution;
+                    c.Value = -2;
+                    c.InvertCondition = true;
+                    c.m_CheckedFacts = new BlueprintUnitFactReference[] { DestinyBeyondBirthMythicFeat.ToReference<BlueprintUnitFactReference>() };
+                }));
+                bp.AddComponent(Helpers.Create<RecalculateOnFactsChange>(c => {
+                    c.m_CheckedFacts = new BlueprintUnitFactReference[] { DestinyBeyondBirthMythicFeat.ToReference<BlueprintUnitFactReference>() };
+                }));
+                bp.AddTraitReplacment(ElfAbilityModifiers);
+                bp.AddTraitReplacment(ElvenMagic);
+                bp.AddTraitReplacment(ElvenWeaponFamiliarity);
+                bp.AddSelectionCallback(ElvenHeritageSelection);
+            });
+
 
             BlightbornElf.RemoveComponents<RemoveFeatureOnApply>();
             BlightbornElf.AddTraitReplacment(ElvenImmunities);
