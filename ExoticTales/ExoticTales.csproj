@@ -81,6 +81,10 @@
       <HintPath>..\lib\Owlcat.Runtime.UI_public.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Owlcat.Runtime.Visual">
+      <HintPath>..\..\..\..\..\..\Games\Pathfinder Wrath of the Righteous\Wrath_Data\Managed\Owlcat.Runtime.Visual.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -196,9 +200,11 @@
     <Compile Include="NewComponents\AddOutgoingWeaponDamageBonus.cs" />
     <Compile Include="NewComponents\AddTouchReach.cs" />
     <Compile Include="NewComponents\AddWeaponDamageTrigger.cs" />
+    <Compile Include="NewComponents\AreaEffects\AOERevealZone.cs" />
     <Compile Include="NewComponents\ArmoredJuggernautDRProperty.cs" />
     <Compile Include="NewComponents\ArmorEnchantsToWeapon.cs" />
     <Compile Include="NewComponents\ArmorFeatureUnlock.cs" />
+    <Compile Include="NewComponents\ContextConditionCasterIsInFogOfWar.cs" />
     <Compile Include="NewComponents\ForceFlatFooted.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\AzataZippyMagicComponent.cs" />
     <Compile Include="NewComponents\BlockSpellDuplicationComponent.cs" />
@@ -328,6 +334,21 @@
   <ItemGroup>
     <Content Include="Assets\Abilities\Icon_OneHandedToggle.png" />
     <Content Include="Assets\Feats\Icon_QuickDraw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Features\Icon_DarkVision.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Features\Icon_LowLightVision.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Features\Icon_RealShadowBlend.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Features\Icon_ShadeInTheDarkEffect.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Spells\Icon_ShadowSpell.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

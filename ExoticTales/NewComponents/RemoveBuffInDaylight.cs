@@ -52,15 +52,13 @@ the character is exposed to daylight with the following factors:
 
 namespace ExoticTales.NewComponents
 {
-    class RemoveBuffInDaylight
-    {
-
 
         [AllowedOn(typeof(BlueprintUnit), false)]
         [AllowedOn(typeof(BlueprintUnitFact), false)]
         [AllowedOn(typeof(BlueprintBuff), false)]
         [AllowedOn(typeof(BlueprintFeature), false)]
-        public class AddBuffInDaylight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler 
+        [TypeId("CE2E75ED735A4DF4BB9A929B19F4A2B3")]
+public class RemoveBuffInDaylight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler 
         {
 
             public void OnWeatherChange()
@@ -230,5 +228,5 @@ namespace ExoticTales.NewComponents
 
         }
 
-    }
+    
 }
