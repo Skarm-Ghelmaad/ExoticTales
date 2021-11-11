@@ -290,7 +290,10 @@ namespace ExoticTales.Utilities
             },
             new EncyclopediaEntry {
                 Entry = "Damage",
-                Patterns = { "damage" }
+                Patterns = {
+                    "damage",
+                    "damage rolls?"
+                }
             }
         };
 
@@ -332,9 +335,13 @@ namespace ExoticTales.Utilities
             }
             return str;
         }
-        private static string StripHTML(this string str)
+        public static string StripHTML(this string str)
         {
             return Regex.Replace(str, "<.*?>", string.Empty);
+        }
+        public static string StripEncyclopediaTags(this string str)
+        {
+            return Regex.Replace(str, "{.*?}", string.Empty);
         }
         private static string ExcludeTagged(this string str)
         {

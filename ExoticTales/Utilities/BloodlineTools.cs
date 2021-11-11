@@ -212,7 +212,7 @@ namespace ExoticTales.Utilities
             var BloodragerClass = Resources.GetBlueprint<BlueprintCharacterClass>("d77e67a814d686842802c9cfd8ef8499").ToReference<BlueprintCharacterClassReference>();
             var wanderingBLoodline = Helpers.CreateBlueprint<BlueprintFeature>(name, bp => {
                 bp.m_DisplayName = bloodline.m_DisplayName;
-                bp.m_Description = Helpers.CreateString($"{name}.description", "");
+                bp.SetName("");
                 bp.m_Icon = bloodline.m_Icon;
                 bp.HideInUI = true;
                 bp.HideInCharacterSheetAndLevelUp = true;
@@ -286,17 +286,16 @@ namespace ExoticTales.Utilities
 
         public static BlueprintBuff CreateArcaneBloodrageSwitchBuff(
                 string blueprintName,
-                string displayName,
                 BlueprintAbility bloodragerArcaneSpellAbility,
                 BlueprintBuff rageBuff,
-                BlueprintBuff spellBuff
+                BlueprintBuff spellBuff,
+                Action<BlueprintBuff> init = null
                 )
         {
 
-            return Helpers.CreateBuff(blueprintName, bp => {
+            var buff = Helpers.CreateBuff(blueprintName, bp => {
                 bp.m_Flags = BlueprintBuff.Flags.StayOnDeath | BlueprintBuff.Flags.HiddenInUi;
                 bp.IsClassFeature = true;
-                bp.SetName(displayName);
                 bp.m_Description = bloodragerArcaneSpellAbility.m_Description;
                 bp.m_DescriptionShort = bloodragerArcaneSpellAbility.m_DescriptionShort;
                 bp.m_Icon = spellBuff.m_Icon;
@@ -305,6 +304,8 @@ namespace ExoticTales.Utilities
                     c.m_ExtraEffectBuff = spellBuff.ToReference<BlueprintBuffReference>();
                 });
             });
+            init?.Invoke(buff);
+            return buff;
         }
 
         public static BlueprintAbility CreateArcaneBloodrageToggle(
@@ -361,13 +362,11 @@ namespace ExoticTales.Utilities
 
         public static BlueprintBuff CreateBloodragerTrueArcaneSpellRagePolymorphActivationBuff(
                 string blueprintName,
-                string displayName,
-                BlueprintBuff polymorphBuff)
+                BlueprintBuff polymorphBuff,
+                Action<BlueprintBuff> init = null)
         {
-            return Helpers.CreateBuff(blueprintName, bp => {
+            var buff = Helpers.CreateBuff(blueprintName, bp => {
                 bp.m_Flags = BlueprintBuff.Flags.HiddenInUi;
-                bp.IsClassFeature = true;
-                bp.SetName(displayName);
                 bp.m_Description = polymorphBuff.m_Description;
                 bp.m_Icon = polymorphBuff.m_Icon;
                 bp.AddComponent<AddFactContextActions>(c => {
@@ -391,6 +390,8 @@ namespace ExoticTales.Utilities
                     c.NewRound = Helpers.CreateActionList();
                 });
             });
+            init?.Invoke(buff);
+            return buff;
         }
 
         public static class Bloodline

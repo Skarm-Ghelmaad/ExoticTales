@@ -151,6 +151,7 @@
     <Compile Include="Config\NestedSettingGroup.cs" />
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
+    <Compile Include="Localization\MultiLocalizationPack.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MechanicsChanges\ActivatableAbilitySpendLogic.cs" />
     <Compile Include="MechanicsChanges\ActivatableResourceFreeResourceLogic.cs" />
@@ -329,6 +330,7 @@
     <None Include="Info.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Localization\LocalizationPack.json" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

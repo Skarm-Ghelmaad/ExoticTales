@@ -8,6 +8,7 @@ using Kingmaker.ElementsSystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
 using Kingmaker.Localization;
+using Kingmaker.Localization.Shared;
 using Kingmaker.ResourceLinks;
 using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
@@ -22,6 +23,7 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using ExoticTales.Config;
+using ExoticTales.Localization;
 using ExoticTales.NewComponents.OwlcatReplacements.DamageResistance;
 
 namespace ExoticTales.Utilities
@@ -119,43 +121,32 @@ namespace ExoticTales.Utilities
         }
 #endif
 
-        // All localized strings created in this mod, mapped to their localized key. Populated by CreateString.
-        static Dictionary<String, LocalizedString> textToLocalizedString = new Dictionary<string, LocalizedString>();
-        public static LocalizedString CreateTaggedString(string key, string value)
-        {
-            return CreateString(key, DescriptionTools.TagEncyclopediaEntries(value));
-        }
-        public static LocalizedString CreateString(string key, string value)
+        public static LocalizedString CreateString(string simpleName, string text, Locale locale = Locale.enGB, bool shouldProcess = false)
         {
             // See if we used the text previously.
             // (It's common for many features to use the same localized text.
             // In that case, we reuse the old entry instead of making a new one.)
-            LocalizedString localized;
-            if (textToLocalizedString.TryGetValue(value, out localized))
+            string strippedText = text.StripHTML().StripEncyclopediaTags();
+            MultiLocalizationPack.MultiLocaleString multiLocalized;
+            if (ModSettings.ModLocalizationPack.TryGetText(strippedText, out multiLocalized))
             {
-                return localized;
+                return multiLocalized.LocalizedString;
             }
-            var strings = LocalizationManager.CurrentPack.Strings;
-            String oldValue;
-            if (strings.TryGetValue(key, out oldValue) && value != oldValue)
-            {
+#if false
+            if (ModSettings.ModLocalizationPack.Ids.TryGetValue(id, out multiLocalized)) {
 #if DEBUG
-                Main.LogDebug($"Info: duplicate localized string `{key}`, different text.");
+                multiLocalized.SetText(locale, text.StripHTML().StripEncyclopediaTags());
+                multiLocalized.ProcessTemplates = shouldProcess;
 #endif
+                return multiLocalized.LocalizedString;
             }
-            strings[key] = value;
-            localized = new LocalizedString
-            {
-                m_Key = key
-            };
-            textToLocalizedString[value] = localized;
-            return localized;
+#endif
+            multiLocalized = new MultiLocalizationPack.MultiLocaleString(simpleName, strippedText, shouldProcess, locale);
+            Main.LogDebug($"WARNING: Generated New Localizaed String: {multiLocalized.Key}:{multiLocalized.SimpleName}");
+            ModSettings.ModLocalizationPack.AddString(multiLocalized);
+            return multiLocalized.LocalizedString;
         }
-        public static FastRef<T, S> CreateFieldSetter<T, S>(string name)
-        {
-            return new FastRef<T, S>(HarmonyLib.AccessTools.FieldRefAccess<T, S>(HarmonyLib.AccessTools.Field(typeof(T), name)));
-            //return new FastSetter<T, S>(HarmonyLib.FastAccess.CreateSetterHandler<T, S>(HarmonyLib.AccessTools.Field(typeof(T), name)));
-        }
+
         public static FastRef<T, S> CreateFieldGetter<T, S>(string name)
         {
             return new FastRef<T, S>(HarmonyLib.AccessTools.FieldRefAccess<T, S>(HarmonyLib.AccessTools.Field(typeof(T), name)));
@@ -170,10 +161,10 @@ namespace ExoticTales.Utilities
             return HarmonyLib.AccessTools.Field(obj.GetType(), name).GetValue(obj);
         }
         // Parses the lowest 64 bits of the Guid (which corresponds to the last 16 characters).
-        static ulong ParseGuidLow(String id) => ulong.Parse(id.Substring(id.Length - 16), NumberStyles.HexNumber);
+        static ulong ParseGuidLow(string id) => ulong.Parse(id.Substring(id.Length - 16), NumberStyles.HexNumber);
         // Parses the high 64 bits of the Guid (which corresponds to the first 16 characters).
-        static ulong ParseGuidHigh(String id) => ulong.Parse(id.Substring(0, id.Length - 16), NumberStyles.HexNumber);
-        public static String MergeIds(String guid1, String guid2, String guid3 = null)
+        static ulong ParseGuidHigh(string id) => ulong.Parse(id.Substring(0, id.Length - 16), NumberStyles.HexNumber);
+        public static string MergeIds(string guid1, string guid2, string guid3 = null)
         {
             // Parse into low/high 64-bit numbers, and then xor the two halves.
             ulong low = ParseGuidLow(guid1);
@@ -187,6 +178,17 @@ namespace ExoticTales.Utilities
                 low ^= ParseGuidLow(guid3);
                 high ^= ParseGuidHigh(guid3);
             }
+            return high.ToString("x16") + low.ToString("x16");
+        }
+        public static string DeriveId(string guid1, int number)
+        {
+            // Parse into low/high 64-bit numbers, and then xor the two halves.
+            ulong low = ParseGuidLow(guid1);
+            ulong high = ParseGuidHigh(guid1);
+
+            low ^= (ulong)Math.Abs(number);
+            high ^= (ulong)Math.Abs(number);
+
             return high.ToString("x16") + low.ToString("x16");
         }
 #if false

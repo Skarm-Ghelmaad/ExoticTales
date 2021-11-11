@@ -70,7 +70,7 @@ namespace ExoticTales.NewContent.Races
                 bp.HideInUI = true;
                 bp.HideInCharacterSheetAndLevelUp = true;
                 bp.SetName("None");
-                ExtentionMethods.SetDescription(bp, "No Alternate Trait");
+                bp.SetDescription("No Alternate Trait");
             });
 
 

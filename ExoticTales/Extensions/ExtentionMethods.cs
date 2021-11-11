@@ -5,6 +5,7 @@ using Kingmaker.Blueprints.Classes.Prerequisites;
 using Kingmaker.Blueprints.Classes.Selection;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Blueprints.Facts;
+using Kingmaker.Blueprints.Items;
 using Kingmaker.Blueprints.Items.Ecnchantments;
 using Kingmaker.ElementsSystem;
 using Kingmaker.Localization;
@@ -437,6 +438,26 @@ namespace ExoticTales.Extensions
             return clone;
         }
 
+        public static void SetName(this BlueprintArchetype archetype, string description)
+        {
+            archetype.LocalizedName = Helpers.CreateString($"{archetype.name}.Name", description, shouldProcess: false);
+        }
+
+        public static void SetDescription(this BlueprintArchetype archetype, string description)
+        {
+            archetype.LocalizedDescription = Helpers.CreateString($"{archetype.name}.Description", description, shouldProcess: true);
+        }
+
+        public static void SetName(this BlueprintItem item, string description)
+        {
+            item.m_DisplayNameText = Helpers.CreateString($"{item.name}.Name", description, shouldProcess: false);
+        }
+
+        public static void SetDescription(this BlueprintItem item, string description)
+        {
+            item.m_DescriptionText = Helpers.CreateString($"{item.name}.Description", description, shouldProcess: true);
+        }
+
         public static void UpdatePrefixSuffix(this BlueprintItemEnchantment enchantment, string prefix, string sufix, Locale targetLanguage = Locale.enGB)
         {
             if (LocalizationManager.CurrentLocale != targetLanguage) { return; }
@@ -444,20 +465,29 @@ namespace ExoticTales.Extensions
             enchantment.SetSuffix(sufix);
         }
 
+        public static void SetName(this BlueprintItemEnchantment enchantment, string name)
+        {
+            enchantment.m_EnchantName = Helpers.CreateString($"{enchantment.name}.Name", name);
+        }
+
+        public static void SetDescription(this BlueprintItemEnchantment enchantment, string description)
+        {
+            enchantment.m_Description = Helpers.CreateString($"{enchantment.name}.Description", description, shouldProcess: true);
+        }
+
         public static void SetPrefix(this BlueprintItemEnchantment enchantment, string prefix)
         {
-            enchantment.m_Prefix = Helpers.CreateString($"{enchantment.name}.prefix", prefix);
+            enchantment.m_Prefix = Helpers.CreateString($"{enchantment.name}.Prefix", prefix);
         }
 
         public static void SetSuffix(this BlueprintItemEnchantment enchantment, string sufix)
         {
-            enchantment.m_Suffix = Helpers.CreateString($"{enchantment.name}.suffix", sufix);
+            enchantment.m_Suffix = Helpers.CreateString($"{enchantment.name}.Suffix", sufix);
         }
 
-
-        public static void SetNameDescription(this BlueprintUnitFact feature, String displayName, String description)
+        public static void SetNameDescription(this BlueprintUnitFact feature, string displayName, string description)
         {
-            feature.SetName(Helpers.CreateString(feature.name + ".Name", displayName));
+            feature.SetName(displayName);
             feature.SetDescription(description);
         }
 
@@ -472,14 +502,9 @@ namespace ExoticTales.Extensions
             feature.m_DisplayName = name;
         }
 
-        public static void SetName(this BlueprintUnitFact feature, String name)
+        public static void SetName(this BlueprintUnitFact feature, string name)
         {
-            feature.m_DisplayName = Helpers.CreateString(feature.name + ".Name", name);
-        }
-
-        public static void SetDescriptionUntagged(this BlueprintUnitFact feature, String description)
-        {
-            feature.m_Description = Helpers.CreateString(feature.name + ".Description", description);
+            feature.m_DisplayName = Helpers.CreateString($"{feature.name}.Name", name);
         }
 
         public static void SetDescription(this BlueprintUnitFact feature, LocalizedString description)
@@ -488,10 +513,10 @@ namespace ExoticTales.Extensions
             //blueprintUnitFact_set_Description(feature) = description;
         }
 
-        public static void SetDescription(this BlueprintUnitFact feature, String description)
+        public static void SetDescription(this BlueprintUnitFact feature, string description)
         {
-            var taggedDescription = DescriptionTools.TagEncyclopediaEntries(description);
-            feature.m_Description = Helpers.CreateString(feature.name + ".Description", taggedDescription);
+            feature.m_Description = Helpers.CreateString($"{feature.name}.Description", description, shouldProcess: true);
+
         }
 
         public static bool HasFeatureWithId(this LevelEntry level, String id)
@@ -510,7 +535,7 @@ namespace ExoticTales.Extensions
             return false;
         }
 
-        static readonly FastRef<BlueprintArchetype, Sprite> blueprintArchetype_set_Icon = Helpers.CreateFieldSetter<BlueprintArchetype, Sprite>("m_Icon");
+
 
         public static void FixDomainSpell(this BlueprintAbility spell, int level, string spellListId)
         {

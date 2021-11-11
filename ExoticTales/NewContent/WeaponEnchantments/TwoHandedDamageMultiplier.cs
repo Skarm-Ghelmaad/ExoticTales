@@ -10,10 +10,10 @@ namespace ExoticTales.NewContent.WeaponEnchantments
         public static void AddTwoHandedDamageMultiplierEnchantment()
         {
             var TwoHandedDamageMultiplierEnchantment = Helpers.CreateBlueprint<BlueprintWeaponEnchantment>($"TwoHandedDamageMultiplierEnchantment", bp => {
-                bp.m_Description = Helpers.CreateString($"{bp.name}.description", $"Attacks are made with a 1.5 damage multipler.");
-                bp.m_EnchantName = Helpers.CreateString($"{bp.name}.name", $"Increased Damage Multiplier");
-                bp.m_Prefix = Helpers.CreateString($"{bp.name}.prefix", $"");
-                bp.m_Suffix = Helpers.CreateString($"{bp.name}.suffix", $"");
+                bp.SetName("Increased Damage Multiplier");
+                bp.SetDescription("Attacks are made with a 1.5 damage multipler.");
+                bp.SetPrefix("");
+                bp.SetSuffix("");
                 bp.m_EnchantmentCost = 1;
                 bp.AddComponent<WeaponDamageMultiplierReplacement>(c => {
                     c.Multiplier = 1.5f;
