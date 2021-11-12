@@ -1,7 +1,6 @@
 ﻿using HarmonyLib;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.ActivatableAbilities;
@@ -11,7 +10,6 @@ using ExoticTales.MechanicsChanges;
 
 namespace ExoticTales.NewUnitParts
 {
-    [TypeId("cbb3b43ab725484e81a261e0b64d07d8")]
     class UnitPartAeonGazeManager : OldStyleUnitPart
     {
 
@@ -79,4 +77,3 @@ namespace ExoticTales.NewUnitParts
         }
     }
 }
-

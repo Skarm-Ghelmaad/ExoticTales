@@ -199,7 +199,6 @@
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
     <Compile Include="NewComponents\AddOutgoingWeaponDamageBonus.cs" />
-    <Compile Include="NewComponents\AddTouchReach.cs" />
     <Compile Include="NewComponents\AddWeaponDamageTrigger.cs" />
     <Compile Include="NewComponents\AreaEffects\AOERevealZone.cs" />
     <Compile Include="NewComponents\ArmoredJuggernautDRProperty.cs" />
@@ -302,6 +301,7 @@
     <Compile Include="NewUnitParts\UnitPartAeonGazeManager.cs" />
     <Compile Include="NewUnitParts\UnitPartBroadStudy.cs" />
     <Compile Include="NewUnitParts\UnitPartCustomMechanicsFeatures.cs" />
+    <Compile Include="NewUnitParts\UnitPartCustomStats.cs" />
     <Compile Include="NewUnitParts\UnitPartFocusedWeapon.cs" />
     <Compile Include="NewUnitParts\UnitPartPrecisionCritical.cs" />
     <Compile Include="NewUnitParts\UnitPartPseudoActivatableAbilities.cs" />
