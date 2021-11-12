@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Kingmaker.Blueprints.Facts;
+using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.UnitLogic;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
 using UnityEngine;
@@ -11,6 +13,8 @@ using Kingmaker.Controllers;
 
 namespace ExoticTales.NewComponents
 {
+
+    [TypeId("B996A0F6821547329F62D9DF9245876C")]
     class ContextConditionCasterIsInFogOfWar : ContextCondition
     {
 

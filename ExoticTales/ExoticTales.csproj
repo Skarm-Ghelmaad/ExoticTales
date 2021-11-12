@@ -204,7 +204,12 @@
     <Compile Include="NewComponents\ArmoredJuggernautDRProperty.cs" />
     <Compile Include="NewComponents\ArmorEnchantsToWeapon.cs" />
     <Compile Include="NewComponents\ArmorFeatureUnlock.cs" />
+    <Compile Include="NewComponents\ContextConditionCasterHasStatWithinRange.cs" />
+    <Compile Include="NewComponents\ContextConditionCasterHasStatUpToValue.cs" />
+    <Compile Include="NewComponents\ContextConditionCasterHasStatValue.cs" />
     <Compile Include="NewComponents\ContextConditionCasterIsInFogOfWar.cs" />
+    <Compile Include="NewComponents\ContextConditionStatUpToValue.cs" />
+    <Compile Include="NewComponents\ContextConditionStatValueWithinRange.cs" />
     <Compile Include="NewComponents\ForceFlatFooted.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\AzataZippyMagicComponent.cs" />
     <Compile Include="NewComponents\BlockSpellDuplicationComponent.cs" />
