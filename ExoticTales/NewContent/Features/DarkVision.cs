@@ -297,7 +297,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -311,7 +311,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -325,7 +325,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -339,7 +339,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -353,7 +353,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -367,7 +367,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -381,7 +381,7 @@ namespace ExoticTales.NewContent.Features
 
                 bp.SetName("Darkvision in Use");
                 bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
-                                   "/n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
@@ -397,7 +397,7 @@ namespace ExoticTales.NewContent.Features
             var DarkVisionSuppressedBuffActive = Helpers.CreateBuff("DarkVisionSuppressedBuffActive", bp => {      // This deactivates both the passive bonus to Perception and the graphic fx.
                 bp.SetName("Darkvision not in Use");
                 bp.SetDescription("Your sight purposefully disadapted your vision to darkness by looking directly at a light source" +
-                   "/n  in anticipation for a brighter lit environment or a sudden flash.");
+                   "\n  in anticipation for a brighter lit environment or a sudden flash.");
                 bp.m_Icon = iconDaVSb;
                 bp.AddComponent(Helpers.Create<SuppressBuffs>(c => {
                     c.m_Buffs = new BlueprintBuffReference[] { DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>(), Darkvision10ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision30ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision90ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision120ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision150ftActiveBuff.ToReference<BlueprintBuffReference>(), Darkvision180ftActiveBuff.ToReference<BlueprintBuffReference>(), };
@@ -441,7 +441,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision10ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision10ftFeature", bp => {
                     bp.SetName("Darkvision [10 feet]");
-                    bp.SetDescription("You can see perfectly in the dark up to 10 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                    bp.SetDescription("You can see perfectly in the dark up to 10 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                     bp.m_Icon = iconDaV;
                     bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                     bp.IsClassFeature = true;
@@ -460,7 +460,7 @@ namespace ExoticTales.NewContent.Features
                     }));
                     bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                        c.m_Buff = DarkvisionAuraArea10ft.ToReference<BlueprintBuffReference>();
+                        c.m_Buff = Darkvision10ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                     }));
 
@@ -468,7 +468,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision30ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision10ftFeature", bp => {
                 bp.SetName("Darkvision [30 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 30 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 30 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -487,7 +487,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea30ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision30ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
@@ -496,7 +496,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision60ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision60ftFeature", bp => {
                 bp.SetName("Darkvision [60 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 60 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 60 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -515,7 +515,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea60ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
@@ -523,7 +523,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision90ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision90ftFeature", bp => {
                 bp.SetName("Darkvision [90 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 90 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 90 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -542,7 +542,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea90ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision90ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
@@ -551,7 +551,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision120ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision120ftFeature", bp => {
                 bp.SetName("Darkvision [120 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 120 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 120 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -570,7 +570,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea120ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision120ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
@@ -578,7 +578,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision150ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision150ftFeature", bp => {
                 bp.SetName("Darkvision [150 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 150 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 150 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -597,7 +597,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea150ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision150ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
@@ -605,7 +605,7 @@ namespace ExoticTales.NewContent.Features
 
             var Darkvision180ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision180ftFeature", bp => {
                 bp.SetName("Darkvision [180 feet]");
-                bp.SetDescription("You can see perfectly in the dark up to 180 feet. /n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.SetDescription("You can see perfectly in the dark up to 180 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
                 bp.m_Icon = iconDaV;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
@@ -624,7 +624,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionAuraArea180ft.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision180ftActiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 

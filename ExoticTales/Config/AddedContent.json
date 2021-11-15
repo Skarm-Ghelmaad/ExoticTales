@@ -67,6 +67,26 @@
     "Races": {
         "DisableAll": false,
         "Settings": {
+            "DwarfAlternateTraits": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Adds additional alternate racial traits."
+            },
+            "ElfAlternateTraits": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Adds additional alternate racial traits."
+            },
+            "GnomeAlternateTraits": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Adds additional alternate racial traits."
+            },
+            "HalflingAlternateTraits": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Adds additional alternate racial traits."
+            }
         },
         "IsExpanded": true
     },
