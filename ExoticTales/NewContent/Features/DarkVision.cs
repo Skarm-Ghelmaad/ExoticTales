@@ -99,11 +99,12 @@ namespace ExoticTales.NewContent.Features
             BlueprintBuff ShadeInTheDarkEffect = Helpers.CreateCopy<BlueprintBuff>(ArcanistExploitShadowVeilBuff, bp => {
                 var setAttackerMissChance = bp.GetComponent<SetAttackerMissChance>();
                 var addStatBonus = bp.GetComponent<AddStatBonus>();
+                bp.m_Flags = BlueprintBuff.Flags.StayOnDeath;
                 bp.SetName("Dark Silhouette");
                 bp.SetDescription("You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.");
                 bp.RemoveComponent(setAttackerMissChance);
                 bp.RemoveComponent(addStatBonus);
-
+          
             });
 
 
