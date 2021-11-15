@@ -162,7 +162,7 @@ public class AddBuffInDaylight : UnitFactComponentDelegate, IWeatherChangeHandle
         public void ActivateBuff()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
         {
 
-            BlueprintBuff blueprintBuff = (this.HasConcealment() || this.HasEnhancingFact()) ? this.EnhancedEffectBuff : this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
+            BlueprintBuff blueprintBuff = ((this.HasConcealment() && EnhancedOnConcealment) || this.HasEnhancingFact()) ? this.EnhancedEffectBuff : this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
 
             if (this.m_AppliedBuff != null && this.m_AppliedBuff.Blueprint == blueprintBuff)
             {

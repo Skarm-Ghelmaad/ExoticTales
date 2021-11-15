@@ -90,6 +90,7 @@ namespace ExoticTales
                 SetttingUI.SettingGroup("Fighter Advanced Armor Training", TabLevel, AddedContent.FighterAdvancedArmorTraining);
                 SetttingUI.SettingGroup("Fighter Advanced Weapon Training", TabLevel, AddedContent.FighterAdvancedWeaponTraining);
                 SetttingUI.SettingGroup("Magus Arcana", TabLevel, AddedContent.MagusArcana);
+                SetttingUI.SettingGroup("New Systems", TabLevel, AddedContent.NewSystems);
                 SetttingUI.SettingGroup("Races", TabLevel, AddedContent.Races);
                 SetttingUI.SettingGroup("Backgrounds", TabLevel, AddedContent.Backgrounds);
                 SetttingUI.SettingGroup("AgeBackgrounds", TabLevel, AddedContent.AgeBackgrounds);

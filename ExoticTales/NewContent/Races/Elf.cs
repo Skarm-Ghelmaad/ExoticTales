@@ -72,7 +72,7 @@ namespace ExoticTales.NewContent.Races
                 bp.SetDescription("No Alternate Trait");
             });
 
-            var ElfDrowFeature = Helpers.CreateBlueprint<BlueprintFeature>("ElfDrowFeature", bp => {
+            /* var ElfDrowFeature = Helpers.CreateBlueprint<BlueprintFeature>("ElfDrowFeature", bp => {
                 bp.IsClassFeature = true;
                 bp.Ranks = 1;
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
@@ -113,7 +113,7 @@ namespace ExoticTales.NewContent.Races
                 bp.AddTraitReplacment(ElvenMagic);
                 bp.AddTraitReplacment(ElvenWeaponFamiliarity);
                 bp.AddSelectionCallback(ElvenHeritageSelection);
-            });
+            }); */
 
             BlightbornElf.RemoveComponents<RemoveFeatureOnApply>();
             BlightbornElf.AddTraitReplacment(ElvenImmunities);

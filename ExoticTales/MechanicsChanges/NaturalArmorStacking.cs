@@ -16,7 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using ExoticTales..Config;
+using ExoticTales.Config;
 using ExoticTales.Extensions;
 using ExoticTales.Utilities;
 using static ExoticTales.MechanicsChanges.AdditionalModifierDescriptors;

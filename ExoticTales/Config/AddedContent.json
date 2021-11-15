@@ -53,6 +53,17 @@
         },
         "IsExpanded": true
     },
+    "NewSystems": {
+        "DisableAll": false,
+        "Settings": {
+            "ShadowAndDarkness": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Enables the Shadow and Darkness system, which is a strict requirement for darkness-related content. It enabled darkvision, low-light-vision and shadow or darkess-related content."
+            }
+        },
+        "IsExpanded": true
+    },
     "Races": {
         "DisableAll": false,
         "Settings": {

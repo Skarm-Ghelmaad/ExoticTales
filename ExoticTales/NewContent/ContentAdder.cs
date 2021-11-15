@@ -15,6 +15,7 @@ namespace ExoticTales.NewContent {
 
 
                 Feats.QuickDraw.AddQuickDraw();
+                Features.DarkVision.AddDarkVision();
 
             }
         }

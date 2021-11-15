@@ -39,7 +39,6 @@ namespace ExoticTales.NewContent.Feats
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Feat, FeatureGroup.CombatFeat };
                 bp.SetName("Quick Draw");
                 bp.SetDescription("You can draw a weapon as a free action instead of as a move action.");
-                bp.HideInUI = false;
                 bp.m_Icon = icon;
                 bp.AddComponent<AddCustomMechanicsFeature>(c => {
                     c.Feature = CustomMechanicsFeature.QuickDraw;

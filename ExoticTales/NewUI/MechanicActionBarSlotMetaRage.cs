@@ -2,7 +2,7 @@
 using Kingmaker.UI.UnitSettings;
 using UnityEngine;
 using static ExoticTales.NewComponents.AbilitySpecific.MetaRageComponent;
-;
+
 
 namespace ExoticTales.NewUI
 {

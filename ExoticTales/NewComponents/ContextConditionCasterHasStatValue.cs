@@ -13,7 +13,7 @@ using UnityEngine.Serialization;
 namespace ExoticTales.NewComponents
 {
 
-    [TypeId("X")]
+    [TypeId("9CD48DA0385249A79B2FC466D052CDBC")]
     class ContextConditionCasterHasStatValue : ContextCondition
     {
 

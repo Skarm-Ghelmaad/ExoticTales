@@ -14,7 +14,7 @@ using UnityEngine.Serialization;
 namespace ExoticTales.NewComponents
 {
 
-    [TypeId("X")]
+    [TypeId("BA8A2E513142488D8AB1C32801030977")]
     class ContextConditionCasterHasStatUpToValue : ContextCondition
     {
 
