@@ -103,6 +103,7 @@ namespace ExoticTales.NewContent.Features
                 bp.SetDescription("You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.");
                 bp.m_Icon = iconSiD;
                 bp.IsClassFeature = true;
+                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
                 bp.FxOnStart = ExH.createPrefabLink("ea8ddc3e798aa25458e2c8a15e484c68"); //Arcanist Exploit Shadow Veil Starting Fx
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
             });
@@ -116,10 +117,37 @@ namespace ExoticTales.NewContent.Features
                 bp.AffectDead = true;
                 bp.Shape = AreaEffectShape.Cylinder;
                 bp.Size = new Feet() { m_Value = 60 };
-                bp.Fx = ExH.createPrefabLink("ee38b41b2b360b2458ec48f1868ca51b"); //Cloudkill fog added for test
+                bp.Fx = new PrefabLink();
+                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
+
+            });
+
+
+            /*
+             * WORKING CODE
+             * 
+             *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
+                bp.AggroEnemies = false;
+                bp.AffectDead = true;
+                bp.Shape = AreaEffectShape.Cylinder;
+                bp.Size = new Feet() { m_Value = 60 };
+                bp.Fx = new PrefabLink();
                 bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
 
             });
+             * 
+             * 
+             * 
+             * Test Component 1: bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
+             * 
+             * Test Component 2: bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => {a.Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true); }));
+             * 
+             * */
+
+
+            // Working Fx: ExH.createPrefabLink("ee38b41b2b360b2458ec48f1868ca51b"); //Cloudkill fog added for test
+
+            // Working Component:  bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
 
             //bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));               
 

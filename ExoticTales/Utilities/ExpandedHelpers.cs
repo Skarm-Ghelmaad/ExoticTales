@@ -98,10 +98,22 @@ namespace ExoticTales.Utilities
         // This code is licensed under MIT license (see LICENSE for details)
         // -------------------------------------------------------------------------------------------------------------------------
 
+        //---------------------------------------------|GET / SET UTILITIES|---------------------------------------------------------
+
+        static public BlueprintBuff.Flags GetBuffFlags(this BlueprintBuff buff)
+        {
+            return (BlueprintBuff.Flags)(int)Helpers.GetField(buff, "m_Flags");
+        }
+
+        static public void SetBuffFlags(this BlueprintBuff buff, BlueprintBuff.Flags flags)
+        {
+            Helpers.SetField(buff, "m_Flags", (int)flags);
+        }
+
         //---------------------------------------------------|LINK CREATORS|--------------------------------------------------------
 
 
-            public static PrefabLink createPrefabLink(string asset_id)
+        public static PrefabLink createPrefabLink(string asset_id)
             {
                 var link = new PrefabLink();
                 link.AssetId = asset_id;
