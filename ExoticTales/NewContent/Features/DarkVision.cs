@@ -116,9 +116,10 @@ namespace ExoticTales.NewContent.Features
                 bp.AffectDead = true;
                 bp.Shape = AreaEffectShape.Cylinder;
                 bp.Size = new Feet() { m_Value = 60 };
-                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
+                bp.Fx = ExH.createPrefabLink("ee38b41b2b360b2458ec48f1868ca51b"); //Cloudkill fog added for test
+                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
 
-        });
+            });
 
             //bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));               
 
