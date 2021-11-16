@@ -124,7 +124,7 @@ namespace ExoticTales.NewContent.Features
 
 
             /*
-             * WORKING CODE
+             * WORKING CODE - ORIGINAL (without conditional)
              * 
              *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
                 bp.AggroEnemies = false;
@@ -135,6 +135,20 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
 
             });
+             * 
+             * WORKING CODE - WITH CONDITIONAL
+             * 
+             *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
+                bp.AggroEnemies = false;
+                bp.AffectDead = true;
+                bp.Shape = AreaEffectShape.Cylinder;
+                bp.Size = new Feet() { m_Value = 60 };
+                bp.Fx = new PrefabLink();
+                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
+
+            });
+             * 
+             * 
              * 
              * 
              * 
