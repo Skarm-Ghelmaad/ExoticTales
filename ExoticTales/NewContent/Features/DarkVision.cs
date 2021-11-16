@@ -118,7 +118,7 @@ namespace ExoticTales.NewContent.Features
                 bp.Shape = AreaEffectShape.Cylinder;
                 bp.Size = new Feet() { m_Value = 60 };
                 bp.Fx = new PrefabLink();
-                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
+                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
 
             });
 
@@ -154,7 +154,7 @@ namespace ExoticTales.NewContent.Features
              * 
              * Test Component 1: bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
              * 
-             * Test Component 2: bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => {a.Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true); }));
+             * Test Component 2: bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
              * 
              * */
 
