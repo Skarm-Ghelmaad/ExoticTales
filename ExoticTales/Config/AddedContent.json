@@ -9,6 +9,11 @@
     "BaseAbilities": {
         "DisableAll": false,
         "Settings": {
+            "OneHandedToggle": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Adds an activatable ability that allows you to force a one handed weapon to be wielding in one hand."
+            }
         },
         "IsExpanded": true
     },

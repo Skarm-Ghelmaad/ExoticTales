@@ -12,6 +12,7 @@ using Kingmaker.UnitLogic.Parts;
 using Kingmaker.Blueprints.Classes.Spells;
 using Kingmaker.Craft;
 using Kingmaker.ElementsSystem;
+using static Kingmaker.ElementsSystem.Condition;
 using Kingmaker.EntitySystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
@@ -47,7 +48,6 @@ using Kingmaker.RuleSystem.Rules.Damage;
 using Kingmaker.UnitLogic.Abilities.Components.Base;
 using Kingmaker.UnitLogic.Commands.Base;
 using Kingmaker.Visual.Animation.Kingmaker.Actions;
-using ExoticTales.NewComponents.AreaEffects;
 using ExoticTales.NewComponents.OwlcatReplacements;
 using Kingmaker.Blueprints.Area;
 using Kingmaker.Blueprints.Validation;
@@ -56,6 +56,7 @@ using Kingmaker.PubSubSystem;
 using Kingmaker.Visual.Particles;
 using Kingmaker.UI.UnitSettings.Blueprints;
 using Kingmaker.UnitLogic.ActivatableAbilities;
+using Kingmaker.ResourceLinks;
 using ExoticTales.NewComponents;
 using static ExoticTales.NewUnitParts.CustomStatTypes;
 using HlP = ExoticTales.Utilities.Helpers;
@@ -93,14 +94,101 @@ namespace ExoticTales.NewContent.Features
 
             var iconSiD = AssetLoader.LoadInternal("Features", "Icon_ShadeInTheDarkEffect.png");
             var iconDaV = AssetLoader.LoadInternal("Features", "Icon_DarkVision.png");
+            var iconDaVAb = AssetLoader.LoadInternal("Features", "Icon_DarkVisionActiveBuff.png");
 
-            // Created the (purely graphic fx) buff to highlight creatures around you.
+            // The (purely graphic fx) buff to highlight creatures around you.
 
-            var ShadeInTheDarkEffect = Helpers.CreateBuff("ShadeInTheDarkEffect", bp => {
+            var DarkvisionAuraEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraEffectBuff", bp => {
                 bp.SetName("Dark Silhouette");
                 bp.SetDescription("You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.");
+                bp.m_Icon = iconSiD;
+                bp.IsClassFeature = true;
                 bp.FxOnStart = ExH.createPrefabLink("ea8ddc3e798aa25458e2c8a15e484c68"); //Arcanist Exploit Shadow Veil Starting Fx
+                bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
             });
+
+
+
+            // The aura area of effect (applying the graphic buff to anyone in range).
+
+            var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
+                bp.AggroEnemies = false;
+                bp.AffectDead = true;
+                bp.Shape = AreaEffectShape.Cylinder;
+                bp.Size = new Feet() { m_Value = 60 };
+                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
+
+        });
+
+            //bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));               
+
+            //ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), null)
+
+
+            /* bp.AddComponent<AbilityAreaEffectBuff>(a =>
+            {
+                a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>();
+                a.Condition = new ConditionsChecker()
+                {
+                    Conditions = new Condition[] {
+                            ExH.createContextConditionIsCaster(true)
+                        }
+                };
+
+            }); */
+
+
+            // new ContextConditionIsCaster() {Not = true},
+
+            // This is the active (aura-attaching) buff that applies the area of effect to the character.
+
+            var Darkvision60ftActiveBuff = Helpers.CreateBlueprint<BlueprintBuff>("Darkvision60ftActiveBuff", bp => {
+
+                bp.SetName("Darkvision in Use");
+                bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                bp.IsClassFeature = true;
+                bp.m_Icon = iconDaVAb;
+                bp.AddComponent<AddAreaEffect>(a => {
+                    a.m_AreaEffect = DarkvisionAuraArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
+
+                });
+            });
+
+            // These are the various versions of the Darkvision feature, adding Darkvision for different ranges.
+
+            //OK!!
+
+            var Darkvision60ftFeature = Helpers.CreateBlueprint<BlueprintFeature>("Darkvision60ftFeature", bp => {
+                bp.SetName("Darkvision [60 feet]");
+                bp.SetDescription("You can see perfectly in the dark up to 60 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.");
+                bp.m_Icon = iconDaV;
+                bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+                bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+
+                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+
+                }));
+
+            });
+
+
+            // Old code
+
+            // a.Condition = ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsCaster(not: true));
+
+            /* var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
+                bp.AggroEnemies = false;
+                bp.Shape = AreaEffectShape.Cylinder;
+                bp.Size = 60.Feet();
+                bp.AddComponent<AbilityAreaEffectBuff>(a =>
+                {
+                    a.m_Buff = ShadeInTheDarkEffect.ToReference<BlueprintBuffReference>();
+                    a.Condition = ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsCaster(not : true));
+                });
+            }); */
 
 
 

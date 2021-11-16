@@ -15,7 +15,7 @@ namespace ExoticTales.NewComponents
 {
 
     [TypeId("B996A0F6821547329F62D9DF9245876C")]
-    class ContextConditionCasterIsInFogOfWar : ContextCondition
+    public class ContextConditionCasterIsInFogOfWar : ContextCondition
     {
 
         public override string GetConditionCaption()

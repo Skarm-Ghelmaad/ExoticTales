@@ -14,7 +14,7 @@ namespace ExoticTales.NewComponents
 {
 
     [TypeId("8BB2D9B4105A49A4AA0D5F820A531F96")]
-    class ContextConditionCasterHasStatWithinRange : ContextCondition
+    public class ContextConditionCasterHasStatWithinRange : ContextCondition
     {
 
         public override string GetConditionCaption()

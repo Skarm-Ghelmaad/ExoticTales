@@ -1,6 +1,94 @@
 ﻿{
     "LocalizedStrings": [
         {
+            "Key": "9fd71c48669a40c1a071aa9195fc988e",
+            "SimpleName": "ArmoredJuggernautFeature.Description",
+            "ProcessTemplates": true,
+            "enGB": "When wearing heavy armor, the fighter gains DR 1/—. At 7th level, the fighter gains DR 1/— when wearing medium armor, and DR 2/— when wearing heavy armor. At 11th level, the fighter gains DR 1/— when wearing light armor, DR 2/— when wearing medium armor, and DR 3/— when wearing heavy armor. If the fighter is 19th level and has the armor mastery class feature, these DR values increase by 5. The DR from this ability stacks with that provided by adamantine armor, but not with other forms of damage reduction.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "30403b099bed4cf79d1619ad891aecd3",
+            "SimpleName": "ArmoredJuggernautFeature.Description",
+            "ProcessTemplates": true,
+            "enGB": "When wearing heavy armor, the fighter gains DR 1/—. At 7th level, the fighter gains DR 1/— when wearing medium armor, and DR 2/— when wearing heavy armor. At 11th level, the fighter gains DR 1/— when wearing light armor, DR 2/— when wearing medium armor, and DR 3/— when wearing heavy armor. The DR from this ability stacks with other DR/-",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "ddc0fb435201424c8bb0bb64494e8d25",
+            "SimpleName": "Darkvision60ftActiveBuff.Description",
+            "ProcessTemplates": true,
+            "enGB": "Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision.\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "ae382ba7b3eb4b00b65aa82ddbc701b4",
+            "SimpleName": "Darkvision60ftActiveBuff.Name",
+            "ProcessTemplates": false,
+            "enGB": "Darkvision in Use",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "f6b55a6f6499462494571aeb0948815b",
+            "SimpleName": "Darkvision60ftFeature.Description",
+            "ProcessTemplates": true,
+            "enGB": "You can see perfectly in the dark up to 60 feet. \n When in dimly-lit environment or in darkness, however, your sight is limited to shades of gray.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "7f7db90cf59a485896880d88b89624eb",
+            "SimpleName": "Darkvision60ftFeature.Name",
+            "ProcessTemplates": false,
+            "enGB": "Darkvision [60 feet]",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "41fb253792ce42419cbd34c73f555d7b",
+            "SimpleName": "DarkvisionAuraEffectBuff.Description",
+            "ProcessTemplates": true,
+            "enGB": "You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "0223e4f336c04a7aaa9afd55668d550a",
+            "SimpleName": "DarkvisionAuraEffectBuff.Name",
+            "ProcessTemplates": false,
+            "enGB": "Dark Silhouette",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
             "Key": "54f8a00877ac43898460e2b2c9ab3114",
             "SimpleName": "DwarfAbilityModifiers.Description",
             "ProcessTemplates": true,
@@ -133,6 +221,17 @@
             "esES": null
         },
         {
+            "Key": "efaa8ce06596445f86ab52d2cc50d074",
+            "SimpleName": "KiPowerFeature.Name",
+            "ProcessTemplates": false,
+            "enGB": "Ki Pool Wisdom",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
             "Key": "f2056f025a014945a101244df685d503",
             "SimpleName": "OneHandedBuff.Name",
             "ProcessTemplates": false,
@@ -192,6 +291,28 @@
             "SimpleName": "QuickDraw.Name",
             "ProcessTemplates": false,
             "enGB": "Quick Draw",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "44825642432b4a67a77f0cc01e1e969c",
+            "SimpleName": "ScaledFistPowerFeature.Description",
+            "ProcessTemplates": true,
+            "enGB": "At 3rd level, a monk gains a pool of ki points, supernatural energy he can use to accomplish amazing feats. The number of points in a monk's ki pool is equal to 1/2 his monk level + his Charisma modifier. As long as he has at least 1 point in his ki pool, he can make a ki strike.\nAt 3rd level, ki strike allows his unarmed attacks to be treated as magic weapons for the purpose of overcoming damage reduction.\nAt 7th level, his unarmed attacks are also treated as cold iron and silver for the purpose of overcoming damage reduction.\nAt 10th level, his unarmed attacks are also treated as lawful weapons for the purpose of overcoming damage reduction.\nAt 16th level, his unarmed attacks are treated as adamantine weapons for the purpose of overcoming damage reduction and bypassing hardness.\nBy spending 1 point from his ki pool as a swift action, a monk can make one additional unarmed strike at his highest attack bonus when making a flurry of blows attack. This bonus attack stacks with all bonus attacks gained from flurry of blows, as well as those from haste and similar effects. A monk gains additional powers that consume points from his ki pool as he gains levels.\nThe ki pool is replenished each morning after 8 hours of rest or meditation; these hours do not need to be consecutive.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "615a24b44b3e4ff6865d45e671d2867a",
+            "SimpleName": "ScaledFistPowerFeature.Name",
+            "ProcessTemplates": false,
+            "enGB": "Ki Pool Charisma",
             "ruRU": null,
             "deDE": null,
             "frFR": null,
@@ -588,28 +709,6 @@
             "SimpleName": "TwoHandedDamageMultiplierEnchantment.Name",
             "ProcessTemplates": false,
             "enGB": "Increased Damage Multiplier",
-            "ruRU": null,
-            "deDE": null,
-            "frFR": null,
-            "zhCN": null,
-            "esES": null
-        },
-        {
-            "Key": "9fd71c48669a40c1a071aa9195fc988e",
-            "SimpleName": "ArmoredJuggernautFeature.Description",
-            "ProcessTemplates": true,
-            "enGB": "When wearing heavy armor, the fighter gains DR 1/—. At 7th level, the fighter gains DR 1/— when wearing medium armor, and DR 2/— when wearing heavy armor. At 11th level, the fighter gains DR 1/— when wearing light armor, DR 2/— when wearing medium armor, and DR 3/— when wearing heavy armor. If the fighter is 19th level and has the armor mastery class feature, these DR values increase by 5. The DR from this ability stacks with that provided by adamantine armor, but not with other forms of damage reduction.",
-            "ruRU": null,
-            "deDE": null,
-            "frFR": null,
-            "zhCN": null,
-            "esES": null
-        },
-        {
-            "Key": "30403b099bed4cf79d1619ad891aecd3",
-            "SimpleName": "ArmoredJuggernautFeature.Description",
-            "ProcessTemplates": true,
-            "enGB": "When wearing heavy armor, the fighter gains DR 1/—. At 7th level, the fighter gains DR 1/— when wearing medium armor, and DR 2/— when wearing heavy armor. At 11th level, the fighter gains DR 1/— when wearing light armor, DR 2/— when wearing medium armor, and DR 3/— when wearing heavy armor. The DR from this ability stacks with other DR/-",
             "ruRU": null,
             "deDE": null,
             "frFR": null,

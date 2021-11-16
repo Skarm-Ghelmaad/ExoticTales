@@ -74,7 +74,7 @@ using Kingmaker.EntitySystem.Entities;
 
 namespace ExoticTales.Utilities
 {
-    class ExpandedHelpers
+    public static class ExpandedHelpers
     {
 
 
@@ -214,6 +214,21 @@ namespace ExoticTales.Utilities
             return c;
         }
 
+        public static ContextConditionHasBuff CreateConditionHasBuff(this BlueprintBuff buff)
+        {
+            var hasBuff = Helpers.Create<ContextConditionHasBuff>();
+            hasBuff.m_Buff = buff.ToReference<BlueprintBuffReference>();
+            return hasBuff;
+        }
+
+        public static ContextConditionHasBuff CreateConditionHasNoBuff(this BlueprintBuff buff)
+        {
+            var hasBuff = Helpers.Create<ContextConditionHasBuff>();
+            hasBuff.m_Buff = buff.ToReference<BlueprintBuffReference>();
+            hasBuff.Not = true;
+            return hasBuff;
+        }
+
         public static ContextConditionHasBuffFromCaster createContextConditionHasBuffFromCaster(BlueprintBuff buff, bool not = false)
         {
             var c = Helpers.Create<ContextConditionHasBuffFromCaster>();
@@ -238,6 +253,61 @@ namespace ExoticTales.Utilities
         }
 
 
+        //---------------------------------------------|ACTION CREATORS|------------------------------------------------------------
+
+        public static ContextActionApplyBuff CreateApplyBuff(this BlueprintBuff buff, ContextDurationValue duration, bool fromSpell, bool dispellable = true, bool toCaster = false, bool asChild = false, bool permanent = false)
+        {
+            var result = Helpers.Create<ContextActionApplyBuff>();
+            result.m_Buff = buff.ToReference<BlueprintBuffReference>();
+            result.DurationValue = duration;
+            result.IsFromSpell = fromSpell;
+            result.IsNotDispelable = !dispellable;
+            result.ToCaster = toCaster;
+            result.AsChild = asChild;
+            result.Permanent = permanent;
+            return result;
+        }
+
+        static public ContextActionRemoveBuff createContextActionRemoveBuff(BlueprintBuff buff)
+        {
+            var r = Helpers.Create<ContextActionRemoveBuff>();
+            r.m_Buff = buff.ToReference<BlueprintBuffReference>();
+            return r;
+        }
+
+        static public ContextActionRemoveBuffsByDescriptor createContextActionRemoveBuffsByDescriptor(SpellDescriptor descriptor, bool not_self = true)
+        {
+            var r = Helpers.Create<ContextActionRemoveBuffsByDescriptor>();
+            r.SpellDescriptor = descriptor;
+            r.NotSelf = not_self;
+            return r;
+        }
+
+
+
+        //---------------------------------------------|COMPONENT CREATORS|------------------------------------------------------------
+
+        public static AbilityAreaEffectRunAction CreateAreaEffectRunAction(GameAction unitEnter = null, GameAction unitExit = null, GameAction unitMove = null, GameAction round = null)
+        {
+            var a = Helpers.Create<AbilityAreaEffectRunAction>();
+            a.UnitEnter = Helpers.CreateActionList(unitEnter);
+            a.UnitExit = Helpers.CreateActionList(unitExit);
+            a.UnitMove = Helpers.CreateActionList(unitMove);
+            a.Round = Helpers.CreateActionList(round);
+            return a;
+        }
+
+
+
+        public static AbilityAreaEffectRunAction CreateAreaEffectRunAction(GameAction[] unitEnter = null, GameAction[] unitExit = null, GameAction[] unitMove = null, GameAction[] round = null)
+        {
+            var a = Helpers.Create<AbilityAreaEffectRunAction>();
+            a.UnitEnter = Helpers.CreateActionList(unitEnter);
+            a.UnitExit = Helpers.CreateActionList(unitExit);
+            a.UnitMove = Helpers.CreateActionList(unitMove);
+            a.Round = Helpers.CreateActionList(round);
+            return a;
+        }
 
 
 
@@ -304,7 +374,6 @@ namespace ExoticTales.Utilities
        
         return c1;
     }
-
 
 
 
