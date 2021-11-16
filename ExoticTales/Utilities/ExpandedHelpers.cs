@@ -98,6 +98,25 @@ namespace ExoticTales.Utilities
         // This code is licensed under MIT license (see LICENSE for details)
         // -------------------------------------------------------------------------------------------------------------------------
 
+        //---------------------------------------------------|LINK CREATORS|--------------------------------------------------------
+
+
+            public static PrefabLink createPrefabLink(string asset_id)
+            {
+                var link = new PrefabLink();
+                link.AssetId = asset_id;
+                return link;
+            }
+
+            public static UnitViewLink createUnitViewLink(string asset_id)
+            {
+                var link = new UnitViewLink();
+                link.AssetId = asset_id;
+                return link;
+            }
+
+
+
         //-------------------------------------|CONDITION CHECKERS CREATORS|--------------------------------------------------------
 
         public static ConditionsChecker CreateConditionsCheckerAnd(params Condition[] conditions)

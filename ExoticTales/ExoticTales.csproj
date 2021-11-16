@@ -179,15 +179,11 @@
     <Compile Include="NewComponents\AbilitySpecific\TrainedGraceComponent.cs" />
     <Compile Include="NewComponents\ACBonusAgainstSizeDifference.cs" />
     <Compile Include="NewComponents\AddAdditionalRacialFeatures.cs" />
-    <Compile Include="NewComponents\AddBuffIfIsPartyMember.cs" />
-    <Compile Include="NewComponents\AddBuffInDaylight.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
     <Compile Include="NewComponents\AddOutgoingWeaponDamageBonus.cs" />
     <Compile Include="NewComponents\AddWeaponDamageTrigger.cs" />
-    <Compile Include="NewComponents\AreaEffects\AOEConditionalRevealZone.cs" />
-    <Compile Include="NewComponents\AreaEffects\AOERevealZone.cs" />
     <Compile Include="NewComponents\ArmoredJuggernautDRProperty.cs" />
     <Compile Include="NewComponents\ArmorEnchantsToWeapon.cs" />
     <Compile Include="NewComponents\ArmorFeatureUnlock.cs" />
@@ -256,7 +252,6 @@
     <Compile Include="NewComponents\RecalculateOnLevelUp.cs" />
     <Compile Include="NewComponents\RecommendationWeaponCategoryFocus.cs" />
     <Compile Include="NewComponents\RemoveBuffAfterSpellResistCheck.cs" />
-    <Compile Include="NewComponents\RemoveBuffInDaylight.cs" />
     <Compile Include="NewComponents\RemoveBuffRankOnAttack.cs" />
     <Compile Include="NewComponents\SavingThrowBonusAgainstAbility.cs" />
     <Compile Include="NewComponents\SavingThrowBonusUnaware.cs" />
