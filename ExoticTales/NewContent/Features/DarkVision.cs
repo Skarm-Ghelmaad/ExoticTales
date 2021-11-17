@@ -107,6 +107,9 @@ namespace ExoticTales.NewContent.Features
                 bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
                 bp.FxOnStart = ExH.createPrefabLink("ea8ddc3e798aa25458e2c8a15e484c68"); //Arcanist Exploit Shadow Veil Starting Fx
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
+                bp.AddComponent<SpellDescriptorComponent>(c => {
+                    c.Descriptor = SpellDescriptor.SightBased;
+                });
             });
 
             var DarkvisionAuraSecondaryEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraSecondaryEffectBuff", bp => {
@@ -114,19 +117,12 @@ namespace ExoticTales.NewContent.Features
                 bp.SetDescription("Darkvision causes the world to be seen in shades of gray.");
                 bp.m_Icon = iconDAESB;
                 bp.IsClassFeature = true;
-                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath); 
-                bp.FxOnStart = ExH.createPrefabLink("db49ed6ad0492a941b49736ad7d2805e"); //Fx_MudGolem01 Starting Fx (since creates the eerie shadowy atmosphere)
-                bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
-            });
-
-            var DarkvisionAuraTertiaryEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraTertiaryEffectBuff", bp => {
-                bp.SetName("World in Shades of Grey");
-                bp.SetDescription("Darkvision causes the world to be seen in shades of gray.");
-                bp.m_Icon = iconDAESB;
-                bp.IsClassFeature = true;
                 bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
-                bp.FxOnStart = ExH.createPrefabLink("3bf15930463caa643b2706cd1d185f25"); //Unfortunately I am not able to expand the Fx_Mudgolem01 fx, so I am stacking AreshkagalDialogFx which is much wider and has a hole in the center.
+                bp.FxOnStart = ExH.createPrefabLink("3bf15930463caa643b2706cd1d185f25"); //I am adding the AreshkagalDialogFx to create an "eerie shadow world" effect.
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
+                bp.AddComponent<SpellDescriptorComponent>(c => {
+                    c.Descriptor = SpellDescriptor.SightBased;
+                });
             });
 
             // The aura area of effect (applying the graphic buff to anyone in range).
@@ -138,8 +134,7 @@ namespace ExoticTales.NewContent.Features
                 bp.Size = new Feet() { m_Value = 60 };
                 bp.Fx = new PrefabLink();
                 bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
-                // bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
-                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraTertiaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
+                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
 
             });
 
@@ -206,6 +201,25 @@ namespace ExoticTales.NewContent.Features
 
             // new ContextConditionIsCaster() {Not = true},
 
+
+            // This is the passive buff that applies the +5 perception bonus.
+
+            var DarkvisionPassiveBuff = Helpers.CreateBuff("DarkvisionPassiveBuff", bp => {
+
+                bp.SetName("Darkvision - Passive Effect");
+                bp.SetDescription("This grants you a +5 circumstance bonus to Perception in low-light vision conditions.");
+                bp.m_Icon = iconDaVAb;
+                bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
+                    c.Stat = StatType.SkillPerception;
+                    c.Descriptor = ModifierDescriptor.Circumstance;
+                    c.Value = 5;
+                }));
+                bp.AddComponent<SpellDescriptorComponent>(c => {
+                    c.Descriptor = SpellDescriptor.SightBased;
+                });
+            });
+
+
             // This is the active (aura-attaching) buff that applies the area of effect to the character.
 
             var Darkvision60ftActiveBuff = Helpers.CreateBlueprint<BlueprintBuff>("Darkvision60ftActiveBuff", bp => {
@@ -235,6 +249,11 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
                     c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+
+                }));
+                bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+
+                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
 
                 }));
 
