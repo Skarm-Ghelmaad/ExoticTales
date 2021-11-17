@@ -131,9 +131,18 @@ namespace ExoticTales.NewContent.Features
                 bp.AggroEnemies = false;
                 bp.AffectDead = true;
                 bp.Shape = AreaEffectShape.Cylinder;
-                bp.Size = new Feet() { m_Value = 60 };
+                bp.Size = new Feet() { m_Value = 63 }; // The paladin's auras are technically 10 feet, but add 3 feet, so I did the same.
                 bp.Fx = new PrefabLink();
                 bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
+
+            });
+
+            var DarkvisionAuraSecondaryArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraSecondaryArea60ft", bp => {
+                bp.AggroEnemies = false;
+                bp.AffectDead = true;
+                bp.Shape = AreaEffectShape.Cylinder;
+                bp.Size = new Feet() { m_Value = 13 };  // Seems that the buff has a radius of about 67 feet, so I gave this aura only to those within 2 squares of the character.
+                bp.Fx = new PrefabLink();
                 bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
 
             });
@@ -231,6 +240,10 @@ namespace ExoticTales.NewContent.Features
                 bp.m_Icon = iconDaVAb;
                 bp.AddComponent<AddAreaEffect>(a => {
                     a.m_AreaEffect = DarkvisionAuraArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
+
+                });
+                bp.AddComponent<AddAreaEffect>(a => {
+                    a.m_AreaEffect = DarkvisionAuraSecondaryArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
 
                 });
             });
