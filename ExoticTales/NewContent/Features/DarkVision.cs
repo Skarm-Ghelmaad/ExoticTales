@@ -92,7 +92,8 @@ namespace ExoticTales.NewContent.Features
             BlueprintBuff AuraOfFaithBuff = Resources.GetBlueprint<BlueprintBuff>("d4aa6633c583f304cbd4b02d0572af28"); // Aura Of Faith seems close enough to not require any special adjustment.
 
 
-            var iconSiD = AssetLoader.LoadInternal("Features", "Icon_ShadeInTheDarkEffect.png");
+            var iconDAEB = AssetLoader.LoadInternal("Features", "Icon_DarkvisionAuraEffectBuff.png");
+            var iconDAESB = AssetLoader.LoadInternal("Features", "Icon_DarkvisionAuraSecondaryEffectBuff.png");
             var iconDaV = AssetLoader.LoadInternal("Features", "Icon_DarkVision.png");
             var iconDaVAb = AssetLoader.LoadInternal("Features", "Icon_DarkVisionActiveBuff.png");
 
@@ -101,14 +102,32 @@ namespace ExoticTales.NewContent.Features
             var DarkvisionAuraEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraEffectBuff", bp => {
                 bp.SetName("Dark Silhouette");
                 bp.SetDescription("You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.");
-                bp.m_Icon = iconSiD;
+                bp.m_Icon = iconDAEB;
                 bp.IsClassFeature = true;
                 bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
                 bp.FxOnStart = ExH.createPrefabLink("ea8ddc3e798aa25458e2c8a15e484c68"); //Arcanist Exploit Shadow Veil Starting Fx
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
             });
 
+            var DarkvisionAuraSecondaryEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraSecondaryEffectBuff", bp => {
+                bp.SetName("World in Shades of Grey");
+                bp.SetDescription("Darkvision causes the world to be seen in shades of gray.");
+                bp.m_Icon = iconDAESB;
+                bp.IsClassFeature = true;
+                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath); 
+                bp.FxOnStart = ExH.createPrefabLink("db49ed6ad0492a941b49736ad7d2805e"); //Fx_MudGolem01 Starting Fx (since creates the eerie shadowy atmosphere)
+                bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
+            });
 
+            var DarkvisionAuraTertiaryEffectBuff = Helpers.CreateBlueprint<BlueprintBuff>("DarkvisionAuraTertiaryEffectBuff", bp => {
+                bp.SetName("World in Shades of Grey");
+                bp.SetDescription("Darkvision causes the world to be seen in shades of gray.");
+                bp.m_Icon = iconDAESB;
+                bp.IsClassFeature = true;
+                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
+                bp.FxOnStart = ExH.createPrefabLink("3bf15930463caa643b2706cd1d185f25"); //Unfortunately I am not able to expand the Fx_Mudgolem01 fx, so I am stacking AreshkagalDialogFx which is much wider and has a hole in the center.
+                bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
+            });
 
             // The aura area of effect (applying the graphic buff to anyone in range).
 
@@ -119,11 +138,15 @@ namespace ExoticTales.NewContent.Features
                 bp.Size = new Feet() { m_Value = 60 };
                 bp.Fx = new PrefabLink();
                 bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
+                // bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
+                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraTertiaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
 
             });
 
 
             /*
+             * bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraSecondaryEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraSecondaryEffectBuff)));
+             * 
              * WORKING CODE - ORIGINAL (without conditional)
              * 
              *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {

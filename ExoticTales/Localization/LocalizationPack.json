@@ -89,6 +89,28 @@
             "esES": null
         },
         {
+            "Key": "72428a2efd8a47b6ba27666b4a238922",
+            "SimpleName": "DarkvisionAuraSecondaryEffectBuff.Description",
+            "ProcessTemplates": true,
+            "enGB": "Darkvision causes the world to be seen in shades of gray.",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
+            "Key": "597d1f5052394b1d8b5f09691dc211fd",
+            "SimpleName": "DarkvisionAuraSecondaryEffectBuff.Name",
+            "ProcessTemplates": false,
+            "enGB": "World in Shades of Grey",
+            "ruRU": null,
+            "deDE": null,
+            "frFR": null,
+            "zhCN": null,
+            "esES": null
+        },
+        {
             "Key": "54f8a00877ac43898460e2b2c9ab3114",
             "SimpleName": "DwarfAbilityModifiers.Description",
             "ProcessTemplates": true,

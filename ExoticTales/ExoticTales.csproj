@@ -331,6 +331,9 @@
     <Content Include="Assets\Features\Icon_DarkVisionActiveBuff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\Features\Icon_DarkvisionAuraSecondaryEffectBuff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\Features\Icon_DarkVisionSuppressedBuff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -340,7 +343,7 @@
     <Content Include="Assets\Features\Icon_RealShadowBlend.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Features\Icon_ShadeInTheDarkEffect.png">
+    <Content Include="Assets\Features\Icon_DarkvisionAuraEffectBuff.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Spells\Icon_ShadowSpell.png">
