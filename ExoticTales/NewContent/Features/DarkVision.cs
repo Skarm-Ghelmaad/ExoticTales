@@ -58,6 +58,7 @@ using Kingmaker.UI.UnitSettings.Blueprints;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.ResourceLinks;
 using ExoticTales.NewComponents;
+using ExoticTales.NewComponents.AreaEffects;
 using static ExoticTales.NewUnitParts.CustomStatTypes;
 using HlP = ExoticTales.Utilities.Helpers;
 using ExH = ExoticTales.Utilities.ExpandedHelpers;
@@ -134,7 +135,11 @@ namespace ExoticTales.NewContent.Features
                 bp.Size = new Feet() { m_Value = 63 }; // The paladin's auras are technically 10 feet, but add 3 feet, so I did the same.
                 bp.Fx = new PrefabLink();
                 bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
+                bp.AddComponent<AOEConditionalRevealZone>(aoer =>
+                {
+                    aoer.m_AreaBlueprint = bp.ToReference<BlueprintAbilityAreaEffectReference>();
 
+                });
             });
 
             var DarkvisionAuraSecondaryArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraSecondaryArea60ft", bp => {

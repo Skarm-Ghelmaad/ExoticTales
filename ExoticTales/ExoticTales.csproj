@@ -184,6 +184,8 @@
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
     <Compile Include="NewComponents\AddOutgoingWeaponDamageBonus.cs" />
     <Compile Include="NewComponents\AddWeaponDamageTrigger.cs" />
+    <Compile Include="NewComponents\AreaEffects\AOEConditionalRevealZone.cs" />
+    <Compile Include="NewComponents\AreaEffects\AOERevealZone.cs" />
     <Compile Include="NewComponents\ArmoredJuggernautDRProperty.cs" />
     <Compile Include="NewComponents\ArmorEnchantsToWeapon.cs" />
     <Compile Include="NewComponents\ArmorFeatureUnlock.cs" />
