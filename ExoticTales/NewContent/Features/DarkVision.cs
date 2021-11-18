@@ -253,6 +253,43 @@ namespace ExoticTales.NewContent.Features
                 });
             });
 
+            // These are the suppressors which is used both to disable the darkvision in daylight and when the activable ability get clicked.
+
+            var iconDaVSb = AssetLoader.LoadInternal("Features", "Icon_DarkVisionSuppressedBuff.png");
+            var DarkVisionSuppressedBuffActive = Helpers.CreateBuff("DarkVisionSuppressedBuffActive", bp => {      // This deactivates both the passive bonus to Perception and the graphic fx.
+                bp.SetName("Darkvision not in Use");
+                bp.SetDescription("Your sight purposefully disadapted your vision to darkness by looking directly at a light source" +
+                   "\n  in anticipation for a brighter lit environment or a sudden flash.");
+                bp.m_Icon = iconDaVSb;
+                bp.AddComponent(Helpers.Create<SuppressBuffs>(c => {
+                    c.m_Buffs = new BlueprintBuffReference[] { DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>(), Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>() };
+                }));
+            });
+
+            var DarkVisionSuppressedBuffPassive = Helpers.CreateBuff("DarkVisionSuppressedBuffPassive", bp => {  // This deactivates both the passive bonus to Perception and the graphic fx AND the active deactivator buff (to avoid problems).
+                bp.SetName("Darkvision not in Use");
+                bp.SetDescription("Your sight is adjusted to the current brightly-lit surroundings.");
+                bp.m_Icon = iconDaVSb;
+                bp.AddComponent(Helpers.Create<SuppressBuffs>(c => {
+                    c.m_Buffs = new BlueprintBuffReference[] { DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>(), DarkVisionSuppressedBuffActive.ToReference<BlueprintBuffReference>(), Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>() };
+                }));
+            });
+
+            // This is the activable ability which suppressess Darkvision when clicked.
+
+            var DarkVisionSuppressToggleAbility = Helpers.CreateBlueprint<BlueprintActivatableAbility>("DarkVisionSuppressToggleAbility", bp => {
+                bp.SetName("Suppress Darkvision");
+                bp.SetDescription("You temporarily disadapt your vision to darkness by staring directly at a light source, shifting from darkvision to normal vision.");
+                bp.m_Icon = iconDaVSb;
+                bp.m_Buff = DarkVisionSuppressedBuffActive.ToReference<BlueprintBuffReference>();
+                bp.IsOnByDefault = false;
+                bp.DoNotTurnOffOnRest = false;
+                bp.AddComponent<ActionPanelLogic>(apl => {
+                    apl.AutoFillConditions = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsPartyMember());
+                });
+
+            });
+
             // These are the various versions of the Darkvision feature, adding Darkvision for different ranges.
 
             //OK!!
@@ -272,6 +309,17 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
 
                     c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+
+                }));
+                bp.AddComponent<AddFacts>(c => {
+                    c.m_Facts = new BlueprintUnitFactReference[] {
+                            DarkVisionSuppressToggleAbility.ToReference<BlueprintUnitFactReference>(),
+                        };
+                });
+                bp.AddComponent(Helpers.Create<AddBuffInDaylight>(c => {
+
+                    c.m_EffectBuff = DarkVisionSuppressedBuffPassive.ToReference<BlueprintBuffReference>();
+                    c.EnhancedOnConcealment = false;
 
                 }));
 

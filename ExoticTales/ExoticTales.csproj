@@ -179,6 +179,7 @@
     <Compile Include="NewComponents\AbilitySpecific\TrainedGraceComponent.cs" />
     <Compile Include="NewComponents\ACBonusAgainstSizeDifference.cs" />
     <Compile Include="NewComponents\AddAdditionalRacialFeatures.cs" />
+    <Compile Include="NewComponents\AddBuffInDaylight.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
@@ -193,6 +194,8 @@
     <Compile Include="NewComponents\ContextConditionCasterHasStatUpToValue.cs" />
     <Compile Include="NewComponents\ContextConditionCasterHasStatValue.cs" />
     <Compile Include="NewComponents\ContextConditionCasterIsInFogOfWar.cs" />
+    <Compile Include="NewComponents\ContextConditionIsInBrightLight.cs" />
+    <Compile Include="NewComponents\ContextConditionIsInDimLight.cs" />
     <Compile Include="NewComponents\ContextConditionStatUpToValue.cs" />
     <Compile Include="NewComponents\ContextConditionStatValueWithinRange.cs" />
     <Compile Include="NewComponents\ForceFlatFooted.cs" />
@@ -254,6 +257,7 @@
     <Compile Include="NewComponents\RecalculateOnLevelUp.cs" />
     <Compile Include="NewComponents\RecommendationWeaponCategoryFocus.cs" />
     <Compile Include="NewComponents\RemoveBuffAfterSpellResistCheck.cs" />
+    <Compile Include="NewComponents\RemoveBuffInDaylight.cs" />
     <Compile Include="NewComponents\RemoveBuffRankOnAttack.cs" />
     <Compile Include="NewComponents\SavingThrowBonusAgainstAbility.cs" />
     <Compile Include="NewComponents\SavingThrowBonusUnaware.cs" />
