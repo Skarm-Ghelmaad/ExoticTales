@@ -36,6 +36,13 @@ using Kingmaker.EntitySystem;
 
 namespace ExoticTales.NewComponents
 {
+
+    [AllowedOn(typeof(BlueprintUnit), false)]
+    [AllowedOn(typeof(BlueprintUnitFact), false)]
+    [AllowedOn(typeof(BlueprintBuff), false)]
+    [AllowedOn(typeof(BlueprintFeature), false)]
+    [TypeId("B23EDED5693F4DF69F9D87792246016E")]
+
     class RemoveBuffInDimLight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler
     {
 

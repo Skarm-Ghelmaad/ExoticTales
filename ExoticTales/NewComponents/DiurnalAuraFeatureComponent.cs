@@ -41,7 +41,7 @@ namespace ExoticTales.NewComponents
     [ComponentName("Add buff to spawned unit if in bright light")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
     [AllowMultipleComponents]
-    [TypeId("x")]
+    [TypeId("354BCFE610D8492F88ABABF3BE6F3D2C")]
     class DiurnalAuraFeatureComponent : UnitFactComponentDelegate<DiurnalAuraFeatureComponentData>, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
     {
         public BlueprintBuff EffectBuff
@@ -613,8 +613,6 @@ namespace ExoticTales.NewComponents
         [FormerlySerializedAs("Facts")]
         public BlueprintUnitFactReference[] m_SuppressingFacts;
 
-        [JsonProperty]
-        private Buff m_AppliedBuff;
 
     }
 }

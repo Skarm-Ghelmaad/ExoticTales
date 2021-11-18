@@ -153,67 +153,6 @@ namespace ExoticTales.NewContent.Features
             });
 
 
-            /*
-             * bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraSecondaryEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraSecondaryEffectBuff)));
-             * 
-             * WORKING CODE - ORIGINAL (without conditional)
-             * 
-             *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
-                bp.AggroEnemies = false;
-                bp.AffectDead = true;
-                bp.Shape = AreaEffectShape.Cylinder;
-                bp.Size = new Feet() { m_Value = 60 };
-                bp.Fx = new PrefabLink();
-                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
-
-            });
-             * 
-             * WORKING CODE - WITH CONDITIONAL
-             * 
-             *  var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
-                bp.AggroEnemies = false;
-                bp.AffectDead = true;
-                bp.Shape = AreaEffectShape.Cylinder;
-                bp.Size = new Feet() { m_Value = 60 };
-                bp.Fx = new PrefabLink();
-                bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
-
-            });
-             * 
-             * 
-             * 
-             * 
-             * 
-             * Test Component 1: bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff))));
-             * 
-             * Test Component 2: bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)); }));
-             * 
-             * */
-
-
-            // Working Fx: ExH.createPrefabLink("ee38b41b2b360b2458ec48f1868ca51b"); //Cloudkill fog added for test
-
-            // Working Component:  bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(DarkvisionAuraEffectBuff, null, false, false, false, false, true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));
-
-            //bp.AddComponent(ExH.CreateAreaEffectRunAction(ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), ExH.createContextActionRemoveBuff(DarkvisionAuraEffectBuff)));               
-
-            //ExH.CreateAreaEffectRunAction(ExH.CreateConditional(ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster(not: true)), ExH.CreateApplyBuff(buff: DarkvisionAuraEffectBuff, duration: null, fromSpell: false, dispellable: false, toCaster: false, asChild: false, permanent: true), null)
-
-
-            /* bp.AddComponent<AbilityAreaEffectBuff>(a =>
-            {
-                a.m_Buff = DarkvisionAuraEffectBuff.ToReference<BlueprintBuffReference>();
-                a.Condition = new ConditionsChecker()
-                {
-                    Conditions = new Condition[] {
-                            ExH.createContextConditionIsCaster(true)
-                        }
-                };
-
-            }); */
-
-
-            // new ContextConditionIsCaster() {Not = true},
 
 
             // This is the passive buff that applies the +5 perception bonus.
@@ -301,14 +240,28 @@ namespace ExoticTales.NewContent.Features
                 bp.Groups = new FeatureGroup[] { FeatureGroup.Racial };
                 bp.IsClassFeature = true;
                 bp.Ranks = 1;
-                bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+                bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
 
-                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+                    c.m_EffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = false;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = false;
+                    c.suppressingFacts = false;
 
                 }));
-                bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+                bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+                    c.m_EffectBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = false;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = false;
+                    c.suppressingFacts = false;
 
                 }));
                 bp.AddComponent<AddFacts>(c => {
@@ -316,7 +269,19 @@ namespace ExoticTales.NewContent.Features
                             DarkVisionSuppressToggleAbility.ToReference<BlueprintUnitFactReference>(),
                         };
                 });
-                bp.AddComponent(Helpers.Create<AddBuffInBrightLight>(c => {
+
+            });
+
+            /*
+
+
+               bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+
+                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+
+                }));
+
+              bp.AddComponent(Helpers.Create<AddBuffInBrightLight>(c => {
 
                     c.m_EffectBuff = DarkVisionSuppressedBuffPassive.ToReference<BlueprintBuffReference>();
                     c.exactingCheck = false;
@@ -329,7 +294,14 @@ namespace ExoticTales.NewContent.Features
 
                 }));
 
-            });
+               bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
+
+                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+
+                }));
+
+
+            */
 
 
             // Old code

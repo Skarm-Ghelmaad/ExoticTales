@@ -46,7 +46,7 @@ namespace ExoticTales.NewComponents
     [AllowedOn(typeof(BlueprintUnitFact), false)]
     [AllowedOn(typeof(BlueprintBuff), false)]
     [AllowedOn(typeof(BlueprintFeature), false)]
-    [TypeId("X")]
+    [TypeId("967450B06C944769B5F3D2847B99BB8A")]
 
     public class AddBuffInDimLight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler
     {
