@@ -316,10 +316,17 @@ namespace ExoticTales.NewContent.Features
                             DarkVisionSuppressToggleAbility.ToReference<BlueprintUnitFactReference>(),
                         };
                 });
-                bp.AddComponent(Helpers.Create<AddBuffInDaylight>(c => {
+                bp.AddComponent(Helpers.Create<AddBuffInBrightLight>(c => {
 
                     c.m_EffectBuff = DarkVisionSuppressedBuffPassive.ToReference<BlueprintBuffReference>();
-                    c.EnhancedOnConcealment = false;
+                    c.m_EnhancedEffectBuff = null;
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = false;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = false;
+                    c.suppressingFacts = false;
 
                 }));
 

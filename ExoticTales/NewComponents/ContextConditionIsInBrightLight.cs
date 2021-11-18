@@ -421,7 +421,7 @@ namespace ExoticTales.NewComponents
         }
 
 
-        bool exactingCheck = false;          /* This is to allow for some nuancing in what constitutes "bright light" for the specific check, because, for example, in general, an area that is lit by a single light
+        public bool exactingCheck = false;          /* This is to allow for some nuancing in what constitutes "bright light" for the specific check, because, for example, in general, an area that is lit by a single light
                                               in the game is unlikely to have many shadows, but, for examples, Kenabres Square is outdoors and in daylght while Defender's Heart is
                                               indoors and at night (IndoorLikeNight), but both are a single light -which generally means that the whole area is lit- ...
                                               ...however, enabling Darkvision in the Defender's Heart would be silly, because it is obviously an area brightly lit in which Darkvision would not "kick in"!
@@ -430,19 +430,19 @@ namespace ExoticTales.NewComponents
                                               On other hand, the second case would have exactingCheck set to "false", because you'd want to check what the TimeOfDay (or its equivalent) would be.
                                             */
 
-        bool weatherCheck = false;          /* This setting is, again, to allow for some nuancing:
+        public bool weatherCheck = false;          /* This setting is, again, to allow for some nuancing:
                                              * For some conditions, having a weather that would hinder sunlight would suffice to say it's not "bright light", but you'd weather to affect all of such checks:
                                              * As an example, outdoor and in daylight would be fair to check weather for Light Vulnerability, since having the sun covered by clouds (or worse by a storm) would probably mitigate its blinding shine.
                                              * On other hand, you'd not want Darkvision to "kick in" in bad weather, so you' remove the check for weather.
                                              * To clarify...this would translate into weatherCheck set to "true" for the first case and weatherCheck set to "false" for the second.
                                              */
 
-        bool checkCaster = false;           // Check if caster is in bright light. Only to consider if you have included enhancing buffs or facts.
-        bool checkTarget = false;           // Check if target is in bright light. Only to consider if you have included enhancing buffs or facts.
-        bool triggeringBuffs = false;        // Set as "true" if you want to add a list of buffs that, if applied to the caster or the target, will override the current environmental light and cause the bright light.
-        bool triggeringFacts = false;        // Set as "true" if you want to add a list of facts that, if applied to the caster or the target, will override the current environmental light and cause the bright light.
-        bool suppressingBuffs = false;        // Set as "true" if you want to add a list of buffs that, if applied to the caster or the target, will override the current environmental light and negating the bright light.
-        bool suppressingFacts = false;        // Set as "true" if you want to add a list of facts that, if applied to the caster or the target, will override the current environmental light and negating the bright light.
+        public bool checkCaster = false;           // Check if caster is in bright light. Only to consider if you have included enhancing buffs or facts.
+        public bool checkTarget = false;           // Check if target is in bright light. Only to consider if you have included enhancing buffs or facts.
+        public bool triggeringBuffs = false;        // Set as "true" if you want to add a list of buffs that, if applied to the caster or the target, will override the current environmental light and cause the bright light.
+        public bool triggeringFacts = false;        // Set as "true" if you want to add a list of facts that, if applied to the caster or the target, will override the current environmental light and cause the bright light.
+        public bool suppressingBuffs = false;        // Set as "true" if you want to add a list of buffs that, if applied to the caster or the target, will override the current environmental light and negating the bright light.
+        public bool suppressingFacts = false;        // Set as "true" if you want to add a list of facts that, if applied to the caster or the target, will override the current environmental light and negating the bright light.
 
 
 
