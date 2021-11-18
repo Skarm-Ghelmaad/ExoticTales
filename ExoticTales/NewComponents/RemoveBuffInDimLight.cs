@@ -575,8 +575,6 @@ namespace ExoticTales.NewComponents
 
         public BlueprintBuffReference m_EffectBuff;
 
-        public BlueprintBuffReference m_EnhancedEffectBuff = null;
-
         public bool exactingCheck = false;          /* This is to allow for some nuancing in what constitutes "bright light" for the specific check, because, for example, in general, an area that is lit by a single light
                                               in the game is unlikely to have many shadows, but, for examples, Kenabres Square is outdoors and in daylght while Defender's Heart is
                                               indoors and at night (IndoorLikeNight), but both are a single light -which generally means that the whole area is lit- ...

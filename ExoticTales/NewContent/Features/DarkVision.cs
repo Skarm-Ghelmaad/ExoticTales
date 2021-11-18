@@ -319,7 +319,6 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent(Helpers.Create<AddBuffInBrightLight>(c => {
 
                     c.m_EffectBuff = DarkVisionSuppressedBuffPassive.ToReference<BlueprintBuffReference>();
-                    c.m_EnhancedEffectBuff = null;
                     c.exactingCheck = false;
                     c.weatherCheck = false;
                     c.checkCaster = false;

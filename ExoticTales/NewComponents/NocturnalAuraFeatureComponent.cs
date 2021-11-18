@@ -35,35 +35,15 @@ using Owlcat.Runtime.Core.Utils;
 using Kingmaker.EntitySystem;
 
 
-// Note: This code was inspired by the Light Sensitivity and the ShadowBlending code in RacesUnleashed, but I radically altered it.
-
-
-
 namespace ExoticTales.NewComponents
 {
 
-    [AllowedOn(typeof(BlueprintUnit), false)]
+    [ComponentName("Add buff to spawned unit if in bright light")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
-    [AllowedOn(typeof(BlueprintBuff), false)]
-    [AllowedOn(typeof(BlueprintFeature), false)]
-    [TypeId("X")]
-
-    public class AddBuffInDimLight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler
+    [AllowMultipleComponents]
+    [TypeId("x")]
+    class NocturnalAuraFeatureComponent : UnitFactComponentDelegate<DiurnalAuraFeatureComponentData>, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
     {
-
-        public Buff FindAppliedBuff(UnitEntityData unit, BlueprintBuff checkedbpBuff)
-        {
-            foreach (Buff buff in unit.Buffs.RawFacts)
-            {
-                if (buff.Blueprint == checkedbpBuff)
-                {
-                    return buff;
-                }
-            }
-            return null;
-        }
-
-
         public BlueprintBuff EffectBuff
         {
             get
@@ -138,7 +118,7 @@ namespace ExoticTales.NewComponents
 
         public override void OnTurnOff()
         {
-            this.DeactivateBuff();
+            this.OnDeactivate();
         }
 
 
@@ -398,46 +378,53 @@ namespace ExoticTales.NewComponents
 
             if (checkShadow)
             {
-                this.ActivateBuff();
+                this.OnActivate();
                 return;
             }
-            this.DeactivateBuff();
+            this.OnDeactivate();
         }
 
 
 
-        public void ActivateBuff()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
+        public override void OnActivate()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
         {
 
-            BlueprintBuff blueprintBuff = this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
             UnitEntityData unit = base.Owner;
 
-            Buff AppliedBuff = this.FindAppliedBuff(unit, blueprintBuff);
+            base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, this.Context, null);
+            base.Data.EffectBuff.IsNotDispelable = true;
+            base.Data.EffectBuff.IsFromSpell = false;
 
-
-            if (AppliedBuff != null)
-            {
-                return;
-            }
-            AppliedBuff = base.Owner.AddBuff(blueprintBuff, this.Context, null);
-            if (AppliedBuff == null)
-            {
-                return;
-            }
-            AppliedBuff.IsNotDispelable = true;
-            AppliedBuff.IsFromSpell = false;
-            this.m_AppliedBuff = AppliedBuff;
         }
 
-        public void DeactivateBuff()
+        public override void OnDeactivate()
         {
-            Buff AppliedBuff = this.m_AppliedBuff;
+            Buff effectBuff = base.Data.EffectBuff;
 
-            if (AppliedBuff != null)
+            if (effectBuff != null)
             {
-                AppliedBuff.Remove();
-                this.m_AppliedBuff = null;
+                effectBuff.Remove();
             }
+            base.Data.EffectBuff = null;
+        }
+
+        public void HandleUnitLifeStateChanged(UnitEntityData unit, UnitLifeState prevLifeState)
+        {
+            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && base.Data.EffectBuff == null)
+            {
+                base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, base.Fact.MaybeContext, null);
+            }
+            if (unit == base.Owner && prevLifeState != UnitLifeState.Dead && prevLifeState != UnitLifeState.Unconscious && prevLifeState == UnitLifeState.Conscious)
+            {
+                Buff appliedBuff = base.Data.EffectBuff;
+                if (appliedBuff != null)
+                {
+                    appliedBuff.Remove();
+                }
+                base.Data.EffectBuff = null;
+            }
+
+
         }
 
         public void HandleBuffDidAdded(Buff buff)    // This checks if a buff added is a triggering or suppressing buff.

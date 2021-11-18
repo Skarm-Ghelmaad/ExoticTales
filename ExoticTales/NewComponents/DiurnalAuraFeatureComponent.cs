@@ -35,35 +35,15 @@ using Owlcat.Runtime.Core.Utils;
 using Kingmaker.EntitySystem;
 
 
-// Note: This code was inspired by the Light Sensitivity and the ShadowBlending code in RacesUnleashed, but I radically altered it.
-
-
-
 namespace ExoticTales.NewComponents
 {
 
-    [AllowedOn(typeof(BlueprintUnit), false)]
+    [ComponentName("Add buff to spawned unit if in bright light")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
-    [AllowedOn(typeof(BlueprintBuff), false)]
-    [AllowedOn(typeof(BlueprintFeature), false)]
-    [TypeId("X")]
-
-    public class AddBuffInDimLight : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler
+    [AllowMultipleComponents]
+    [TypeId("x")]
+    class DiurnalAuraFeatureComponent : UnitFactComponentDelegate<DiurnalAuraFeatureComponentData>, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
     {
-
-        public Buff FindAppliedBuff(UnitEntityData unit, BlueprintBuff checkedbpBuff)
-        {
-            foreach (Buff buff in unit.Buffs.RawFacts)
-            {
-                if (buff.Blueprint == checkedbpBuff)
-                {
-                    return buff;
-                }
-            }
-            return null;
-        }
-
-
         public BlueprintBuff EffectBuff
         {
             get
@@ -138,13 +118,13 @@ namespace ExoticTales.NewComponents
 
         public override void OnTurnOff()
         {
-            this.DeactivateBuff();
+            this.OnDeactivate();
         }
 
 
         private void Check()
         {
-            var checkShadow = false;
+            var checkLight = false;
 
             BlueprintArea currentlyLoadedArea = Game.Instance.CurrentlyLoadedArea;
             BlueprintAreaPart currentlyLoadedAreaPart = Game.Instance.CurrentlyLoadedAreaPart;
@@ -172,35 +152,35 @@ namespace ExoticTales.NewComponents
 
             if (flag0)     // If the area is null, it's neither bright light nor dim light, so it is not daylight.
             {
-                checkShadow = false;
+                checkLight = false;
                 goto end_of_environment_light;
             }
             if (flag2)    // If the scene is lit by a single light I assume it is bright enough to see in the whole area (generally seems to be used in areas that are brightly lit).
                           // note that by design, I have decided to supersede any further check because -for example- an environmental light
             {
 
-                if (exactingCheck == false)     // If exactingCheck is disabled, single light environment counts as NOT dim light.
+                if (exactingCheck == false)     // If exactingCheck is disabled, single light environment counts as bright light.
                 {
 
-                    checkShadow = false;
+                    checkLight = true;
                     goto end_of_environment_light;
 
                 }
                 else
                 {
-                    if (flag5 && (!flag3))              // If exactingCheck is enabled, single light environment and perceived morning or day Time of Day indoors counts as NOT dim light.
+                    if (flag5 && (!flag3))              // If exactingCheck is enabled, single light environment and perceived morning or day Time of Day indoors counts as bright light.
                     {
-                        checkShadow = false;
+                        checkLight = true;
                         goto end_of_environment_light;
                     }
-                    if (flag4 && (flag3))              // If exactingCheck is enabled, single light environment and real morning or day Time of Day outdoors counts as NOT dim light.
+                    if (flag4 && (flag3))              // If exactingCheck is enabled, single light environment and real morning or day Time of Day outdoors counts as bright light.
                     {
-                        checkShadow = false;
+                        checkLight = true;
                         goto end_of_environment_light;
                     }
-                    else                                // If exactingCheck is enabled, single light environment and any other real or perceived Time of Day counts as dim light.
+                    else                                // If exactingCheck is enabled, single light environment and any other real or perceived Time of Day counts as NOT bright light.
                     {
-                        checkShadow = true;
+                        checkLight = false;
                         goto end_of_environment_light;
                     }
 
@@ -213,19 +193,19 @@ namespace ExoticTales.NewComponents
 
                     if (exactingCheck == true)         // If the check is exacting, we can assume that the light of a generally-dimly-lit environment won't be as bright as the daylight of a generally brighter environment (i.e., Abyss and Underground are unlikely to be very lit even in the brightest day) IF it is not a single light scene.
                     {
-                        checkShadow = true;
+                        checkLight = false;
                         goto end_of_environment_light;
                     }
                     else
                     {
-                        if (flag4)                   // If the check is NOT exacting, a morning or day Time of Day outdoors will count as NOT dim light even for a usually dimly-lit environment  IF it is not a single light scene.
+                        if (flag4)                   // If the check is NOT exacting, a morning or day Time of Day outdoors will count as bright lit even for a usually dimly-lit environment  IF it is not a single light scene.
                         {
-                            checkShadow = false;
+                            checkLight = true;
                             goto end_of_environment_light;
                         }
                         else
                         {
-                            checkShadow = true;
+                            checkLight = false;
                             goto end_of_environment_light;
                         }
 
@@ -235,12 +215,12 @@ namespace ExoticTales.NewComponents
                 {
                     if (flag4)
                     {
-                        checkShadow = false;
+                        checkLight = true;
                         goto end_of_environment_light;
                     }
                     else
                     {
-                        checkShadow = true;
+                        checkLight = false;
                         goto end_of_environment_light;
                     }
 
@@ -250,10 +230,10 @@ namespace ExoticTales.NewComponents
             {
                 if (exactingCheck == true)         // If the check is exacting, we can assume that the light of a generally-dimly-lit environment won't be as bright as the daylight of a generally brighter environment (i.e., Abyss and Underground are unlikely to be very lit even in the brightest day)
                 {
-                    if (flag6 || flag7 || flag8)            // This causes to check if the area is generally dim-lit to see if the Perceived TimeOfDay should be considered dim light.
+                    if (flag6 || flag7 || flag8)            // This causes to check if the area is generally dim-lit to see if the Perceived TimeOfDay should be considered truly bright.
                     {
 
-                        checkShadow = true;
+                        checkLight = false;
                         goto end_of_environment_light;
 
 
@@ -263,12 +243,12 @@ namespace ExoticTales.NewComponents
 
                         if (flag5)                          // This is a generally NON dim-lit in morning or day perceived TimeOfDay
                         {
-                            checkShadow = false;
+                            checkLight = true;
                             goto end_of_environment_light;
                         }
                         else
                         {
-                            checkShadow = true;
+                            checkLight = false;
                             goto end_of_environment_light;
                         }
 
@@ -281,12 +261,12 @@ namespace ExoticTales.NewComponents
 
                     if (flag5)                          // If the check is not exacting, the TimeOfDay is the main factor.
                     {
-                        checkShadow = false;
+                        checkLight = true;
                         goto end_of_environment_light;
                     }
                     else
                     {
-                        checkShadow = true;
+                        checkLight = false;
                         goto end_of_environment_light;
                     }
 
@@ -303,12 +283,12 @@ namespace ExoticTales.NewComponents
             {
                 if (currentWeather != InclemencyType.Clear)
                 {
-                    checkShadow = true;
+                    checkLight = false;
                 }
             }
 
 
-            if (checkCaster)                                                // If the caster has this buff, the environmental light is overridden and the target is in dim light.
+            if (checkCaster)                                                // If the caster has this buff, the environmental light is overridden and the target is in bright light.
             {
                 UnitEntityData caster = base.Context.MaybeCaster;
 
@@ -317,7 +297,7 @@ namespace ExoticTales.NewComponents
                 int trFc = 0;
                 int spFc = 0;
                 int blEf = 0;                           // Here the concept is simple: If the caster has a triggering buff or fact, blEf is increased by +1, if the caster has a suppressing buff or fact, blEf is decreased by -1
-                                                        // A positive total balance means the environmental light is overridden by "dim light", a negative total balance means the environmental light is overridden by "NOT dim light"
+                                                        // A positive total balance means the environmental light is overridden by "bright light", a negative total balance means the environmental light is overridden by "NOT bright light"
                                                         // while a total balance of zero means the environmental light will be used.
 
                 if (triggeringBuffs)
@@ -374,13 +354,13 @@ namespace ExoticTales.NewComponents
 
                 if (blEf > 0)
                 {
-                    checkShadow = true;
+                    checkLight = true;
                     goto end_of_caster_check;
 
                 }
                 else if (blEf < 0)
                 {
-                    checkShadow = false;
+                    checkLight = false;
                     goto end_of_caster_check;
 
                 }
@@ -396,48 +376,55 @@ namespace ExoticTales.NewComponents
         end_of_caster_check:
 
 
-            if (checkShadow)
+            if (checkLight)
             {
-                this.ActivateBuff();
+                this.OnActivate();
                 return;
             }
-            this.DeactivateBuff();
+            this.OnDeactivate();
         }
 
 
 
-        public void ActivateBuff()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
+        public override void OnActivate()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
         {
 
-            BlueprintBuff blueprintBuff = this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
             UnitEntityData unit = base.Owner;
 
-            Buff AppliedBuff = this.FindAppliedBuff(unit, blueprintBuff);
+            base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, this.Context, null);
+            base.Data.EffectBuff.IsNotDispelable = true;
+            base.Data.EffectBuff.IsFromSpell = false;
 
-
-            if (AppliedBuff != null)
-            {
-                return;
-            }
-            AppliedBuff = base.Owner.AddBuff(blueprintBuff, this.Context, null);
-            if (AppliedBuff == null)
-            {
-                return;
-            }
-            AppliedBuff.IsNotDispelable = true;
-            AppliedBuff.IsFromSpell = false;
-            this.m_AppliedBuff = AppliedBuff;
         }
 
-        public void DeactivateBuff()
+        public override void OnDeactivate()
         {
-            Buff AppliedBuff = this.m_AppliedBuff;
+            Buff effectBuff = base.Data.EffectBuff;
 
-            if (AppliedBuff != null)
+            if (effectBuff != null)
             {
-                AppliedBuff.Remove();
-                this.m_AppliedBuff = null;
+                effectBuff.Remove();
             }
+            base.Data.EffectBuff = null;
+        }
+
+        public void HandleUnitLifeStateChanged(UnitEntityData unit, UnitLifeState prevLifeState)
+        {
+            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && base.Data.EffectBuff == null)
+            {
+                base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, base.Fact.MaybeContext, null);
+            }
+            if (unit == base.Owner && prevLifeState != UnitLifeState.Dead && prevLifeState != UnitLifeState.Unconscious && prevLifeState == UnitLifeState.Conscious)
+            {
+                Buff appliedBuff = base.Data.EffectBuff;
+                if (appliedBuff != null)
+                {
+                    appliedBuff.Remove();
+                }
+                base.Data.EffectBuff = null;
+            }
+
+
         }
 
         public void HandleBuffDidAdded(Buff buff)    // This checks if a buff added is a triggering or suppressing buff.
