@@ -203,7 +203,6 @@
     <Compile Include="NewComponents\DiurnalAuraFeatureComponentData.cs" />
     <Compile Include="NewComponents\ForceFlatFooted.cs" />
     <Compile Include="NewComponents\NocturnalAuraFeatureComponent.cs" />
-    <Compile Include="NewComponents\NocturnalAuraFeatureComponentData.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\AzataZippyMagicComponent.cs" />
     <Compile Include="NewComponents\BlockSpellDuplicationComponent.cs" />
     <Compile Include="NewComponents\BuffDescriptorImmunityAgainstAlignment.cs" />

@@ -242,7 +242,7 @@ namespace ExoticTales.NewContent.Features
                 bp.Ranks = 1;
                 bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
 
-                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+                    c.m_EffectBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
                     c.exactingCheck = false;
                     c.weatherCheck = false;
                     c.checkCaster = false;

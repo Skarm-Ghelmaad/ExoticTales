@@ -42,13 +42,26 @@ namespace ExoticTales.NewComponents
     [AllowedOn(typeof(BlueprintUnitFact), false)]
     [AllowMultipleComponents]
     [TypeId("9EE16232654D4421AA04082DAE6151E4")]
-    class NocturnalAuraFeatureComponent : UnitFactComponentDelegate<NocturnalAuraFeatureComponentData>, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
+    class NocturnalAuraFeatureComponent : UnitFactComponentDelegate, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
     {
-        public BlueprintBuff Buff            // This is the effect buff.
+        public Buff FindAppliedBuff(UnitEntityData unit, BlueprintBuff checkedbpBuff)
+        {
+            foreach (Buff buff in unit.Buffs.RawFacts)
+            {
+                if (buff.Blueprint == checkedbpBuff)
+                {
+                    return buff;
+                }
+            }
+            return null;
+        }
+
+
+        public BlueprintBuff EffectBuff
         {
             get
             {
-                BlueprintBuffReference buff = this.m_Buff;
+                BlueprintBuffReference buff = this.m_EffectBuff;
                 if (buff == null)
                 {
                     return null;
@@ -389,37 +402,55 @@ namespace ExoticTales.NewComponents
         public override void OnActivate()                      // This activates the desired EffectBuff (i.e., dazzled for Light Sensitivity).
         {
 
+            BlueprintBuff blueprintBuff = this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
             UnitEntityData unit = base.Owner;
 
-            base.Data.AppliedBuff = base.Owner.AddBuff(this.Buff, this.Context, null);
+            Buff AppliedBuff = this.FindAppliedBuff(unit, blueprintBuff);
+
+
+            if (AppliedBuff != null)
+            {
+                return;
+            }
+            AppliedBuff = base.Owner.AddBuff(blueprintBuff, this.Context, null);
+            if (AppliedBuff == null)
+            {
+                return;
+            }
+            AppliedBuff.IsNotDispelable = true;
+            AppliedBuff.IsFromSpell = false;
+            this.m_AppliedBuff = AppliedBuff;
 
         }
 
         public override void OnDeactivate()
         {
-            Buff appliedBuff = base.Data.AppliedBuff;
+            Buff AppliedBuff = this.m_AppliedBuff;
 
-            if (appliedBuff != null)
+            if (AppliedBuff != null)
             {
-                appliedBuff.Remove();
+                AppliedBuff.Remove();
+                this.m_AppliedBuff = null;
             }
-            base.Data.AppliedBuff = null;
         }
 
         public void HandleUnitLifeStateChanged(UnitEntityData unit, UnitLifeState prevLifeState)
         {
-            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && base.Data.AppliedBuff == null)
+
+            BlueprintBuff blueprintBuff = this.EffectBuff;        // Since the if statement wasn't taken, I had to resort to force HasConcealment to retun "false" if EnhancedConcealment is false.
+
+
+            Buff AppliedBuff = this.FindAppliedBuff(unit, blueprintBuff);
+
+
+            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && this.m_AppliedBuff == null)
             {
-                base.Data.AppliedBuff = base.Owner.AddBuff(this.Buff, base.Fact.MaybeContext, null);
+
+                this.Check();
             }
             if (unit == base.Owner && prevLifeState != UnitLifeState.Dead && prevLifeState != UnitLifeState.Unconscious && prevLifeState == UnitLifeState.Conscious)
             {
-                Buff appliedBuff = base.Data.AppliedBuff;
-                if (appliedBuff != null)
-                {
-                    appliedBuff.Remove();
-                }
-                base.Data.AppliedBuff = null;
+                this.OnDeactivate();
             }
 
 
@@ -570,7 +601,7 @@ namespace ExoticTales.NewComponents
 
 
 
-        public BlueprintBuffReference m_Buff;
+        public BlueprintBuffReference m_EffectBuff;
 
         public bool exactingCheck = false;          /* This is to allow for some nuancing in what constitutes "bright light" for the specific check, because, for example, in general, an area that is lit by a single light
                                               in the game is unlikely to have many shadows, but, for examples, Kenabres Square is outdoors and in daylght while Defender's Heart is
@@ -610,6 +641,9 @@ namespace ExoticTales.NewComponents
         [SerializeField]
 
         public BlueprintUnitFactReference[] m_SuppressingFacts;
+
+        [JsonProperty]
+        private Buff m_AppliedBuff;
 
 
     }
