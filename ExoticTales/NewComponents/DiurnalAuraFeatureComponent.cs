@@ -44,11 +44,11 @@ namespace ExoticTales.NewComponents
     [TypeId("354BCFE610D8492F88ABABF3BE6F3D2C")]
     class DiurnalAuraFeatureComponent : UnitFactComponentDelegate<DiurnalAuraFeatureComponentData>, IWeatherChangeHandler, IGlobalSubscriber, ISubscriber, IAreaLoadingStagesHandler, IUnitBuffHandler, IUnitGainFactHandler, IUnitLostFactHandler, IUnitLifeStateChanged
     {
-        public BlueprintBuff EffectBuff
+        public BlueprintBuff Buff       // This is the effect buff.
         {
             get
             {
-                BlueprintBuffReference buff = this.m_EffectBuff;
+                BlueprintBuffReference buff = this.m_Buff;
                 if (buff == null)
                 {
                     return null;
@@ -391,37 +391,36 @@ namespace ExoticTales.NewComponents
 
             UnitEntityData unit = base.Owner;
 
-            base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, this.Context, null);
-            base.Data.EffectBuff.IsNotDispelable = true;
-            base.Data.EffectBuff.IsFromSpell = false;
+
+            base.Data.AppliedBuff = base.Owner.AddBuff(this.Buff, this.Context, null);
 
         }
 
         public override void OnDeactivate()
         {
-            Buff effectBuff = base.Data.EffectBuff;
+            Buff appliedBuff = base.Data.AppliedBuff;
 
-            if (effectBuff != null)
+            if (appliedBuff != null)
             {
-                effectBuff.Remove();
+                appliedBuff.Remove();
             }
-            base.Data.EffectBuff = null;
+            base.Data.AppliedBuff = null;
         }
 
         public void HandleUnitLifeStateChanged(UnitEntityData unit, UnitLifeState prevLifeState)
         {
-            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && base.Data.EffectBuff == null)
+            if (unit == base.Owner && (prevLifeState == UnitLifeState.Dead || prevLifeState == UnitLifeState.Unconscious) && prevLifeState != UnitLifeState.Conscious && base.Data.AppliedBuff == null)
             {
-                base.Data.EffectBuff = base.Owner.AddBuff(this.EffectBuff, base.Fact.MaybeContext, null);
+                base.Data.AppliedBuff = base.Owner.AddBuff(this.Buff, base.Fact.MaybeContext, null);
             }
             if (unit == base.Owner && prevLifeState != UnitLifeState.Dead && prevLifeState != UnitLifeState.Unconscious && prevLifeState == UnitLifeState.Conscious)
             {
-                Buff appliedBuff = base.Data.EffectBuff;
+                Buff appliedBuff = base.Data.AppliedBuff;
                 if (appliedBuff != null)
                 {
                     appliedBuff.Remove();
                 }
-                base.Data.EffectBuff = null;
+                base.Data.AppliedBuff = null;
             }
 
 
@@ -572,7 +571,7 @@ namespace ExoticTales.NewComponents
 
 
 
-        public BlueprintBuffReference m_EffectBuff;
+        public BlueprintBuffReference m_Buff;               // This is the effect buff.
 
         public bool exactingCheck = false;          /* This is to allow for some nuancing in what constitutes "bright light" for the specific check, because, for example, in general, an area that is lit by a single light
                                               in the game is unlikely to have many shadows, but, for examples, Kenabres Square is outdoors and in daylght while Defender's Heart is

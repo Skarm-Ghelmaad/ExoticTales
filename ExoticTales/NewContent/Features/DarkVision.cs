@@ -105,7 +105,7 @@ namespace ExoticTales.NewContent.Features
                 bp.SetDescription("You are merely a vague shadowy silhouette in shades of gray when seen by a creature with darkvision.");
                 bp.m_Icon = iconDAEB;
                 bp.IsClassFeature = true;
-                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
+                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath| BlueprintBuff.Flags.HiddenInUi);
                 bp.FxOnStart = ExH.createPrefabLink("ea8ddc3e798aa25458e2c8a15e484c68"); //Arcanist Exploit Shadow Veil Starting Fx
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
                 bp.AddComponent<SpellDescriptorComponent>(c => {
@@ -118,7 +118,7 @@ namespace ExoticTales.NewContent.Features
                 bp.SetDescription("Darkvision causes the world to be seen in shades of gray.");
                 bp.m_Icon = iconDAESB;
                 bp.IsClassFeature = true;
-                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath);
+                bp.SetBuffFlags(BlueprintBuff.Flags.StayOnDeath | BlueprintBuff.Flags.HiddenInUi);
                 bp.FxOnStart = ExH.createPrefabLink("3bf15930463caa643b2706cd1d185f25"); //I am adding the AreshkagalDialogFx to create an "eerie shadow world" effect.
                 bp.FxOnRemove = ExH.createPrefabLink(""); //Create an empty prefab link.
                 bp.AddComponent<SpellDescriptorComponent>(c => {
@@ -159,9 +159,11 @@ namespace ExoticTales.NewContent.Features
 
             var DarkvisionPassiveBuff = Helpers.CreateBuff("DarkvisionPassiveBuff", bp => {
 
-                bp.SetName("Darkvision - Passive Effect");
-                bp.SetDescription("This grants you a +5 circumstance bonus to Perception in low-light vision conditions.");
+                bp.SetName("Darkvision in Use");
+                bp.SetDescription("Your sight is adjusted to the current dimly-lit surroundings and you see everything through the gray shades of darkvision." +
+                                   "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.m_Icon = iconDaVAb;
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
                 bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
                     c.Stat = StatType.SkillPerception;
                     c.Descriptor = ModifierDescriptor.Circumstance;
@@ -182,9 +184,9 @@ namespace ExoticTales.NewContent.Features
                                    "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.IsClassFeature = true;
                 bp.m_Icon = iconDaVAb;
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
                 bp.AddComponent<AddAreaEffect>(a => {
                     a.m_AreaEffect = DarkvisionAuraArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
-
                 });
                 bp.AddComponent<AddAreaEffect>(a => {
                     a.m_AreaEffect = DarkvisionAuraSecondaryArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
@@ -242,7 +244,7 @@ namespace ExoticTales.NewContent.Features
                 bp.Ranks = 1;
                 bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
 
-                    c.m_EffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
                     c.exactingCheck = false;
                     c.weatherCheck = false;
                     c.checkCaster = false;
@@ -254,7 +256,7 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
 
-                    c.m_EffectBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
                     c.exactingCheck = false;
                     c.weatherCheck = false;
                     c.checkCaster = false;
@@ -262,6 +264,7 @@ namespace ExoticTales.NewContent.Features
                     c.triggeringFacts = false;
                     c.suppressingBuffs = false;
                     c.suppressingFacts = false;
+
 
                 }));
                 bp.AddComponent<AddFacts>(c => {
@@ -271,6 +274,36 @@ namespace ExoticTales.NewContent.Features
                 });
 
             });
+
+
+            /*
+             *                 bp.AddComponent(Helpers.Create<AddBuffInDimLight>(c => {
+
+                    c.m_EffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = false;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = false;
+                    c.suppressingFacts = false;
+
+                }));
+                bp.AddComponent(Helpers.Create<AddBuffInDimLight>(c => {
+
+                    c.m_EffectBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = false;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = false;
+                    c.suppressingFacts = false;
+
+
+                }));
+             * 
+             * */
 
             /*
 

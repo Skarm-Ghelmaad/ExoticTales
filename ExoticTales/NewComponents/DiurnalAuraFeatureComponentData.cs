@@ -7,6 +7,6 @@ namespace ExoticTales.NewComponents
     class DiurnalAuraFeatureComponentData
     {
         [JsonProperty]
-        public Buff EffectBuff;
+        public Buff AppliedBuff;
     }
 }

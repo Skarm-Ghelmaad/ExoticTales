@@ -7,6 +7,6 @@ namespace ExoticTales.NewComponents
     class NocturnalAuraFeatureComponentData
     {
         [JsonProperty]
-        public Buff EffectBuff;
+        public Buff AppliedBuff;
     }
 }
