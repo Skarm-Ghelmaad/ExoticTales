@@ -54,6 +54,7 @@ using Kingmaker.Blueprints.Validation;
 using Kingmaker.Controllers;
 using Kingmaker.PubSubSystem;
 using Kingmaker.Visual.Particles;
+using Kingmaker.UnitLogic.ActivatableAbilities.Restrictions;
 using Kingmaker.UI.UnitSettings.Blueprints;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.ResourceLinks;
@@ -152,29 +153,7 @@ namespace ExoticTales.NewContent.Features
 
             });
 
-
-
-
-            // This is the passive buff that applies the +5 perception bonus.
-
-            var DarkvisionPassiveBuff = Helpers.CreateBuff("DarkvisionPassiveBuff", bp => {
-
-                bp.SetName("Darkvision - Passive Effect"); //Note: This buff is the primary buff set by the aura component, it is used by NPCs and does not show as description.
-                bp.SetDescription("This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
-                bp.m_Icon = iconDaVAb;
-                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
-                bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
-                    c.Stat = StatType.SkillPerception;
-                    c.Descriptor = ModifierDescriptor.Circumstance;
-                    c.Value = 5;
-                }));
-                bp.AddComponent<SpellDescriptorComponent>(c => {
-                    c.Descriptor = SpellDescriptor.SightBased;
-                });
-            });
-
-
-            // This is the active (aura-attaching) buff that applies the area of effect to the character.
+                        // This is the active (aura-attaching) buff that applies the area of effect to the character.
 
             var Darkvision60ftActiveBuff = Helpers.CreateBlueprint<BlueprintBuff>("Darkvision60ftActiveBuff", bp => {
 
@@ -183,6 +162,7 @@ namespace ExoticTales.NewContent.Features
                                    "\n This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
                 bp.IsClassFeature = true;
                 bp.m_Icon = iconDaVAb;
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
                 bp.AddComponent<AddAreaEffect>(a => {
                     a.m_AreaEffect = DarkvisionAuraArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
                 });
@@ -200,19 +180,47 @@ namespace ExoticTales.NewContent.Features
                 bp.SetDescription("Your sight purposefully disadapted your vision to darkness by looking directly at a light source" +
                    "\n  in anticipation for a brighter lit environment or a sudden flash.");
                 bp.m_Icon = iconDaVSb;
-                bp.AddComponent(Helpers.Create<SuppressBuffs>(c => {
-                    c.m_Buffs = new BlueprintBuffReference[] { DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>(), Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>() };
-                }));
             });
 
-            var DarkVisionSuppressedBuffPassive = Helpers.CreateBuff("DarkVisionSuppressedBuffPassive", bp => {  // This deactivates both the passive bonus to Perception and the graphic fx AND the active deactivator buff (to avoid problems).
-                bp.SetName("Darkvision not in Use");
-                bp.SetDescription("Your sight is adjusted to the current brightly-lit surroundings.");
+
+            var DarkVisionSuppressedBuffNPC = Helpers.CreateBuff("DarkVisionSuppressedBuffNPC", bp => {  // This deactivates the graphic fx AND the active deactivator buff (to avoid problems).
+                bp.SetName("Darkvision is Subjective");
+                bp.SetDescription("Darkvision is restrited to those who have it.");
                 bp.m_Icon = iconDaVSb;
-                bp.AddComponent(Helpers.Create<SuppressBuffs>(c => {
-                    c.m_Buffs = new BlueprintBuffReference[] { DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>(), DarkVisionSuppressedBuffActive.ToReference<BlueprintBuffReference>(), Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>() };
-                }));
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
             });
+
+
+            var DarkVisionEnableToggeableBuff = Helpers.CreateBuff("DarkVisionEnableToggeableBuff", bp => {  // This enables the toggeable ability.
+                bp.SetName("Darkvision - Toggeable Ability Enabled");
+                bp.SetDescription("The toggeable abilty for darkvision is enabled.");
+                bp.m_Icon = iconDaVAb;
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
+            });
+
+            // This is the passive buff that applies the +5 perception bonus.
+
+            var DarkvisionPassiveBuff = Helpers.CreateBuff("DarkvisionPassiveBuff", bp => {
+
+                bp.SetName("Darkvision - Passive Effect"); //Note: This buff is the primary buff set by the aura component, it is used by NPCs and does not show as description.
+                bp.SetDescription("This grants you a +5 circumstance bonus to perception and allows you to see any surrounding creature as shadowy silhouettes.");
+                bp.m_Icon = iconDaVAb;
+                bp.SetBuffFlags(BlueprintBuff.Flags.HiddenInUi);
+                bp.AddComponent(Helpers.Create<AddStatBonus>(c => {
+                    c.Stat = StatType.SkillPerception;
+                    c.Descriptor = ModifierDescriptor.Circumstance;
+                    c.Value = 5;
+                }));
+                bp.AddComponent<SpellDescriptorComponent>(c => {
+                    c.Descriptor = SpellDescriptor.SightBased;
+                });
+                bp.AddComponent(Helpers.Create<AddBuffOnNotPartyMemberSelected>(ab => { ab.m_EffectBuff = DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>(); }));
+
+                });
+
+
+            // ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsSelectedPartyMember(true)), ExH.CreateApplyBuff(DarkVisionSuppressedBuffNPC, null, false, false, false, false, true), null)
+
 
             // This is the activable ability which suppressess Darkvision when clicked.
 
@@ -226,7 +234,15 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent<ActionPanelLogic>(apl => {
                     apl.AutoFillConditions = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsPartyMember());
                 });
-
+                bp.DeactivateIfCombatEnded = false;
+                bp.DeactivateAfterFirstRound = false;
+                bp.DeactivateImmediately = false;
+                bp.IsTargeted = false;
+                bp.DeactivateIfOwnerDisabled = false;
+                bp.DeactivateIfOwnerUnconscious = false;
+                bp.OnlyInCombat = false;
+                bp.ActivationType = AbilityActivationType.Immediately;
+                bp.AddComponent<RestrictionHasFact>( bp => { bp.m_Feature = DarkVisionEnableToggeableBuff.ToReference<BlueprintUnitFactReference>(); });
             });
 
             // These are the various versions of the Darkvision feature, adding Darkvision for different ranges.
@@ -251,12 +267,28 @@ namespace ExoticTales.NewContent.Features
                     c.suppressingBuffs = false;
                     c.suppressingFacts = false;
 
+                }));
+                bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent> (c => {
+                    c.m_EffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = true;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = true;
+                    c.m_SuppressingBuffs = new BlueprintBuffReference[] { DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>(), DarkVisionSuppressedBuffActive.ToReference<BlueprintBuffReference>() };
 
                 }));
-                bp.AddComponent(Helpers.Create<BuffExtraEffects>(c => {
-                    c.m_CheckedBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
-                    c.m_ExtraEffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
-                    c.m_ExceptionFact = null;
+                bp.AddComponent(Helpers.Create<NocturnalAuraFeatureComponent>(c => {
+                    c.m_EffectBuff = DarkVisionEnableToggeableBuff.ToReference<BlueprintBuffReference>();
+                    c.exactingCheck = false;
+                    c.weatherCheck = false;
+                    c.checkCaster = true;
+                    c.triggeringBuffs = false;
+                    c.triggeringFacts = false;
+                    c.suppressingBuffs = true;
+                    c.m_SuppressingBuffs = new BlueprintBuffReference[] { DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>() };
+
                 }));
                 bp.AddComponent<AddFacts>(c => {
                     c.m_Facts = new BlueprintUnitFactReference[] {
@@ -265,84 +297,6 @@ namespace ExoticTales.NewContent.Features
                 });
 
             });
-
-
-            /*
-             *                 bp.AddComponent(Helpers.Create<AddBuffInDimLight>(c => {
-
-                    c.m_EffectBuff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
-                    c.exactingCheck = false;
-                    c.weatherCheck = false;
-                    c.checkCaster = false;
-                    c.triggeringBuffs = false;
-                    c.triggeringFacts = false;
-                    c.suppressingBuffs = false;
-                    c.suppressingFacts = false;
-
-                }));
-                bp.AddComponent(Helpers.Create<AddBuffInDimLight>(c => {
-
-                    c.m_EffectBuff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
-                    c.exactingCheck = false;
-                    c.weatherCheck = false;
-                    c.checkCaster = false;
-                    c.triggeringBuffs = false;
-                    c.triggeringFacts = false;
-                    c.suppressingBuffs = false;
-                    c.suppressingFacts = false;
-
-
-                }));
-             * 
-             * */
-
-            /*
-
-
-               bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
-
-                    c.m_Buff = Darkvision60ftActiveBuff.ToReference<BlueprintBuffReference>();
-
-                }));
-
-              bp.AddComponent(Helpers.Create<AddBuffInBrightLight>(c => {
-
-                    c.m_EffectBuff = DarkVisionSuppressedBuffPassive.ToReference<BlueprintBuffReference>();
-                    c.exactingCheck = false;
-                    c.weatherCheck = false;
-                    c.checkCaster = false;
-                    c.triggeringBuffs = false;
-                    c.triggeringFacts = false;
-                    c.suppressingBuffs = false;
-                    c.suppressingFacts = false;
-
-                }));
-
-               bp.AddComponent(Helpers.Create<AuraFeatureComponent>(c => {
-
-                    c.m_Buff = DarkvisionPassiveBuff.ToReference<BlueprintBuffReference>();
-
-                }));
-
-
-            */
-
-
-            // Old code
-
-            // a.Condition = ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsCaster(not: true));
-
-            /* var DarkvisionAuraArea60ft = Helpers.CreateBlueprint<BlueprintAbilityAreaEffect>("DarkvisionAuraArea60ft", bp => {
-                bp.AggroEnemies = false;
-                bp.Shape = AreaEffectShape.Cylinder;
-                bp.Size = 60.Feet();
-                bp.AddComponent<AbilityAreaEffectBuff>(a =>
-                {
-                    a.m_Buff = ShadeInTheDarkEffect.ToReference<BlueprintBuffReference>();
-                    a.Condition = ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsCaster(not : true));
-                });
-            }); */
-
 
 
             if (ModSettings.AddedContent.NewSystems.IsDisabled("ShadowAndDarkness")) { return; }

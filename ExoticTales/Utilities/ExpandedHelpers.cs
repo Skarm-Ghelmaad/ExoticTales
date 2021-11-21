@@ -267,6 +267,17 @@ namespace ExoticTales.Utilities
 
         //---------------------------------------------|ACTION CREATORS|------------------------------------------------------------
 
+        public static AddFactContextActions CreateAddFactContextActions(GameAction[] onActivate = null, GameAction[] onDeactivate = null, GameAction[] onNewRound = null)
+        {
+            var a = Helpers.Create<AddFactContextActions>();
+            a.Activated = Helpers.CreateActionList(onActivate);
+            a.Deactivated = Helpers.CreateActionList(onDeactivate);
+            a.NewRound = Helpers.CreateActionList(onNewRound);
+            return a;
+        }
+
+
+
         public static ContextActionApplyBuff CreateApplyBuff(this BlueprintBuff buff, ContextDurationValue duration, bool fromSpell, bool dispellable = true, bool toCaster = false, bool asChild = false, bool permanent = false)
         {
             var result = Helpers.Create<ContextActionApplyBuff>();
@@ -325,6 +336,43 @@ namespace ExoticTales.Utilities
 
         // ORIGINAL or ADAPTED CODE
 
+        //---------------------------------------------|COMPONENT CREATORS|----------------------------------------------------------------
+
+        
+
+        public static AddFactContextActions AddTrueConditionalBuff(Condition condition, BlueprintBuff buff, ContextDurationValue duration, bool fromSpell, bool dispellable = true, bool toCaster = false, bool asChild = false, bool permanent = false,  bool constantCheck = false)   // This was inspired by Vek's AddConditionalBuff, which -unfortunately- was not as "conditional" as I wanted.
+         {
+            var a = Helpers.Create<AddFactContextActions>();
+            a.Activated = Helpers.CreateActionList(CreateConditional(condition, CreateApplyBuff(buff, duration, fromSpell, dispellable, toCaster, asChild, permanent), null));
+            a.Deactivated = Helpers.CreateActionList(createContextActionRemoveBuff(buff));
+            if (constantCheck)
+            {
+                a.NewRound = Helpers.CreateActionList(CreateConditional(condition, CreateApplyBuff(buff, duration, fromSpell, dispellable, toCaster, asChild, permanent), createContextActionRemoveBuff(buff)));   // Constant check checks each round if the condition applies. If does applies the buff, else removes it.
+            }
+            else
+            {
+                a.NewRound = Helpers.CreateActionList(null);
+            }
+            return a;
+        }
+
+        public static AddFactContextActions AddTrueConditionalBuff(ConditionsChecker conditions, BlueprintBuff buff, ContextDurationValue duration, bool fromSpell, bool dispellable = true, bool toCaster = false, bool asChild = false, bool permanent = false, bool constantCheck = false)   // This was inspired by Vek's AddConditionalBuff, which -unfortunately- was not as "conditional" as I wanted.
+        {
+            var a = Helpers.Create<AddFactContextActions>();
+            a.Activated = Helpers.CreateActionList(CreateConditional(conditions, CreateApplyBuff(buff, duration, fromSpell, dispellable, toCaster, asChild, permanent), null));
+            a.Deactivated = Helpers.CreateActionList(createContextActionRemoveBuff(buff));
+            if (constantCheck)
+            {
+                a.NewRound = Helpers.CreateActionList(CreateConditional(conditions, CreateApplyBuff(buff, duration, fromSpell, dispellable, toCaster, asChild, permanent), createContextActionRemoveBuff(buff)));
+            }
+            else
+            {
+                a.NewRound = Helpers.CreateActionList(null);
+            }
+            return a;
+        }
+
+
         //---------------------------------------------|CONTEXT CONDITION CREATORS|--------------------------------------------------------
 
 
@@ -362,6 +410,15 @@ namespace ExoticTales.Utilities
             c.Not = not;
             return c;
         }
+
+        static public ContextConditionIsSelectedPartyMember createContextConditionIsSelectedPartyMember(bool not = false)
+        {
+            var c = Helpers.Create<ContextConditionIsSelectedPartyMember>();
+            c.Not = not;
+            return c;
+        }
+
+
 
         //---------------------------------------------|CONDITIONAL CREATORS|--------------------------------------------------------
 

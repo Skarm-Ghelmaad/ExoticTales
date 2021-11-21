@@ -181,6 +181,8 @@
     <Compile Include="NewComponents\AddAdditionalRacialFeatures.cs" />
     <Compile Include="NewComponents\AddBuffInBrightLight.cs" />
     <Compile Include="NewComponents\AddBuffInDimLight.cs" />
+    <Compile Include="NewComponents\AddBuffOnNotPartyMemberSelected.cs" />
+    <Compile Include="NewComponents\AddBuffOnPartyMemberSelected.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
@@ -197,6 +199,7 @@
     <Compile Include="NewComponents\ContextConditionCasterIsInFogOfWar.cs" />
     <Compile Include="NewComponents\ContextConditionIsInBrightLight.cs" />
     <Compile Include="NewComponents\ContextConditionIsInDimLight.cs" />
+    <Compile Include="NewComponents\ContextConditionIsSelectedPartyMember.cs" />
     <Compile Include="NewComponents\ContextConditionStatUpToValue.cs" />
     <Compile Include="NewComponents\ContextConditionStatValueWithinRange.cs" />
     <Compile Include="NewComponents\DiurnalAuraFeatureComponent.cs" />
