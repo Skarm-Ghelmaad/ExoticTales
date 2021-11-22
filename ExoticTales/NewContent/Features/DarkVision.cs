@@ -1,66 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kingmaker.Blueprints;
-using Kingmaker.UnitLogic.Buffs;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.Buffs.Components;
-using Kingmaker.UnitLogic.Mechanics.Actions;
-using Kingmaker.UnitLogic.Parts;
 using Kingmaker.Blueprints.Classes.Spells;
-using Kingmaker.Craft;
-using Kingmaker.ElementsSystem;
-using static Kingmaker.ElementsSystem.Condition;
-using Kingmaker.EntitySystem;
 using Kingmaker.EntitySystem.Stats;
 using Kingmaker.Enums;
-using Kingmaker.RuleSystem;
-using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.Abilities;
 using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components.AreaEffects;
-using Kingmaker.UnitLogic.Abilities.Components.TargetCheckers;
-using Kingmaker.UnitLogic.Abilities.Components.CasterCheckers;
-using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.FactLogic;
-using Kingmaker.UnitLogic.Mechanics.Conditions;
-using Kingmaker.UnitLogic.Mechanics;
-using Kingmaker.UnitLogic.Mechanics.Components;
 using Kingmaker.Utility;
 using ExoticTales.Config;
 using ExoticTales.Extensions;
 using ExoticTales.Utilities;
 using HarmonyLib;
 using Kingmaker.Blueprints.Classes;
-using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.EntitySystem.Entities;
-using Kingmaker.Blueprints.Facts;
-using UnityEngine;
-using UnityEngine.Serialization;
-using Kingmaker.Blueprints.Classes.Prerequisites;
-using Kingmaker.Blueprints.Classes.Selection;
-using Kingmaker.Designers.EventConditionActionSystem.Actions;
-using Kingmaker.Designers.Mechanics.Buffs;
-using Kingmaker.Designers.Mechanics.Facts;
-using Kingmaker.RuleSystem.Rules.Damage;
-using Kingmaker.UnitLogic.Abilities.Components.Base;
-using Kingmaker.UnitLogic.Commands.Base;
-using Kingmaker.Visual.Animation.Kingmaker.Actions;
-using ExoticTales.NewComponents.OwlcatReplacements;
-using Kingmaker.Blueprints.Area;
-using Kingmaker.Blueprints.Validation;
-using Kingmaker.Controllers;
-using Kingmaker.PubSubSystem;
-using Kingmaker.Visual.Particles;
 using Kingmaker.UnitLogic.ActivatableAbilities.Restrictions;
 using Kingmaker.UI.UnitSettings.Blueprints;
 using Kingmaker.UnitLogic.ActivatableAbilities;
 using Kingmaker.ResourceLinks;
 using ExoticTales.NewComponents;
 using ExoticTales.NewComponents.AreaEffects;
-using static ExoticTales.NewUnitParts.CustomStatTypes;
 using HlP = ExoticTales.Utilities.Helpers;
 using ExH = ExoticTales.Utilities.ExpandedHelpers;
 
@@ -214,9 +173,10 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent<SpellDescriptorComponent>(c => {
                     c.Descriptor = SpellDescriptor.SightBased;
                 });
-                bp.AddComponent(Helpers.Create<AddBuffOnNotPartyMemberSelected>(ab => { ab.m_EffectBuff = DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>(); }));
+                bp.AddComponent(Helpers.Create<AddBuffOnPartyMemberNotSelected>(ab => { ab.m_EffectBuff = DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>(); }));
+                bp.AddComponent(Helpers.Create<AddBuffOnNonPlayerCharacter>(ab => { ab.m_EffectBuff = DarkVisionSuppressedBuffNPC.ToReference<BlueprintBuffReference>(); }));
 
-                });
+            });
 
 
             // ExH.CreateConditionsCheckerOr(ExH.createContextConditionIsSelectedPartyMember(true)), ExH.CreateApplyBuff(DarkVisionSuppressedBuffNPC, null, false, false, false, false, true), null)

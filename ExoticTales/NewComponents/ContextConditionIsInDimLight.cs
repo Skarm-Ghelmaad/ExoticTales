@@ -1,37 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kingmaker;
 using Kingmaker.Blueprints;
-using Kingmaker.Blueprints.Classes;
 using Kingmaker.Blueprints.Facts;
-using Kingmaker.Blueprints.JsonSystem;
-using Kingmaker.PubSubSystem;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Owlcat.Runtime.Visual.Effects.WeatherSystem;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.Parts;
 using Kingmaker.Utility;
 using Kingmaker.AreaLogic;
 using Kingmaker.Blueprints.Area;
 using Kingmaker.Dungeon.Blueprints;
-using Kingmaker.UnitLogic.Buffs;
-using Kingmaker.UnitLogic.Mechanics;
-using Kingmaker.Visual.WeatherSystem;
-using Newtonsoft.Json;
 using ExoticTales.Utilities;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
-using Kingmaker.Controllers;
-using JetBrains.Annotations;
-using Kingmaker.Blueprints.Validation;
-using Kingmaker.Settings;
-using Owlcat.Runtime.Core.Utils;
+
 
 
 namespace ExoticTales.NewComponents

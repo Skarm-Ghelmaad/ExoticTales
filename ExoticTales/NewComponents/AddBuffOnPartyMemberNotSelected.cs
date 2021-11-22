@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Kingmaker;
 using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Classes;
@@ -10,33 +6,23 @@ using Kingmaker.Blueprints.Facts;
 using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.PubSubSystem;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
-using Owlcat.Runtime.Visual.Effects.WeatherSystem;
-using UnityEngine;
-using UnityEngine.Serialization;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.UnitLogic;
-using Kingmaker.UnitLogic.Parts;
-using Kingmaker.Utility;
-using Kingmaker.AreaLogic;
-using Kingmaker.Blueprints.Area;
-using Kingmaker.Dungeon.Blueprints;
 using Kingmaker.UnitLogic.Buffs;
-using Kingmaker.UnitLogic.Mechanics;
-using Kingmaker.Visual.WeatherSystem;
 using Newtonsoft.Json;
 using ExoticTales.Utilities;
-using Kingmaker.Enums;
-using Kingmaker.UnitLogic.Mechanics.Conditions;
-using Kingmaker.Controllers;
-using JetBrains.Annotations;
-using Kingmaker.Blueprints.Validation;
-using Kingmaker.Settings;
-using Owlcat.Runtime.Core.Utils;
-using Kingmaker.EntitySystem;
 
 namespace ExoticTales.NewComponents
 {
-    class AddBuffOnNotPartyMemberSelected : UnitFactComponentDelegate, IGlobalSubscriber, ISubscriber, ISelectionHandler   
+
+    [AllowedOn(typeof(BlueprintUnit), false)]
+    [AllowedOn(typeof(BlueprintUnitFact), false)]
+    [AllowedOn(typeof(BlueprintBuff), false)]
+    [AllowedOn(typeof(BlueprintFeature), false)]
+    [TypeId("A04E5919C55E49C3AE8C9552AB715FF3")]
+
+
+    class AddBuffOnPartyMemberNotSelected : UnitFactComponentDelegate, IGlobalSubscriber, ISubscriber, ISelectionHandler   
     {
         // Note: This is a special component that applies the buff if the character is a NPC or a non-selected party member.
 
@@ -66,15 +52,20 @@ namespace ExoticTales.NewComponents
             }
         }
 
-        public void OnAreaActivated()
-        {
-            UnitEntityData selected = this.m_LastSelectedUnit;
-            this.Check(selected);
-        }
-
         public override void OnTurnOn()
         {
-            UnitEntityData selected = this.m_LastSelectedUnit;
+            UnitEntityData selected = null;
+
+            if (this.m_LastSelectedUnit == null)
+            {
+                selected = Game.Instance.SelectionCharacter.CurrentSelectedCharacter;
+                this.m_LastSelectedUnit = selected;
+            }
+            else
+            {
+                selected = this.m_LastSelectedUnit;
+            }
+
             this.Check(selected);
         }
 
@@ -93,7 +84,6 @@ namespace ExoticTales.NewComponents
 
         public void OnUnitSelectionRemove(UnitEntityData selected)
         {
-            this.Check(null);
         }
 
 
@@ -102,10 +92,10 @@ namespace ExoticTales.NewComponents
             UnitEntityData caster = base.Context.MaybeCaster;
 
             bool flag1 = selected == null;
-            bool flag2 = caster.IsPlayerFaction;
-            bool flag3 = caster != selected;
+            bool flag2 = selected != caster;
+            bool flag3 = caster.IsPlayerFaction;
 
-            if (flag1 || (flag2 && !flag3) || !flag2)
+            if (flag1 || (flag2 && flag3) )
             {
                 this.ActivateBuff();
                 return;
