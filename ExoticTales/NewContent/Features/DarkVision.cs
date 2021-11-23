@@ -106,13 +106,13 @@ namespace ExoticTales.NewContent.Features
                 bp.AggroEnemies = false;
                 bp.AffectDead = true;
                 bp.Shape = AreaEffectShape.Cylinder;
-                bp.Size = new Feet() { m_Value = 13 };  // Seems that the buff has a radius of about 67 feet, so I gave this aura only to those within 2 squares of the character.
+                bp.Size = new Feet() { m_Value = 8 }; // I have set it to 8 feet because it is just meant to target the caster.
                 bp.Fx = new PrefabLink();
-                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(null); }));
-
+                bp.AddComponent(Helpers.Create<AbilityAreaEffectBuff>(a => { a.m_Buff = DarkvisionAuraSecondaryEffectBuff.ToReference<BlueprintBuffReference>(); a.Condition = ExH.CreateConditionsCheckerAnd(ExH.createContextConditionIsCaster()); }));
             });
 
-                        // This is the active (aura-attaching) buff that applies the area of effect to the character.
+
+            // This is the active (aura-attaching) buff that applies the area of effect to the character.
 
             var Darkvision60ftActiveBuff = Helpers.CreateBlueprint<BlueprintBuff>("Darkvision60ftActiveBuff", bp => {
 
@@ -127,7 +127,6 @@ namespace ExoticTales.NewContent.Features
                 });
                 bp.AddComponent<AddAreaEffect>(a => {
                     a.m_AreaEffect = DarkvisionAuraSecondaryArea60ft.ToReference<BlueprintAbilityAreaEffectReference>();
-
                 });
             });
 
