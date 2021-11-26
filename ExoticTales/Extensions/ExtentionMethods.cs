@@ -179,6 +179,15 @@ namespace ExoticTales.Extensions
             SetFeatures(selection, features.ToArray());
         }
 
+        public static void AddArchetype(this BlueprintProgression progression, BlueprintArchetype archetype)
+        {
+            progression.m_Archetypes = progression.m_Archetypes.AppendToArray(
+                new BlueprintProgression.ArchetypeWithLevel()
+                {
+                    m_Archetype = archetype.ToReference<BlueprintArchetypeReference>(),
+                });
+        }
+
         public static void SetFeatures(this BlueprintFeatureSelection selection, params BlueprintFeature[] features)
         {
             selection.m_AllFeatures = selection.m_Features = features.Select(bp => bp.ToReference<BlueprintFeatureReference>()).ToArray();

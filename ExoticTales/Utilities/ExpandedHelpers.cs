@@ -72,6 +72,7 @@ using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.EntitySystem.Entities;
 
 
+
 namespace ExoticTales.Utilities
 {
     public static class ExpandedHelpers
@@ -372,6 +373,23 @@ namespace ExoticTales.Utilities
             return a;
         }
 
+        public static ContextIncreaseResourceAmount CreateContextIncreaseResourcebyVariableAmount(BlueprintAbilityResource resource, bool subtract = false, ContextValueType valuetype = ContextValueType.Rank, AbilityRankType valuerank = AbilityRankType.StatBonus)    // This creates the component to increase the resource amount.
+        {
+            var c = Helpers.Create<ContextIncreaseResourceAmount>();
+            c.m_Resource = resource.ToReference<BlueprintAbilityResourceReference>();
+            c.Subtract = subtract;
+            c.Value = new ContextValue()
+            {
+                ValueType = valuetype,
+                ValueRank = valuerank
+            };
+            return c;
+        }
+
+
+
+
+
 
         //---------------------------------------------|CONTEXT CONDITION CREATORS|--------------------------------------------------------
 
@@ -446,7 +464,7 @@ namespace ExoticTales.Utilities
 
 
 
-
+        //---------------------------------------------|SPECIALIZED CREATORS|----------------------------------------------------------------
 
 
 

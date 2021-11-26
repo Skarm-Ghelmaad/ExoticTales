@@ -12,6 +12,7 @@ using Kingmaker.UnitLogic.Abilities.Blueprints;
 using Kingmaker.UnitLogic.Abilities.Components;
 using Kingmaker.UnitLogic.Abilities.Components.Base;
 using Kingmaker.UnitLogic.Buffs.Blueprints;
+using Kingmaker.UnitLogic.Buffs.Components;
 using Kingmaker.UnitLogic.Commands.Base;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
@@ -282,6 +283,9 @@ namespace ExoticTales.NewContent.Templates
                         ValueShared = AbilitySharedValue.DamageBonus
                     };
                 });
+                bp.AddComponent<RemoveBuffIfCasterIsMissing>(c => {
+                    c.RemoveOnCasterDeath = true;
+                });
                 //bp.AddComponent<UniqueBuff>();
             });
             init?.Invoke(smiteBuff);
@@ -298,8 +302,8 @@ namespace ExoticTales.NewContent.Templates
             return Helpers.CreateBlueprint<BlueprintAbility>(name, bp => {
                 bp.m_DisplayName = smiteBuff.m_DisplayName;
                 bp.m_Description = smiteBuff.m_Description;
-                bp.LocalizedDuration = Helpers.CreateString($"{bp.name}.Duration", "Until the target of the smite is dead");
-                bp.LocalizedSavingThrow = Helpers.CreateString($"{bp.name}.SavingThrow", "");
+                bp.LocalizedDuration = Helpers.CreateString($"AlignmentSmite.Duration", "Until the target of the smite is dead");
+                bp.LocalizedSavingThrow = Helpers.CreateString($"AlignmentSmite.SavingThrow", "");
                 bp.m_Icon = SmiteEvilAbility.Icon;
                 bp.Type = AbilityType.Supernatural;
                 bp.Range = AbilityRange.Medium;
@@ -343,14 +347,14 @@ namespace ExoticTales.NewContent.Templates
                         }
                     );
                 });
-                bp.AddComponent(Helpers.CreateContextRankConfig(c => {
+                bp.AddContextRankConfig(c => {
                     c.m_Type = AbilityRankType.StatBonus;
                     c.m_BaseValueType = ContextRankBaseValueType.StatBonus;
                     c.m_Progression = ContextRankProgression.AsIs;
                     c.m_Stat = StatType.Charisma;
                     c.m_Min = 0;
                     c.m_UseMin = true;
-                }));
+                });
                 bp.AddComponent<ContextCalculateSharedValue>(c => {
                     c.ValueType = AbilitySharedValue.StatBonus;
                     c.Value = new ContextDiceValue()
@@ -364,11 +368,11 @@ namespace ExoticTales.NewContent.Templates
                     };
                     c.Modifier = 1;
                 });
-                bp.AddComponent(Helpers.CreateContextRankConfig(c => {
+                bp.AddContextRankConfig(c => {
                     c.m_Type = AbilityRankType.DamageBonus;
                     c.m_BaseValueType = ContextRankBaseValueType.CharacterLevel;
                     c.m_Progression = ContextRankProgression.AsIs;
-                }));
+                });
                 bp.AddComponent<ContextCalculateSharedValue>(c => {
                     c.ValueType = AbilitySharedValue.DamageBonus;
                     c.Value = new ContextDiceValue()

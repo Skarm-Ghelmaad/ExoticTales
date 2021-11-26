@@ -1,5 +1,6 @@
 ﻿using Kingmaker.Blueprints;
 using Kingmaker.Blueprints.Items.Ecnchantments;
+using Kingmaker.Blueprints.JsonSystem;
 using Kingmaker.Designers;
 using Kingmaker.EntitySystem.Entities;
 using Kingmaker.Items;
@@ -13,6 +14,7 @@ using ExoticTales.NewUnitParts;
 
 namespace ExoticTales.NewActions
 {
+    [TypeId("229877cc362b41de85f45b30007aee19")]
     class ContextActionWarriorSpiritEnhance : ContextAction
     {
         private BlueprintItemEnchantmentReference[] m_DefaultEnchantments = new BlueprintItemEnchantmentReference[5];

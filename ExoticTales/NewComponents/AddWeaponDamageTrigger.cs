@@ -61,11 +61,12 @@ namespace ExoticTales.NewComponents
             {
                 return;
             }
-            this.RunAction(evt.Target);
+            this.RunAction(CastOnSelf ? evt.Initiator : evt.Target);
         }
 
         private bool WasTargetAlive;
         public bool TargetKilledByThisDamage;
+        public bool CastOnSelf;
         public ActionList Actions;
     }
 }

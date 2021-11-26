@@ -12,7 +12,7 @@ namespace ExoticTales.NewComponents.Properties
 
         public override int GetBaseValue(UnitEntityData unit)
         {
-            var unitProgression = unit.Progression.GetProgression(Progression);
+            var unitProgression = unit?.Progression.GetProgression(Progression);
             int value = unitProgression?.Level ?? 0;
             return UseMax ? Math.Min(value, Max) : value;
         }

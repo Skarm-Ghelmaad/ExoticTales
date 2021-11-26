@@ -151,15 +151,22 @@
     <Compile Include="Config\NestedSettingGroup.cs" />
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
+    <Compile Include="NewComponents\BindAbilitiesToStackableKiClassAndKiStat.cs" />
+    <Compile Include="NewComponents\IncreaseResourceAmountBasedOnClassOnly.cs" />
+    <Compile Include="NewComponents\IncreaseResourceAmountBasedOnStatOnly.cs" />
+    <Compile Include="NewComponents\IncreaseResourceAmountBasedOnTrueCharacterLevelOnly.cs" />
     <Compile Include="Localization\MultiLocalizationPack.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="MechanicsChanges\ActivatableAbilitySpendLogic.cs" />
+    <Compile Include="NewActions\ContextActionApplyWeaponEnchant.cs" />
     <Compile Include="NewActions\ContextActionDispelMagicCapped.cs" />
+    <Compile Include="NewActions\ContextActionTransferArcana.cs" />
     <Compile Include="NewActions\ContextActionWarriorSpiritEnhance.cs" />
     <Compile Include="NewActions\EnhanceArmor.cs" />
     <Compile Include="NewActions\EnhanceShield.cs" />
     <Compile Include="NewComponents\AbilityEffectToggleBuff.cs" />
     <Compile Include="NewComponents\AbilityRequirementHasBuff.cs" />
+    <Compile Include="NewComponents\AbilityRequirementHasResource.cs" />
     <Compile Include="NewComponents\AbilityRequirementHasWeaponTrainingWithWeapon.cs" />
     <Compile Include="NewComponents\AbilityShowIfCasterCanCastSpells.cs" />
     <Compile Include="NewComponents\AbilityShowIfCasterWeaponTrainingRank.cs" />
@@ -184,6 +191,7 @@
     <Compile Include="NewComponents\AddBuffOnNonPlayerCharacter.cs" />
     <Compile Include="NewComponents\AddBuffOnPartyMemberNotSelected.cs" />
     <Compile Include="NewComponents\AddBuffOnPartyMemberSelected.cs" />
+    <Compile Include="NewComponents\AddContextWeaponDamageBonus.cs" />
     <Compile Include="NewComponents\AddCustomMechanicsFeature.cs" />
     <Compile Include="NewComponents\AddFeatureOnClassLevelExclude.cs" />
     <Compile Include="NewComponents\AdditionalSpellSelection.cs" />
@@ -203,11 +211,12 @@
     <Compile Include="NewComponents\ContextConditionIsSelectedPartyMember.cs" />
     <Compile Include="NewComponents\ContextConditionStatUpToValue.cs" />
     <Compile Include="NewComponents\ContextConditionStatValueWithinRange.cs" />
+    <Compile Include="NewComponents\ContextIncreaseResourceAmount.cs" />
     <Compile Include="NewComponents\DiurnalAuraFeatureComponent.cs" />
-    <Compile Include="NewComponents\DiurnalAuraFeatureComponentData.cs" />
     <Compile Include="NewComponents\ForceFlatFooted.cs" />
+    <Compile Include="NewComponents\KiStatReplaceAbilityDC.cs" />
+    <Compile Include="NewComponents\NewBaseTypes\ItemEntityRestriction.cs" />
     <Compile Include="NewComponents\NocturnalAuraFeatureComponent.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\AzataZippyMagicComponent.cs" />
     <Compile Include="NewComponents\BlockSpellDuplicationComponent.cs" />
     <Compile Include="NewComponents\BuffDescriptorImmunityAgainstAlignment.cs" />
     <Compile Include="NewComponents\BuffExtraEffectsRequirements.cs" />
@@ -229,11 +238,10 @@
     <Compile Include="NewComponents\NegateArmorCheckSkillPenalty.cs" />
     <Compile Include="NewComponents\NestedPseudoActivatableAbilities.cs" />
     <Compile Include="NewComponents\OutcomingAdditionalDamageAndHealingModifier.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\AttackStatReplacementEnforced.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\AzataFavorableMagicComponent.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\ContextRestoreResourcesFixed.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\CoupDeGraceComponent.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\DamageGraceEnforced.cs" />
+    <Compile Include="NewComponents\OwlcatReplacements\AttackStatReplacementTTT.cs" />
+    <Compile Include="NewComponents\OwlcatReplacements\ContextRestoreResourcesTTT.cs" />
+    <Compile Include="NewComponents\OwlcatReplacements\CoupDeGraceTTT.cs" />
+    <Compile Include="NewComponents\OwlcatReplacements\DamageGraceTTT.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTAddDamageResistanceBase.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTAddDamageResistanceEnergy.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTAddDamageResistanceForce.cs" />
@@ -243,8 +251,6 @@
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTResistEnergyContext.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTWizardAbjurationResistance.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\DamageResistance\TTWizardEnergyAbsorption.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\IndomitableMountFixed.cs" />
-    <Compile Include="NewComponents\OwlcatReplacements\MountedCombatFixed.cs" />
     <Compile Include="NewComponents\OwlcatReplacements\SuppressBuffsPersistant.cs" />
     <Compile Include="NewComponents\Prerequisites\PrerequisiteFeaturesFromListFormatted.cs" />
     <Compile Include="NewComponents\Prerequisites\PrerequisiteMythicSpellbook.cs" />
@@ -260,6 +266,7 @@
     <Compile Include="NewComponents\Properties\MadDogPetDRProperty.cs" />
     <Compile Include="NewComponents\Properties\ProgressionRankGetter.cs" />
     <Compile Include="NewComponents\Properties\StalwartDRProperty.cs" />
+    <Compile Include="NewComponents\Properties\StatValueGetter.cs" />
     <Compile Include="NewComponents\PseudoActivatable.cs" />
     <Compile Include="NewComponents\RecalculateOnEquipmentChange.cs" />
     <Compile Include="NewComponents\RecalculateOnLevelUp.cs" />
@@ -277,11 +284,13 @@
     <Compile Include="NewComponents\SurviveDeathWithSave.cs" />
     <Compile Include="NewComponents\UpdateSlotsOnEquipmentChange.cs" />
     <Compile Include="NewComponents\WeaponDamageMultiplierReplacement.cs" />
+    <Compile Include="NewContent\Archetypes\Ninja.cs" />
     <Compile Include="NewContent\BaseAbilities\OneHandedToggleAbility.cs" />
     <Compile Include="NewContent\ContentAdder.cs" />
     <Compile Include="NewContent\Feats\QuickDraw.cs" />
     <Compile Include="NewContent\Features\DarkVision.cs" />
     <Compile Include="NewContent\Features\LowLightVision.cs" />
+    <Compile Include="NewContent\Features\UniversalKi.cs" />
     <Compile Include="NewContent\Races\Dwarf.cs" />
     <Compile Include="NewContent\Races\Elf.cs" />
     <Compile Include="NewContent\Races\Gnome.cs" />
@@ -350,6 +359,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Features\Icon_DarkVisionSuppressedBuff.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\Features\Icon_LifeEnergy.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Features\Icon_LowLightVision.png">

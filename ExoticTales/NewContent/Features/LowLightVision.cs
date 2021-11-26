@@ -75,7 +75,7 @@ namespace ExoticTales.NewContent.Features
             });
 
 
-
+            if (ModSettings.AddedContent.NewSystems.IsDisabled("ShadowAndDarkness")) { return; }
 
         }
 
