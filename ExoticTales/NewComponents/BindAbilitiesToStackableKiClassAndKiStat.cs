@@ -164,9 +164,9 @@ namespace ExoticTales.NewComponents
                 int level = this.GetLevel(evt.Initiator.Descriptor);
                 evt.ReplaceStat = new StatType?(FindKiAttributeStat(evt.Initiator.Descriptor));
                 evt.ReplaceCasterLevel = new int?(this.GetLevelBase(level));
-                evt.ReplaceSpellLevel = new int?(this.Cantrip ? 0 : (level / 2));
+                evt.ReplaceSpellLevel = new int?(this.Cantrip ? 0 : Math.Min((level / 2), 10));            // While this system allows to stack for purpose of Caster Level, I have capped the spell level to 10th to avoid troubles with actual spells.
             }
-
+            
 
         }
 
