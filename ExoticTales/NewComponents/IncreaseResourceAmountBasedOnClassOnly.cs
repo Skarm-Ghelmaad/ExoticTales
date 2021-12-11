@@ -16,7 +16,7 @@ namespace ExoticTales.NewComponents
 {
 
     [TypeId("AE9FD43CB1F64389B49859D1C5C0E24D")]
-    class IncreaseResourceAmountBasedOnClassOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber
+    public class IncreaseResourceAmountBasedOnClassOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber
     {
         [CanBeNull]
         public BlueprintCharacterClass CharacterClass

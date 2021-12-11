@@ -435,8 +435,24 @@ namespace ExoticTales.Utilities
             c.Not = not;
             return c;
         }
+        
 
+        static public ContextConditionHasFacts createContextConditionHasFacts(BlueprintUnitFactReference[] checkedfacts, bool not = false)
+        {
+            var c = Helpers.Create<ContextConditionHasFacts>();
+            c.m_Facts = checkedfacts;
+            c.Not = not;
+            return c;
+        }
 
+        //---------------------------------------------|ACTION CREATORS|-------------------------------------------------------------
+
+        static public ContextActionAddFeature createContextActionAddFeature(BlueprintFeatureReference permanentfeature)
+        {
+            var a = Helpers.Create<ContextActionAddFeature>();
+            a.m_PermanentFeature = permanentfeature;
+            return a;
+        }
 
         //---------------------------------------------|CONDITIONAL CREATORS|--------------------------------------------------------
 

@@ -17,7 +17,7 @@ using Kingmaker.EntitySystem.Stats;
 namespace ExoticTales.NewComponents
 {
     [TypeId("02E80EAE216B49F3B586BC7D3A8CDF8C")]
-    class IncreaseResourceAmountBasedOnStatOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber
+    public class IncreaseResourceAmountBasedOnStatOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber
     {
 
 

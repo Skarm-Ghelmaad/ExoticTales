@@ -10,20 +10,12 @@
         "Base": {
             "DisableAll": false,
             "Settings": {
-                "AddKiPoolBaseAbility": {
-                    "Enabled": true,
-                    "Description": "The ability upon which the Ki Pool is based is listed after the Ki Pool name."
-                }
             }
         },
         "Archetypes": {
             "ScaledFist": {
                 "DisableAll": false,
                 "Settings": {
-                    "KiPoolDescriptionFix": {
-                        "Enabled": true,
-                        "Description": "The Ki Pool description of the Scaled Fist lists Charisma as the ability associated with it."
-                    }
                 }
             }
         }

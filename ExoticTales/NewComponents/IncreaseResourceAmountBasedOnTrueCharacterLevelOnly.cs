@@ -21,7 +21,7 @@ namespace ExoticTales.NewComponents
 
     // Note: This component allows both to calculate a resource based on the gestalt character level and to exclude certain classes from the character level calculation.
     [TypeId("1E82477739534D8C954D27372154D907")]
-    class IncreaseResourceAmountBasedOnTrueCharacterLevelOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber   
+    public class IncreaseResourceAmountBasedOnTrueCharacterLevelOnly : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber   
     {
 
         public int CalculateTrueCharacterLevel()

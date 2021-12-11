@@ -152,6 +152,9 @@
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
     <Compile Include="NewComponents\BindAbilitiesToStackableKiClassAndKiStat.cs" />
+    <Compile Include="NewComponents\ContextConditionHasFacts.cs" />
+    <Compile Include="NewComponents\HasFactsFeaturesUnlock.cs" />
+    <Compile Include="NewComponents\HasFactsFeaturesUnlockData.cs" />
     <Compile Include="NewComponents\IncreaseResourceAmountBasedOnClassOnly.cs" />
     <Compile Include="NewComponents\IncreaseResourceAmountBasedOnStatOnly.cs" />
     <Compile Include="NewComponents\IncreaseResourceAmountBasedOnTrueCharacterLevelOnly.cs" />
