@@ -139,7 +139,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Bugfixes\Classes\Monk.cs" />
     <Compile Include="Config\AddedContent.cs" />
     <Compile Include="Config\Blueprints.cs" />
     <Compile Include="Config\Fixes.cs" />
@@ -151,6 +150,13 @@
     <Compile Include="Config\NestedSettingGroup.cs" />
     <Compile Include="Config\SettingGroup.cs" />
     <Compile Include="Extensions\ExtentionMethods.cs" />
+    <Compile Include="NewComponents\ConditionalAddAbilityResourcesOrContextAmount.cs" />
+    <Compile Include="NewComponents\ConditionalFactsFeaturesUnlock.cs" />
+    <Compile Include="NewComponents\ConditionalFactsFeaturesUnlockData.cs" />
+    <Compile Include="NewComponents\ContextIncreaseAlternateResourceAmountBasedOnTrueCharacterLevelOnly.cs" />
+    <Compile Include="NewComponents\ContextIncreaseAlternatingResourceAmount.cs" />
+    <Compile Include="NewComponents\ReplaceAbilityResource.cs" />
+    <Compile Include="NewComponents\ReplaceAbilityResourceByBulk.cs" />
     <Compile Include="NewComponents\BindAbilitiesToStackableKiClassAndKiStat.cs" />
     <Compile Include="NewComponents\ContextConditionHasFacts.cs" />
     <Compile Include="NewComponents\HasFactsFeaturesUnlock.cs" />
@@ -380,7 +386,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Bugfixes\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" AfterTargets="BeforeClean">
     <PropertyGroup>

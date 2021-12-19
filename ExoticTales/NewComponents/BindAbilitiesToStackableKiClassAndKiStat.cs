@@ -25,7 +25,7 @@ namespace ExoticTales.NewComponents
     [AllowMultipleComponents]
     [ComponentName("Stack classes and Attribute bonuses based on Features for Ability DC")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
-    class BindAbilitiesToStackableKiClassAndKiStat : UnitFactComponentDelegate, IRulebookHandler<RuleDispelMagic>, IRulebookHandler<RuleSpellResistanceCheck>, IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, IInitiatorRulebookHandler<RuleDispelMagic>, IInitiatorRulebookHandler<RuleSpellResistanceCheck>, ISubscriber, IInitiatorRulebookSubscriber
+    public class BindAbilitiesToStackableKiClassAndKiStat : UnitFactComponentDelegate, IRulebookHandler<RuleDispelMagic>, IRulebookHandler<RuleSpellResistanceCheck>, IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, IInitiatorRulebookHandler<RuleDispelMagic>, IInitiatorRulebookHandler<RuleSpellResistanceCheck>, ISubscriber, IInitiatorRulebookSubscriber
     {
 
         public ReferenceArrayProxy<BlueprintAbility, BlueprintAbilityReference> Abilites
@@ -56,13 +56,11 @@ namespace ExoticTales.NewComponents
 
                 UnitDescriptor unit = this.m_EventInitializator;
 
-                var checkedfeature = new BlueprintFeatureReference();
 
                 BlueprintCharacterClassReference[] stackableClasses = new BlueprintCharacterClassReference[0];
 
                 foreach ( var stckcls in m_StackableClasses)
                 {
-                    checkedfeature = stckcls.Key;
 
                     if ((stckcls.Key!= null) && (unit.HasFact(stckcls.Key)))
                     {
@@ -99,13 +97,11 @@ namespace ExoticTales.NewComponents
 
                 UnitDescriptor unit = this.m_EventInitializator;
 
-                var checkedfeature = new BlueprintFeatureReference();
 
                 BlueprintArchetypeReference[] stackableArchetypes = new BlueprintArchetypeReference[0];
 
                 foreach (var stckarc in m_StackableArchetypes)
                 {
-                    checkedfeature = stckarc.Key;
 
                     if ((stckarc.Key != null) && (unit.HasFact(stckarc.Key)))
                     {
@@ -137,13 +133,11 @@ namespace ExoticTales.NewComponents
         public StatType FindKiAttributeStat(UnitDescriptor unit)
         {
 
-            var checkedfeature = new BlueprintFeatureReference();
 
             var resultingstat = this.DefaultBonusStat;
 
             foreach (var kistfea in m_KiStatFeature)
             {
-                checkedfeature = kistfea.Key;
 
                 if ((kistfea.Key != null) && (unit.HasFact(kistfea.Key)))
                 {
@@ -224,6 +218,14 @@ namespace ExoticTales.NewComponents
         public int GetLevelBase(int level)
         {
 
+            if ((int)((float)(level % 2)) == 0)
+            {
+                this.Odd = false;
+            }
+            else
+            {
+                this.Odd = true;
+            }
             return (level - (this.Odd ? 1 : 0)) / (this.Cantrip ? 1 : this.LevelStep);
 
         }
@@ -253,9 +255,9 @@ namespace ExoticTales.NewComponents
 
         private UnitDescriptor m_EventInitializator;
 
-        bool SetMinCasterLevel = false;
+        public bool SetMinCasterLevel = false;
 
-        int m_MinCasterLevel = 1;
+        public int m_MinCasterLevel = 1;
 
         public bool Cantrip;
 

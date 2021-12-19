@@ -65,6 +65,11 @@
                 "Enabled": true,
                 "Homebrew": false,
                 "Description": "Enables the Shadow and Darkness system, which is a strict requirement for darkness-related content. It enabled darkvision, low-light-vision and shadow or darkess-related content."
+            },
+            "UniversalKi": {
+                "Enabled": true,
+                "Homebrew": false,
+                "Description": "Enables Ki as universal source, which works for any ki-using class and allows to specify a chosen Ki Attribute. It is a strict requirement for all ki-related content in this mod."
             }
         },
         "IsExpanded": true

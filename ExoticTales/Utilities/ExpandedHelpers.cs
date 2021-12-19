@@ -386,8 +386,55 @@ namespace ExoticTales.Utilities
             return c;
         }
 
+        public static ReplaceAbilityResource CreateReplaceAbilityResource(BlueprintAbilityResource resourceOriginal, BlueprintAbilityResource resourceAlternate, BlueprintAbilityReference alteredAbility, BlueprintUnitFactReference[] checkedFacts, float convertionRatio = 1.0f )    // This creates the component to replace the resource used by an abilty if a fact is owned.
+        {
+            var c = Helpers.Create<ReplaceAbilityResource>();
+            c.m_Ability = alteredAbility;
+            c.m_CheckedFacts = checkedFacts;
+            c.m_OriginalAbilityResource = resourceOriginal.ToReference<BlueprintAbilityResourceReference>();
+            c.m_AlternateAbilityResource = resourceAlternate.ToReference<BlueprintAbilityResourceReference>();
+            c.m_ConvertionRatio = 1.0f;
+            return c;
+        }
 
+        public static ReplaceAbilityResourceByBulk CreateReplaceAbilityResourceByBulk(BlueprintAbilityResource resourceOriginal, BlueprintAbilityResource resourceAlternate, BlueprintAbilityReference[] alteredAbilities, BlueprintUnitFactReference[] checkedFacts, float convertionRatio = 1.0f)    // This creates the component to replace the resource used by multiple abilities if a fact is owned.
+        {
+            var c = Helpers.Create<ReplaceAbilityResourceByBulk>();
+            c.m_Abilites = alteredAbilities;
+            c.m_CheckedFacts = checkedFacts;
+            c.m_OriginalAbilityResource = resourceOriginal.ToReference<BlueprintAbilityResourceReference>();
+            c.m_AlternateAbilityResource = resourceAlternate.ToReference<BlueprintAbilityResourceReference>();
+            c.m_ConvertionRatio = 1.0f;
+            return c;
+        }
 
+        public static BindAbilitiesToStackableKiClassAndKiStat CreateBindAbilitiesToStackableKiClassAndKiStat(BlueprintAbilityReference[] boundAbilities, BlueprintCharacterClassReference baseClass, Dictionary<BlueprintFeatureReference, BlueprintCharacterClassReference> stackableClasses, Dictionary<BlueprintFeatureReference, BlueprintArchetypeReference> stackableArchetypes, Dictionary<BlueprintFeatureReference, StatType> kiStatFeature, StatType defaultBonusStat, bool isCantrip, bool setMinCasterLevel = false, int minCasterLevel = 1, int levelStep = 1, bool fullCasterChecks = true)    // This add class levels and archetype levels based a checked feature and change ability used based on another checked feature
+        {
+            var c = Helpers.Create<BindAbilitiesToStackableKiClassAndKiStat>();
+            c.m_Abilites = boundAbilities;
+            c.m_CharacterClass = baseClass;
+            c.m_StackableClasses = stackableClasses;
+            c.m_StackableArchetypes = stackableArchetypes;
+            c.m_KiStatFeature = kiStatFeature;
+            c.DefaultBonusStat = defaultBonusStat;
+            c.Cantrip = isCantrip;
+            c.SetMinCasterLevel = setMinCasterLevel;
+            c.m_MinCasterLevel = minCasterLevel;
+            if (!isCantrip)
+            {
+                c.LevelStep = levelStep;
+            }
+            c.FullCasterChecks = fullCasterChecks;
+            return c;
+        }
+
+        public static ConditionalFactsFeaturesUnlock CreateConditionalFactsFeaturesUnlock(Dictionary<BlueprintFeatureReference, BlueprintFeatureReference> conditionalFeatures, bool not = false)    // This unlock specific features if the connected feature is possessed or not possessed.
+        {
+            var c = Helpers.Create<ConditionalFactsFeaturesUnlock>();
+            c.m_ConditionalFeatures = conditionalFeatures;
+            c.Not = not;
+            return c;
+        }
 
 
 

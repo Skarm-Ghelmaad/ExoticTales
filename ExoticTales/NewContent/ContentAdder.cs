@@ -16,6 +16,8 @@ namespace ExoticTales.NewContent {
 
                 Feats.QuickDraw.AddQuickDraw();
                 Features.DarkVision.AddDarkVision();
+                Features.LowLightVision.AddLowLightVision();
+                Features.UniversalKi.AddUniversalKi();
 
             }
         }

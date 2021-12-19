@@ -18,7 +18,6 @@ using Kingmaker.UnitLogic.Buffs.Blueprints;
 using Kingmaker.UnitLogic.FactLogic;
 using Kingmaker.UnitLogic.Mechanics;
 using Kingmaker.UnitLogic.Mechanics.Actions;
-using System.Linq;
 using JetBrains.Annotations;
 using Kingmaker.Armies.TacticalCombat;
 using Kingmaker.Armies.TacticalCombat.Parts;
@@ -32,10 +31,13 @@ using Kingmaker.Utility;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ExoticTales.NewComponents;
+using ExoticTales.Config;
 using ExoticTales.Utilities;
 using ExoticTales.Extensions;
 using HlP = ExoticTales.Utilities.Helpers;
 using ExH = ExoticTales.Utilities.ExpandedHelpers;
+using Kingmaker.Enums;
+
 
 namespace ExoticTales.NewContent.Features
 {
@@ -45,11 +47,16 @@ namespace ExoticTales.NewContent.Features
         public static void AddUniversalKi()
         {
 
+            if (ModSettings.AddedContent.NewSystems.IsDisabled("ShadowAndDarkness")) { return; }
+
             var iconLifeForce = AssetLoader.LoadInternal("Features", "Icon_LifeEnergy.png");
 
             // Define a list of extra classes and extra archetypes that can produce Ki.
 
             BlueprintCharacterClass monk = Resources.GetBlueprint<BlueprintCharacterClass>("e8f21e5b58e0569468e420ebea456124");
+
+            var exclusionKiClasses = new BlueprintCharacterClassReference[0];
+            exclusionKiClasses[0] = monk.ToReference<BlueprintCharacterClassReference>();
 
             // Change KiPowerResource to render it universal [increased the maximum and removed the stat modifier].
 
@@ -93,6 +100,9 @@ namespace ExoticTales.NewContent.Features
                 }));
                 bp.AddComponent(Helpers.Create<IncreaseResourceAmountBasedOnTrueCharacterLevelOnly>(c => {
                     c.m_Resource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                    c.ApplyClassExclusion = true;
+               
+                    c.m_ExcludedClass = exclusionKiClasses;
 
                 }));
 
@@ -383,7 +393,7 @@ namespace ExoticTales.NewContent.Features
 
 
             scaledfistAbudantStep.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -391,7 +401,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistBarkskin.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -399,7 +409,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistColdicestrike.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -407,7 +417,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistBlackbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -415,7 +425,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistBluebreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -423,7 +433,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistBrassbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -431,7 +441,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistBronzebreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -439,7 +449,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistCopperbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -447,7 +457,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistGoldbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -455,7 +465,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistGreenbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -463,7 +473,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistRedbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -471,7 +481,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistSilverbreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -479,7 +489,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistWhitebreathweaponability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -487,7 +497,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistDraconicfuryacidability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -495,7 +505,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistDraconicfurycoldability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -503,7 +513,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistDraconicfuryelectricityability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -511,7 +521,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistDraconicfuryfireability.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -519,7 +529,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistPoisoncast.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -527,7 +537,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistQuiveringpalm.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 4;
                 c.ResourceCostIncreasingFacts = null;
@@ -535,7 +545,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistRestoration.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -543,7 +553,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistScorchingray.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -551,7 +561,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistShout.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 3;
                 c.ResourceCostIncreasingFacts = null;
@@ -559,7 +569,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistSpitvenom.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -567,7 +577,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistTruestrike.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -575,7 +585,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistWholenessofbody.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 2;
                 c.ResourceCostIncreasingFacts = null;
@@ -583,7 +593,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistExtraattack.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -591,7 +601,7 @@ namespace ExoticTales.NewContent.Features
             }));
 
             scaledfistSuddenspeed.ReplaceComponents<AbilityResourceLogic>(Helpers.Create<AbilityResourceLogic>(c => {
-                c.m_RequiredResource = KiPotentialResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_RequiredResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
                 c.m_IsSpendResource = true;
                 c.Amount = 1;
                 c.ResourceCostIncreasingFacts = null;
@@ -689,6 +699,23 @@ namespace ExoticTales.NewContent.Features
                 KiAttributeCharisma.ToReference<BlueprintFeatureReference>()
             };
 
+            BlueprintUnitFactReference[] kiAttributesFacts = {
+                KiAttributeStrength.ToReference<BlueprintUnitFactReference>(),
+                KiAttributeDexterity.ToReference<BlueprintUnitFactReference>(),
+                KiAttributeConstitution.ToReference<BlueprintUnitFactReference>(),
+                KiAttributeIntelligence.ToReference<BlueprintUnitFactReference>(),
+                KiAttributeWisdom.ToReference<BlueprintUnitFactReference>(),
+                KiAttributeCharisma.ToReference<BlueprintUnitFactReference>()
+            };
+
+            var statFeatureLists = new Dictionary<BlueprintFeatureReference, StatType>();
+            statFeatureLists.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), StatType.Strength);
+            statFeatureLists.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), StatType.Dexterity);
+            statFeatureLists.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), StatType.Constitution);
+            statFeatureLists.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), StatType.Intelligence);
+            statFeatureLists.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), StatType.Wisdom);
+            statFeatureLists.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), StatType.Charisma);
+
             var KiAttributeSelection = Helpers.CreateBlueprint<BlueprintFeatureSelection>("KiAttributeSelection", bp =>
             {
                 bp.SetName("Ki Attribute");
@@ -705,6 +732,9 @@ namespace ExoticTales.NewContent.Features
             BlueprintFeature monkWisACbonusunlock = Resources.GetBlueprint<BlueprintFeature>("2615c5f87b3d72b42ac0e73b56d895e0"); // Unlock Wis bonus to AC when unarmored.
             BlueprintFeature monkWisACbonus = Resources.GetBlueprint<BlueprintFeature>("e241bdfd6333b9843a7bfd674d607ac4"); // Unlock Wis bonus to AC (apply buff).
             BlueprintBuff monkWisACbonusbuff = Resources.GetBlueprint<BlueprintBuff>("f132c4c4279e4646a05de26635941bfe"); // Wis bonus to AC buff.
+            BlueprintBuff monkWisstunningfatiguefeature = Resources.GetBlueprint<BlueprintBuff>("819645da2e446f84d9b168ed1676ec29"); // Stunning fist fatigued based on Wisdom.
+            BlueprintBuff monkWisstunningfistsickenedfeature = Resources.GetBlueprint<BlueprintBuff>("d256ab3837538cc489d4b571e3a813eb"); // Stunning fist sickened based on Wisdom.
+
 
             BlueprintFeature monkChaACbonusunlock = Resources.GetBlueprint<BlueprintFeature>("2a8922e28b3eba54fa7a244f7b05bd9e"); // Unlock Cha bonus to AC when unarmored.
             BlueprintFeature monkChaACbonus = Resources.GetBlueprint<BlueprintFeature>("3929bfd1beeeed243970c9fc0cf333f8"); // Unlock Cha bonus to AC (apply buff).
@@ -922,12 +952,457 @@ namespace ExoticTales.NewContent.Features
                 c.m_Facts = new BlueprintUnitFactReference[] { KiCharismaBonus.ToReference<BlueprintUnitFactReference>() };
             });
 
+            // Alter stunning fist to replace ki stat based on Ability DC and add ki points when the character has a ki pool.
+
+            BlueprintFeature baseStunningFist = Resources.GetBlueprint<BlueprintFeature>("a29a582c3daa4c24bb0e991c596ccb28"); // Standard stunning fist
+            BlueprintAbility baseStunningFistAbility = Resources.GetBlueprint<BlueprintAbility>("732ae7773baf15447a6737ae6547fc1e"); // Standard stunning fist ability
+            BlueprintAbilityResource baseStunningFistAbilityResource = Resources.GetBlueprint<BlueprintAbilityResource>("d2bae584db4bf4f4f86dd9d15ae56558"); // Standard stunning fist resource
+
+            baseStunningFistAbilityResource.m_Max = 40;
+
+            string baseStunningFistDescription = baseStunningFist.Description.Replace("cannot be stunned.", "cannot be stunned. If you have a ki pool, this feat uses ki points, you gain 1 bonus ki point for each monk level and for every 4 non-monk levels and your Ki Attribute is used to determine the DC of this ability.");
+            string baseStunningFistAbilityDescription = baseStunningFistAbility.Description.Replace("cannot be stunned.", "cannot be stunned. If you have a ki pool, this feat uses ki points, you gain 1 bonus ki point for each monk level and for every 4 non-monk levels and your Ki Attribute is used to determine the DC of this ability.");
+
+            baseStunningFist.SetDescription(baseStunningFistDescription);
+            baseStunningFistAbility.SetDescription(baseStunningFistAbilityDescription);
+
+            baseStunningFist.ReplaceComponents<MonkReplaceAbilityDC>(Helpers.Create<KiStatReplaceAbilityDC>(c => {
+                c.m_Ability = baseStunningFistAbility.ToReference<BlueprintAbilityReference>();
+                c.DefaultBonusStat = StatType.Wisdom;
+                c.m_KiStatFeature = statFeatureLists;
+
+            }));
+
+            baseStunningFist.ReplaceComponents<AddAbilityResources>(Helpers.Create<ConditionalAddAbilityResourcesOrContextAmount>(c => {
+                c.m_CheckedFacts = kiAttributesFacts;
+                c.m_BaseResource = baseStunningFistAbilityResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_ReplacementResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
+                c.UseThisAsResource = false;
+                c.RestoreAmount = true;
+                c.RestoreOnLevelUp = false;
+                c.Not = false;
+                c.Subtract = false;
+                c.Value = new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank,
+                    ValueRank = AbilityRankType.StatBonus
+                };
+
+
+            }));
+
+            baseStunningFist.AddComponent(Helpers.Create<ContextIncreaseAlternateResourceAmountBasedOnTrueCharacterLevelOnly>(c => {
+                c.m_CheckedFacts = kiAttributesFacts;
+                c.m_BaseResource = baseStunningFistAbilityResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_AlternateResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
+                c.Not = false;
+                c.BaseSubtract = false;
+                c.AlternateSubtract = false;
+                c.ExcludeMythic = true;
+                c.TCLResourceMultiplier = 1.0f;
+                c.BaseBonusOverrideMultiplier = 0f;
+                c.AlternateBonusOverrideMultiplier = 0.25f;
+                c.ApplyClassExclusion = true;
+                c.m_ExcludedClass = exclusionKiClasses;
+
+            }));
+
+            baseStunningFist.AddContextRankConfig(c => {
+                c.m_Type = AbilityRankType.StatBonus;
+                c.m_BaseValueType = ContextRankBaseValueType.ClassLevel;
+                c.m_Progression = ContextRankProgression.StartPlusDivStep;
+                c.m_Min = 1;
+                c.m_UseMin = true;
+                c.m_StartLevel = 1;
+                c.m_StepLevel = 1;
+                c.m_Class = exclusionKiClasses;
+                c.m_ExceptClasses = false;
+            });
+
+            // Alter Dragon Roar to replace ki stat based on Ability DC and add ki points when the character has a ki pool.
+
+            BlueprintFeature baseDragonRoar = Resources.GetBlueprint<BlueprintFeature>("3fca938ad6a5b8348a8523794127c5bc"); // Standard dragon roar 
+            BlueprintAbility baseDragonRoarAbility = Resources.GetBlueprint<BlueprintAbility>("7e87f6e176b28d54a98b3490f8cba9db"); // Standard dragon roar ability
+
+
+            string baseDragonRoarDescription = baseDragonRoar.Description.Replace("prevents a target from being shaken.", "prevents a target from being shaken. If you have a ki pool, you gain 1 bonus ki point, spend 2 ki points to use this feat and your Ki Attribute is used to determine the DC of this ability.");
+            string baseDragonRoarAbilityDescription = baseDragonRoarAbility.Description.Replace("prevents a target from being shaken.", "prevents a target from being shaken. If you have a ki pool, you gain 1 bonus ki point, spend 2 ki points to use this feat and your Ki Attribute is used to determine the DC of this ability.");
+
+
+            baseDragonRoar.SetDescription(baseDragonRoarDescription);
+            baseDragonRoarAbility.SetDescription(baseDragonRoarAbilityDescription);
+
+            baseDragonRoar.ReplaceComponents<MonkReplaceAbilityDC>(Helpers.Create<KiStatReplaceAbilityDC>(c => {
+                c.m_Ability = baseStunningFistAbility.ToReference<BlueprintAbilityReference>();
+                c.DefaultBonusStat = StatType.Wisdom;
+                c.m_KiStatFeature = statFeatureLists;
+
+            }));
+
+            baseDragonRoar.ReplaceComponents<AddAbilityResources>(Helpers.Create<ContextIncreaseAlternatingResourceAmount>(c => {
+                c.m_CheckedFacts = kiAttributesFacts;
+                c.m_BaseResource = baseStunningFistAbilityResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_AlternateResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
+                c.Not = false;
+                c.BaseSubtract = false;
+                c.AlternateSubtract = false;
+                c.BaseValue = 1;
+                c.AlternateValue = 1;
+            }));
+
+
+            // Alter Perfect Strike to add ki points when the character has a ki pool.
+
+            BlueprintFeature basePerfectStrike = Resources.GetBlueprint<BlueprintFeature>("7477e2e0b72f4ce4fb674f4b21d5e81d"); // Standard perfect strike
+            BlueprintAbility basePerfectStrikeAbility = Resources.GetBlueprint<BlueprintAbility>("bc656f51e407aad40bc8d974f3d5b04a"); // Standard perfect strike ability
+            BlueprintAbilityResource basePerfectStrikeAbilityResource = Resources.GetBlueprint<BlueprintAbilityResource>("b6c1efe47c946ab48bea52df06146f97"); // Standard perfect strike resource
+
+            string basePerfectStrikeDescription = basePerfectStrike.Description.Replace("A monk may attempt an perfect strike attack a number of times per day equal to his monk level, plus one more time per day for every four levels he has in classes other than monk.", "If you have a ki pool, each perfect strike attack will cost 1 ki point and you gain 1 bonus ki point for each monk level and for every 4 non-monk levels.");
+            string basePerfectStrikeAbilityDescription = basePerfectStrikeAbility.Description.Replace("A monk may attempt an perfect strike attack a number of times per day equal to his monk level, plus one more time per day for every four levels he has in classes other than monk.", "If you have a ki pool, each perfect strike attack will cost 1 ki point and you gain 1 bonus ki point for each monk level and for every 4 non-monk levels.");
+
+
+            basePerfectStrikeAbilityResource.m_Max = 40;
+
+            basePerfectStrike.ReplaceComponents<AddAbilityResources>(Helpers.Create<ConditionalAddAbilityResourcesOrContextAmount>(c => {
+                c.m_CheckedFacts = kiAttributesFacts;
+                c.m_BaseResource = basePerfectStrikeAbilityResource.ToReference<BlueprintAbilityResourceReference>();
+                c.m_ReplacementResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
+                c.UseThisAsResource = false;
+                c.RestoreAmount = true;
+                c.RestoreOnLevelUp = false;
+                c.Not = false;
+                c.Subtract = false;
+                c.Value = new ContextValue()
+                {
+                    ValueType = ContextValueType.Rank,
+                    ValueRank = AbilityRankType.StatBonus
+                };
+
+            }));
+
+            basePerfectStrike.AddComponent(Helpers.Create<ContextIncreaseAlternateResourceAmountBasedOnTrueCharacterLevelOnly>(c => {
+                 c.m_CheckedFacts = kiAttributesFacts;
+                 c.m_BaseResource = basePerfectStrikeAbilityResource.ToReference<BlueprintAbilityResourceReference>();
+                 c.m_AlternateResource = kiResource.ToReference<BlueprintAbilityResourceReference>();
+                 c.Not = false;
+                 c.BaseSubtract = false;
+                 c.AlternateSubtract = false;
+                 c.ExcludeMythic = true;
+                 c.TCLResourceMultiplier = 1.0f;
+                 c.BaseBonusOverrideMultiplier = 0f;
+                 c.AlternateBonusOverrideMultiplier = 0.25f;
+                 c.ApplyClassExclusion = true;
+                 c.m_ExcludedClass = exclusionKiClasses;
+
+             }));
+
+            basePerfectStrike.AddContextRankConfig(c => {
+                c.m_Type = AbilityRankType.StatBonus;
+                c.m_BaseValueType = ContextRankBaseValueType.ClassLevel;
+                c.m_Progression = ContextRankProgression.StartPlusDivStep;
+                c.m_Min = 1;
+                c.m_UseMin = true;
+                c.m_StartLevel = 1;
+                c.m_StepLevel = 1;
+                c.m_Class = exclusionKiClasses;
+                c.m_ExceptClasses = false;
+            });
+
+
+            // Create alternate Insightful Strikes.
+
+            BlueprintFeature senseiWisInsightfulStrike = Resources.GetBlueprint<BlueprintFeature>("f4a3f9ede5a57c142b30a9dfbb8efa90"); // Replace Wis for Str and Dex with unarmed and monk weapons attacks.
+
+
+            // STRENGTH
+
+            var senseiStrInsightfulStrike = Helpers.CreateCopy(senseiWisInsightfulStrike, bp => {
+                string senseiStrInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Strength}Strength{/g}";
+                string senseiStrInsightfulStrikeDescription = senseiWisInsightfulStrike.Description.Replace("Strength or ", "");
+                senseiStrInsightfulStrikeDescription = senseiStrInsightfulStrikeDescription.Replace("Wisdom", "Strength");
+                bp.SetName(senseiStrInsightfulStrikeName);
+                bp.SetDescription(senseiStrInsightfulStrikeDescription);
+                var changedAttackStatReplacement = bp.GetComponent<AttackStatReplacement>();
+                var changedReplaceCombatManeuverStat = bp.GetComponent<ReplaceCombatManeuverStat>();
+                changedAttackStatReplacement.ReplacementStat = StatType.Strength;
+                changedReplaceCombatManeuverStat.StatType = StatType.Strength;
+
+            });
+
+            // DEXTERITY
+
+            var senseiDexInsightfulStrike = Helpers.CreateCopy(senseiWisInsightfulStrike, bp => {
+                string senseiDexInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Dexterity}Dexterity{/g}";
+                string senseiDexInsightfulStrikeDescription = senseiWisInsightfulStrike.Description.Replace(" or Dexterity", "");
+                senseiDexInsightfulStrikeDescription = senseiDexInsightfulStrikeDescription.Replace("Wisdom", "Dexterity");
+                bp.SetName(senseiDexInsightfulStrikeName);
+                bp.SetDescription(senseiDexInsightfulStrikeDescription);
+                var changedAttackStatReplacement = bp.GetComponent<AttackStatReplacement>();
+                var changedReplaceCombatManeuverStat = bp.GetComponent<ReplaceCombatManeuverStat>();
+                changedAttackStatReplacement.ReplacementStat = StatType.Dexterity;
+                changedReplaceCombatManeuverStat.StatType = StatType.Dexterity;
+
+            });
+
+            // CONSTITUTION
+
+            var senseiConInsightfulStrike = Helpers.CreateCopy(senseiWisInsightfulStrike, bp => {
+                string senseiConInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Constitution}Constitution{/g}";
+                string senseiConInsightfulStrikeDescription = senseiWisInsightfulStrike.Description.Replace("Wisdom", "Constitution");
+                bp.SetName(senseiConInsightfulStrikeName);
+                bp.SetDescription(senseiConInsightfulStrikeDescription);
+                var changedAttackStatReplacement = bp.GetComponent<AttackStatReplacement>();
+                var changedReplaceCombatManeuverStat = bp.GetComponent<ReplaceCombatManeuverStat>();
+                changedAttackStatReplacement.ReplacementStat = StatType.Constitution;
+                changedReplaceCombatManeuverStat.StatType = StatType.Constitution;
+
+            });
+
+            // INTELLIGENCE
+
+            var senseiIntInsightfulStrike = Helpers.CreateCopy(senseiWisInsightfulStrike, bp => {
+                string senseiIntInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Intelligence}Intelligence{/g}";
+                string senseiIntInsightfulStrikeDescription = senseiWisInsightfulStrike.Description.Replace("Wisdom", "Intelligence");
+                bp.SetName(senseiIntInsightfulStrikeName);
+                bp.SetDescription(senseiIntInsightfulStrikeDescription);
+                var changedAttackStatReplacement = bp.GetComponent<AttackStatReplacement>();
+                var changedReplaceCombatManeuverStat = bp.GetComponent<ReplaceCombatManeuverStat>();
+                changedAttackStatReplacement.ReplacementStat = StatType.Intelligence;
+                changedReplaceCombatManeuverStat.StatType = StatType.Intelligence;
+
+            });
+
+
+            // CHARISMA
+
+            var senseiChaInsightfulStrike = Helpers.CreateCopy(senseiWisInsightfulStrike, bp => {
+                string senseiChaInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Charisma}Charisma{/g}";
+                string senseiChaInsightfulStrikeDescription = senseiWisInsightfulStrike.Description.Replace("Wisdom", "Charisma");
+                bp.SetName(senseiChaInsightfulStrikeName);
+                bp.SetDescription(senseiChaInsightfulStrikeDescription);
+                var changedAttackStatReplacement = bp.GetComponent<AttackStatReplacement>();
+                var changedReplaceCombatManeuverStat = bp.GetComponent<ReplaceCombatManeuverStat>();
+                changedAttackStatReplacement.ReplacementStat = StatType.Charisma;
+                changedReplaceCombatManeuverStat.StatType = StatType.Charisma;
+
+            });
+
+            // WISDOM
+
+            string senseiWisInsightfulStrikeName = senseiWisInsightfulStrike.Name + " {g|Encyclopedia:Wisdom}Wisdom{/g}";
+
+            senseiWisInsightfulStrike.SetName(senseiWisInsightfulStrikeName);
+
+
+            // Create a feature which both change parameters used for ki abilities and ability resource change for ki-based feats.
+
+            var kiStatFeatures = new Dictionary<BlueprintFeatureReference, StatType>();
+
+
+            var KiParametersAndResourcesUnlocker = Helpers.CreateBlueprint<BlueprintFeature>("KiParametersAndResourcesUnlocker", bp =>
+            {
+                bp.SetName("Ki Parameters and Resource Configurator");
+                bp.SetDescription("You use your Ki Ability to determine parameters for all abiliies based on ki and use ki points to fuel any ki-related feat.");
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+                bp.AddComponent(ExH.CreateReplaceAbilityResource(baseStunningFistAbilityResource, kiResource, baseStunningFistAbility.ToReference<BlueprintAbilityReference>(), kiAttributesFacts, 1.0f));
+                bp.AddComponent(ExH.CreateReplaceAbilityResource(baseStunningFistAbilityResource, kiResource, baseDragonRoarAbility.ToReference<BlueprintAbilityReference>(), kiAttributesFacts, 1.0f));
+                bp.AddComponent(ExH.CreateReplaceAbilityResource(basePerfectStrikeAbilityResource, kiResource, basePerfectStrikeAbility.ToReference<BlueprintAbilityReference>(), kiAttributesFacts, 1.0f));
+                bp.AddComponent(ExH.CreateBindAbilitiesToStackableKiClassAndKiStat(kiPowerAbilities, monk.ToReference<BlueprintCharacterClassReference>(), null, null, statFeatureLists, StatType.Wisdom, false, true, 1, 1, true));
+            });
+
+            // Create a feature which unlocks AC bonus by Ki attribute
+
+
+            var monkBaseACbonusunlock = Helpers.CreateBlueprint<BlueprintFeature>("monkBaseACbonusunlock", bp =>
+            {
+                string monkBaseACbonusunlockName = monkWisACbonusunlock.Name + " - Ki Attribute";
+                string monkBaseACbonusunlockDescription = monkWisACbonusunlock.Description.Replace("Wisdom", "Ki Attribute");
+
+
+                bp.SetName(monkBaseACbonusunlockName);
+                bp.SetDescription(monkBaseACbonusunlockDescription);
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+
+                var statUnlockedFeature = new Dictionary<BlueprintFeatureReference, BlueprintFeatureReference>();
+                statUnlockedFeature.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), monkStrACbonusunlock.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), monkDexACbonusunlock.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), monkConACbonusunlock.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), monkIntACbonusunlock.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), monkWisACbonusunlock.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), monkChaACbonusunlock.ToReference<BlueprintFeatureReference>());
+
+                bp.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedFeature,false));
+
+
+            });
+
+
+            // Create a feature which unlocks ki pool feature.
+
+            var monkBaseKiPowerFeature = Helpers.CreateBlueprint<BlueprintFeature>("monkBaseKiPowerFeature", bp =>
+            {
+                string monkBaseKiPowerFeatureName = monkKiPowerFeature.Name + " - Ki Attribute";
+                string monkBaseKiPowerFeatureDescription = monkKiPowerFeature.Description.Replace("Wisdom", "Ki Attribute");
+
+
+                bp.SetName(monkBaseKiPowerFeatureName);
+                bp.SetDescription(monkBaseKiPowerFeatureDescription);
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+
+                var statUnlockedFeature = new Dictionary<BlueprintFeatureReference, BlueprintFeatureReference>();
+                statUnlockedFeature.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), monkStrKiPowerFeature.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), monkDexKiPowerFeature.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), monkConKiPowerFeature.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), monkIntKiPowerFeature.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), monkKiPowerFeature.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), scaledfistPowerFeature.ToReference<BlueprintFeatureReference>());
+
+                bp.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedFeature, false));
+
+
+            });
+
+            // Create a feature which unlocks insightful strike.
+
+            var senseiBaseInsightfulStrike = Helpers.CreateBlueprint<BlueprintFeature>("senseiBaseInsightfulStrike", bp =>
+            {
+                string monkBaseKiPowerFeatureName = monkKiPowerFeature.Name + " - Ki Attribute";
+                string monkBaseKiPowerFeatureDescription = monkKiPowerFeature.Description.Replace("Wisdom", "Ki Attribute");
+
+
+                bp.SetName(monkBaseKiPowerFeatureName);
+                bp.SetDescription(monkBaseKiPowerFeatureDescription);
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+
+                var statUnlockedFeature = new Dictionary<BlueprintFeatureReference, BlueprintFeatureReference>();
+                statUnlockedFeature.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), senseiStrInsightfulStrike.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), senseiDexInsightfulStrike.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), senseiConInsightfulStrike.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), senseiIntInsightfulStrike.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), senseiWisInsightfulStrike.ToReference<BlueprintFeatureReference>());
+                statUnlockedFeature.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), senseiChaInsightfulStrike.ToReference<BlueprintFeatureReference>());
+
+                bp.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedFeature, false));
+
+
+            });
+
+
+            // Change stunning fist fatigue and sickened names and create unlockers.
+
+            var monkBasestunningfatiguefeature = Helpers.CreateBlueprint<BlueprintFeature>("monkBasestunningfatiguefeature", bp =>
+            {
+                string monkBasestunningfatiguefeatureName = monkWisstunningfatiguefeature.Name + " - Ki Attribute";
+                string monkBasestunningfatiguefeatureDescription = monkWisstunningfatiguefeature.Description;
+
+                bp.SetName(monkBasestunningfatiguefeatureName);
+                bp.SetDescription(monkBasestunningfatiguefeatureDescription);
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+
+            });
+
+            var monkBasestunningfistsickenedfeature = Helpers.CreateBlueprint<BlueprintFeature>("monkWisstunningfistsickenedfeature", bp =>
+            {
+                string monkBasestunningfistsickenedfeatureName = monkWisstunningfistsickenedfeature.Name + " - Ki Attribute";
+                string monkBasestunningfistsickenedfeatureDescription = monkWisstunningfistsickenedfeature.Description;
+
+                bp.SetName(monkBasestunningfistsickenedfeatureName);
+                bp.SetDescription(monkBasestunningfistsickenedfeatureDescription);
+                bp.m_Icon = iconLifeForce;
+                bp.IsClassFeature = true;
+                bp.Ranks = 1;
+
+            });
+
+            string monkStrstunningfatiguefeatureName = monkStrstunningfatiguefeature.Name + " {g|Encyclopedia:Strength}Strength{/g}";
+            monkStrstunningfatiguefeature.SetName(monkStrstunningfatiguefeatureName);
+            string monkStrstunningfistsickenedfeatureName = monkStrstunningfistsickenedfeature.Name + " {g|Encyclopedia:Strength}Strength{/g}";
+            monkStrstunningfistsickenedfeature.SetName(monkStrstunningfistsickenedfeatureName);
+            string monkDexstunningfatiguefeatureName = monkDexstunningfatiguefeature.Name + " {g|Encyclopedia:Dexterity}Dexterity{/g}";
+            monkDexstunningfatiguefeature.SetName(monkDexstunningfatiguefeatureName);
+            string monkDexstunningfistsickenedfeatureName = monkDexstunningfistsickenedfeature.Name + " {g|Encyclopedia:Dexterity}Dexterity{/g}";
+            monkDexstunningfistsickenedfeature.SetName(monkDexstunningfistsickenedfeatureName);
+            string monkConstunningfatiguefeatureName = monkConstunningfatiguefeature.Name + " {g|Encyclopedia:Constitution}Constitution{/g}";
+            monkConstunningfatiguefeature.SetName(monkConstunningfatiguefeatureName);
+            string monkConstunningfistsickenedfeatureName = monkConstunningfistsickenedfeature.Name + " {g|Encyclopedia:Constitution}Constitution{/g}";
+            monkConstunningfistsickenedfeature.SetName(monkConstunningfistsickenedfeatureName);
+            string monkIntstunningfatiguefeatureName = monkIntstunningfatiguefeature.Name + " {g|Encyclopedia:Intelligence}Intelligence{/g}";
+            monkIntstunningfatiguefeature.SetName(monkIntstunningfatiguefeatureName);
+            string monkIntstunningfistsickenedfeatureName = monkIntstunningfistsickenedfeature.Name + " {g|Encyclopedia:Intelligence}Intelligence{/g}";
+            monkIntstunningfistsickenedfeature.SetName(monkIntstunningfistsickenedfeatureName);
+            string monkWisstunningfatiguefeatureName = monkWisstunningfatiguefeature.Name + " {g|Encyclopedia:Wisdom}Wisdom{/g}";
+            monkWisstunningfatiguefeature.SetName(monkWisstunningfatiguefeatureName);
+            string monkWisstunningfistsickenedfeatureName = monkWisstunningfistsickenedfeature.Name + " {g|Encyclopedia:Wisdom}Wisdom{/g}";
+            monkWisstunningfistsickenedfeature.SetName(monkWisstunningfistsickenedfeatureName);
+            string monkChastunningfatiguefeatureName = monkChastunningfatiguefeature.Name + " {g|Encyclopedia:Charisma}Charisma{/g}";
+            monkChastunningfatiguefeature.SetName(monkChastunningfatiguefeatureName);
+            string monkChastunningfistsickenedfeatureName = monkChastunningfistsickenedfeature.Name + " {g|Encyclopedia:Charisma}Charisma{/g}";
+            monkChastunningfistsickenedfeature.SetName(monkChastunningfistsickenedfeatureName);
+
+            var statUnlockedstunningfatiguefeature = new Dictionary<BlueprintFeatureReference, BlueprintFeatureReference>();
+            statUnlockedstunningfatiguefeature.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), monkStrstunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningfatiguefeature.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), monkDexstunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningfatiguefeature.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), monkConstunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningfatiguefeature.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), monkIntstunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningfatiguefeature.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), monkWisstunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningfatiguefeature.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), monkChastunningfatiguefeature.ToReference<BlueprintFeatureReference>());
+
+            var statUnlockedstunningsickenedfeature = new Dictionary<BlueprintFeatureReference, BlueprintFeatureReference>();
+            statUnlockedstunningsickenedfeature.Add(KiAttributeStrength.ToReference<BlueprintFeatureReference>(), monkStrstunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningsickenedfeature.Add(KiAttributeDexterity.ToReference<BlueprintFeatureReference>(), monkDexstunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningsickenedfeature.Add(KiAttributeConstitution.ToReference<BlueprintFeatureReference>(), monkConstunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningsickenedfeature.Add(KiAttributeIntelligence.ToReference<BlueprintFeatureReference>(), monkIntstunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningsickenedfeature.Add(KiAttributeWisdom.ToReference<BlueprintFeatureReference>(), monkWisstunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+            statUnlockedstunningsickenedfeature.Add(KiAttributeCharisma.ToReference<BlueprintFeatureReference>(), monkChastunningfistsickenedfeature.ToReference<BlueprintFeatureReference>());
+
+
+            monkBasestunningfatiguefeature.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedstunningfatiguefeature, false));
+            monkBasestunningfistsickenedfeature.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedstunningsickenedfeature, false));
+
+            // Add unlockers to Monk and its archetypes.
+
+            BlueprintProgression monkProgression = Resources.GetBlueprint<BlueprintProgression>("8a91753b978e3b34b9425419179aafd6");
+            BlueprintArchetype scaledfistArchetype = Resources.GetBlueprint<BlueprintArchetype>("5868fc82eb11a4244926363983897279");
+            BlueprintArchetype senseiArchetype = Resources.GetBlueprint<BlueprintArchetype>("f8767821ec805bf479706392fcc3394c");
+            BlueprintArchetype zenarcherArchetype = Resources.GetBlueprint<BlueprintArchetype>("2b1a58a7917084f49b097e86271df21c");
+            BlueprintArchetype soheiArchetype = Resources.GetBlueprint<BlueprintArchetype>("fad7c56737ed12e42aacc330acc86428");
+            BlueprintArchetype quarterstaffmasterArchetype = Resources.GetBlueprint<BlueprintArchetype>("dde7724382ae4f63aa9786cb9b3b64b2");
+
+
+            monkProgression.LevelEntries[0].m_Features[2] = monkBaseACbonusunlock.ToReference<BlueprintFeatureBaseReference>();
+            monkProgression.LevelEntries[2].m_Features[0] = monkBaseKiPowerFeature.ToReference<BlueprintFeatureBaseReference>();
+            monkProgression.LevelEntries[3].m_Features[3] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
+            monkProgression.LevelEntries[7].m_Features[2] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
 
 
 
+            senseiArchetype.AddFeatures[1].m_Features[0] = senseiBaseInsightfulStrike.ToReference<BlueprintFeatureBaseReference>();
 
+            scaledfistArchetype.AddFeatures[0].Features.Remove(monkChaACbonusunlock.ToReference<BlueprintFeatureBaseReference>());
+            scaledfistArchetype.AddFeatures[7].Features.Remove(monkChastunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>());
+            scaledfistArchetype.AddFeatures[9].Features.Remove(monkChastunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>());
+            scaledfistArchetype.RemoveFeatures[0].Features.Remove(monkWisACbonusunlock.ToReference<BlueprintFeatureBaseReference>());
+            scaledfistArchetype.RemoveFeatures[7].Features.Remove(monkWisstunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>());
+            scaledfistArchetype.RemoveFeatures[9].Features.Remove(monkWisstunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>());
 
+            zenarcherArchetype.RemoveFeatures[2].m_Features[1] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
+            zenarcherArchetype.RemoveFeatures[12].m_Features[0] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
 
+            soheiArchetype.RemoveFeatures[3].m_Features[0] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
+            soheiArchetype.RemoveFeatures[6].m_Features[1] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
+
+            quarterstaffmasterArchetype.RemoveFeatures[1].m_Features[1] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
+            quarterstaffmasterArchetype.RemoveFeatures[2].m_Features[1] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
 
 
 
