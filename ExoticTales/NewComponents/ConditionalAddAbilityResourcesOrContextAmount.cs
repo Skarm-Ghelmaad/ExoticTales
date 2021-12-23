@@ -12,6 +12,7 @@ using Kingmaker.UnitLogic.Mechanics;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("600C338FDD284C38B97423BC2E11F4FF")]
     public class ConditionalAddAbilityResourcesOrContextAmount : UnitFactComponentDelegate, ISubscriber, IUnitSubscriber, IUnitReapplyFeaturesOnLevelUpHandler, IResourceAmountBonusHandler
     {
 

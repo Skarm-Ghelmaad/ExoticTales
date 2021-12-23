@@ -16,6 +16,7 @@ using Kingmaker.Utility;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("5FFD49FF4AAC434C8230E0705EA04CCF")]
     class KiStatReplaceAbilityDC : UnitFactComponentDelegate, IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, ISubscriber, IInitiatorRulebookSubscriber
     {
         public BlueprintAbility Ability

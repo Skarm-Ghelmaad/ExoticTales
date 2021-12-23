@@ -5,9 +5,11 @@ using Kingmaker.EntitySystem;
 using Kingmaker.PubSubSystem;
 using Kingmaker.UnitLogic;
 using UnityEngine;
+using Kingmaker.Blueprints.JsonSystem;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("790A729E3B0446FAAC34B344C17108D6")]
     class HasFactFeatureUnlock : UnitFactComponentDelegate<AddFeatureIfHasFactData>, IUnitGainFactHandler, IUnitLostFactHandler, IUnitSubscriber, ISubscriber
     {
         public BlueprintUnitFact CheckedFact

@@ -15,10 +15,12 @@ using Kingmaker.Dungeon.Blueprints;
 using ExoticTales.Utilities;
 using Kingmaker.Enums;
 using Kingmaker.UnitLogic.Mechanics.Conditions;
+using Kingmaker.Blueprints.JsonSystem;
 
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("39F1A77E58654A2ABCB695D1B8FAE5E2")]
     class ContextConditionIsInBrightLight : ContextCondition
     {
 

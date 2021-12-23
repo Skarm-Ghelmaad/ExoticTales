@@ -12,6 +12,7 @@ using Kingmaker.RuleSystem.Rules.Abilities;
 using System.Linq;
 using Kingmaker.UnitLogic;
 using Kingmaker.Blueprints.Facts;
+using Kingmaker.Blueprints.JsonSystem;
 
 
 
@@ -19,6 +20,7 @@ using Kingmaker.Blueprints.Facts;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("2CAC5381A5A044A2AB31E5608498FD09")]
     public class ReplaceAbilityResourceByBulk : UnitFactComponentDelegate, IAbilityResourceLogic, IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, ISubscriber, IInitiatorRulebookSubscriber
     {
 

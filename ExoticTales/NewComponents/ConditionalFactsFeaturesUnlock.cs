@@ -11,11 +11,15 @@ using UnityEngine;
 using ExoticTales.Extensions;
 using Kingmaker.Utility;
 using Kingmaker.Blueprints.Classes;
+using UnityEngine.Serialization;
+using Kingmaker.Blueprints.JsonSystem;
+
 
 
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("863B737278C84FEFBEBD0DB1B66582E1")]
     public class ConditionalFactsFeaturesUnlock : UnitFactComponentDelegate<ConditionalFactsFeaturesUnlockData>, IUnitGainFactHandler, IUnitLostFactHandler, IUnitSubscriber, ISubscriber
     {
 

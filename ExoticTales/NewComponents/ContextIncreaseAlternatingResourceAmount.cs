@@ -15,6 +15,7 @@ using Kingmaker.Blueprints.Facts;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("8D7C69A829924323A6ECFE88CFBDC283")]
     class ContextIncreaseAlternatingResourceAmount : UnitFactComponentDelegate, IResourceAmountBonusHandler, IUnitSubscriber, ISubscriber
     {
 

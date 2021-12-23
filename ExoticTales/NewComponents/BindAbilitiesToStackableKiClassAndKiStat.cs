@@ -25,6 +25,7 @@ namespace ExoticTales.NewComponents
     [AllowMultipleComponents]
     [ComponentName("Stack classes and Attribute bonuses based on Features for Ability DC")]
     [AllowedOn(typeof(BlueprintUnitFact), false)]
+    [TypeId("6337CC0F1D6D41A194CE87FBB20C5616")]
     public class BindAbilitiesToStackableKiClassAndKiStat : UnitFactComponentDelegate, IRulebookHandler<RuleDispelMagic>, IRulebookHandler<RuleSpellResistanceCheck>, IInitiatorRulebookHandler<RuleCalculateAbilityParams>, IRulebookHandler<RuleCalculateAbilityParams>, IInitiatorRulebookHandler<RuleDispelMagic>, IInitiatorRulebookHandler<RuleSpellResistanceCheck>, ISubscriber, IInitiatorRulebookSubscriber
     {
 

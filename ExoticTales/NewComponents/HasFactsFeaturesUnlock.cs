@@ -6,9 +6,11 @@ using Kingmaker.PubSubSystem;
 using Kingmaker.UnitLogic;
 using UnityEngine;
 using ExoticTales.Extensions;
+using Kingmaker.Blueprints.JsonSystem;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("FEACB131A929497DA71E9EE84952F753")]
     public class HasFactsFeaturesUnlock : UnitFactComponentDelegate<HasFactsFeaturesUnlockData>, IUnitGainFactHandler, IUnitLostFactHandler, IUnitSubscriber, ISubscriber
     {
 

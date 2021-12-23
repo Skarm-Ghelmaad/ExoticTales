@@ -10,6 +10,7 @@ using Kingmaker.UnitLogic.Mechanics.Conditions;
 
 namespace ExoticTales.NewComponents
 {
+    [TypeId("B0DCA7D1938B42ECBAC08F710A1DBD00")]
     public class ContextConditionHasFacts : ContextCondition
     {
 

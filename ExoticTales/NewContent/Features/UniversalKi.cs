@@ -47,7 +47,7 @@ namespace ExoticTales.NewContent.Features
         public static void AddUniversalKi()
         {
 
-            if (ModSettings.AddedContent.NewSystems.IsDisabled("ShadowAndDarkness")) { return; }
+            if (ModSettings.AddedContent.NewSystems.IsDisabled("UniversalKi")) { return; }
 
             var iconLifeForce = AssetLoader.LoadInternal("Features", "Icon_LifeEnergy.png");
 
@@ -64,6 +64,9 @@ namespace ExoticTales.NewContent.Features
 
             kiResource.m_Max = 5000;
             kiResource.m_MaxAmount.IncreasedByStat = false;
+
+            Main.Log("Monk Ki resource altered.");
+
 
 
             // Create a Ki Potential resource and feature.
@@ -109,6 +112,7 @@ namespace ExoticTales.NewContent.Features
 
             });
 
+            Main.Log("Potential Ki resource created.");
 
             // Create Ki Pool Bonuses features and adds a Ki Potential Attribute Bonus based on the highest attribute.
 
@@ -217,6 +221,8 @@ namespace ExoticTales.NewContent.Features
                 }));
             });
 
+            Main.Log("Attribute Ki pool extra points created.");
+
             BlueprintUnitFactReference[] kiStatBonusAllFeatures = { KiStrengthBonus.ToReference<BlueprintUnitFactReference>(), KiDexterityBonus.ToReference<BlueprintUnitFactReference>(), KiConstitutionBonus.ToReference<BlueprintUnitFactReference>(), KiIntelligenceBonus.ToReference<BlueprintUnitFactReference>(), KiWisdomBonus.ToReference<BlueprintUnitFactReference>(), KiCharismaBonus.ToReference<BlueprintUnitFactReference>() };
 
 
@@ -255,6 +261,8 @@ namespace ExoticTales.NewContent.Features
                 }));
 
             });
+
+            Main.Log("Ki Potential attribute bonus created.");
 
 
             // Create a list of Ki Powers with Abilities.
@@ -365,6 +373,8 @@ namespace ExoticTales.NewContent.Features
                 scaledfistDraconicfuryfireability.ToReference<BlueprintAbilityReference>(),
         };
 
+            Main.Log("Ki Abilities list created.");
+
 
             // Alter the KiPower feature to make the Ki Extra Attack unlockable with a feature.
 
@@ -387,6 +397,8 @@ namespace ExoticTales.NewContent.Features
                 c.m_CheckedFact = KiExtraAttackUnlock.ToReference<BlueprintUnitFactReference>();
                 c.m_Feature = kiExtraAttack.ToReference<BlueprintUnitFactReference>();
             }));
+
+            Main.Log("Ki extra attack unlocker added.");
 
 
             // Alter the ScaledFist abilities converted to use standard ki power.
@@ -623,6 +635,8 @@ namespace ExoticTales.NewContent.Features
                 c.RestoreAmount = true;
             }));
 
+            Main.Log("Change scaled fist abilities to use standard ki resources.");
+
             // Create Ki Attribute (unlocking) features.
 
             var KiAttributeStrength = Helpers.CreateBlueprint<BlueprintFeature>("KiAttributeStrength", bp =>
@@ -687,6 +701,8 @@ namespace ExoticTales.NewContent.Features
             });
 
 
+            Main.Log("Create Ki attribute unlocking feature.");
+
             // Create a Ki Attribute selection group.
 
 
@@ -725,6 +741,8 @@ namespace ExoticTales.NewContent.Features
                 bp.Mode = SelectionMode.OnlyNew;
                 bp.m_Features = kiAttributes;
             });
+
+            Main.Log("Create Ki attribute selection.");
 
             // Create custom Ki Attribute AC bonuses and add reference to the original ones.
 
@@ -884,6 +902,7 @@ namespace ExoticTales.NewContent.Features
 
             });
 
+            Main.Log("Create Ki attribute AC unlocker.");
 
             // Create Ki Pool Strength feature.
 
@@ -952,6 +971,8 @@ namespace ExoticTales.NewContent.Features
                 c.m_Facts = new BlueprintUnitFactReference[] { KiCharismaBonus.ToReference<BlueprintUnitFactReference>() };
             });
 
+            Main.Log("Ki Pool feature by attribute created.");
+
             // Alter stunning fist to replace ki stat based on Ability DC and add ki points when the character has a ki pool.
 
             BlueprintFeature baseStunningFist = Resources.GetBlueprint<BlueprintFeature>("a29a582c3daa4c24bb0e991c596ccb28"); // Standard stunning fist
@@ -1019,6 +1040,8 @@ namespace ExoticTales.NewContent.Features
                 c.m_ExceptClasses = false;
             });
 
+            Main.Log("Stunning Fist changes implemented.");
+
             // Alter Dragon Roar to replace ki stat based on Ability DC and add ki points when the character has a ki pool.
 
             BlueprintFeature baseDragonRoar = Resources.GetBlueprint<BlueprintFeature>("3fca938ad6a5b8348a8523794127c5bc"); // Standard dragon roar 
@@ -1050,6 +1073,7 @@ namespace ExoticTales.NewContent.Features
                 c.AlternateValue = 1;
             }));
 
+            Main.Log("Dragon Roar changes implemented.");
 
             // Alter Perfect Strike to add ki points when the character has a ki pool.
 
@@ -1107,6 +1131,8 @@ namespace ExoticTales.NewContent.Features
                 c.m_Class = exclusionKiClasses;
                 c.m_ExceptClasses = false;
             });
+
+            Main.Log("Perfect Strike changes implemented.");
 
 
             // Create alternate Insightful Strikes.
@@ -1193,6 +1219,8 @@ namespace ExoticTales.NewContent.Features
 
             senseiWisInsightfulStrike.SetName(senseiWisInsightfulStrikeName);
 
+            Main.Log("Ki Attribute Insightful Strike variants created.");
+
 
             // Create a feature which both change parameters used for ki abilities and ability resource change for ki-based feats.
 
@@ -1211,6 +1239,8 @@ namespace ExoticTales.NewContent.Features
                 bp.AddComponent(ExH.CreateReplaceAbilityResource(basePerfectStrikeAbilityResource, kiResource, basePerfectStrikeAbility.ToReference<BlueprintAbilityReference>(), kiAttributesFacts, 1.0f));
                 bp.AddComponent(ExH.CreateBindAbilitiesToStackableKiClassAndKiStat(kiPowerAbilities, monk.ToReference<BlueprintCharacterClassReference>(), null, null, statFeatureLists, StatType.Wisdom, false, true, 1, 1, true));
             });
+
+            Main.Log("Ki parameters and resources unlocker feature created.");
 
             // Create a feature which unlocks AC bonus by Ki attribute
 
@@ -1240,6 +1270,8 @@ namespace ExoticTales.NewContent.Features
 
             });
 
+            Main.Log("General attribute AC bonus unlocker feature created.");
+
 
             // Create a feature which unlocks ki pool feature.
 
@@ -1268,6 +1300,8 @@ namespace ExoticTales.NewContent.Features
 
             });
 
+            Main.Log("General attribute ki pool unlocker feature created.");
+
             // Create a feature which unlocks insightful strike.
 
             var senseiBaseInsightfulStrike = Helpers.CreateBlueprint<BlueprintFeature>("senseiBaseInsightfulStrike", bp =>
@@ -1295,6 +1329,7 @@ namespace ExoticTales.NewContent.Features
 
             });
 
+            Main.Log("General attribute insightful strike unlocker feature created.");
 
             // Change stunning fist fatigue and sickened names and create unlockers.
 
@@ -1369,6 +1404,9 @@ namespace ExoticTales.NewContent.Features
             monkBasestunningfatiguefeature.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedstunningfatiguefeature, false));
             monkBasestunningfistsickenedfeature.AddComponent(ExH.CreateConditionalFactsFeaturesUnlock(statUnlockedstunningsickenedfeature, false));
 
+            Main.Log("General attribute stunning fist fatigue and sickness unlocker feature created.");
+
+
             // Add unlockers to Monk and its archetypes.
 
             BlueprintProgression monkProgression = Resources.GetBlueprint<BlueprintProgression>("8a91753b978e3b34b9425419179aafd6");
@@ -1380,11 +1418,12 @@ namespace ExoticTales.NewContent.Features
 
 
             monkProgression.LevelEntries[0].m_Features[2] = monkBaseACbonusunlock.ToReference<BlueprintFeatureBaseReference>();
+            monkProgression.LevelEntries[0].Features.Add(KiAttributeSelection.ToReference<BlueprintFeatureBaseReference>());
+            monkProgression.LevelEntries[0].Features.Add(KiParametersAndResourcesUnlocker.ToReference<BlueprintFeatureBaseReference>());
             monkProgression.LevelEntries[2].m_Features[0] = monkBaseKiPowerFeature.ToReference<BlueprintFeatureBaseReference>();
+            monkProgression.LevelEntries[2].Features.Add(KiExtraAttackUnlock.ToReference<BlueprintFeatureBaseReference>());
             monkProgression.LevelEntries[3].m_Features[3] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
             monkProgression.LevelEntries[7].m_Features[2] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
-
-
 
             senseiArchetype.AddFeatures[1].m_Features[0] = senseiBaseInsightfulStrike.ToReference<BlueprintFeatureBaseReference>();
 
@@ -1404,7 +1443,7 @@ namespace ExoticTales.NewContent.Features
             quarterstaffmasterArchetype.RemoveFeatures[1].m_Features[1] = monkBasestunningfatiguefeature.ToReference<BlueprintFeatureBaseReference>();
             quarterstaffmasterArchetype.RemoveFeatures[2].m_Features[1] = monkBasestunningfistsickenedfeature.ToReference<BlueprintFeatureBaseReference>();
 
-
+            Main.Log("Classes and archetypes altered to add new features.");
 
         }
 
